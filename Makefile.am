@@ -1,6 +1,6 @@
-SUBDIRS = src graphics sounds
+SUBDIRS = src \
+          graphics \
+          sounds
 
-EXTRA_DIST = \
-  launcher \
-  TODO  
+EXTRA_DIST = TODO  
 

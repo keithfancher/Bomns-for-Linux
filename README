@@ -46,17 +46,9 @@ file "INSTALL" for full details, but basically it boils down to:
   make
   make install
 
-I decided after much consideration that I should keep the launcher in a 
-separate project from regular ol' Bomns.  For one thing, it makes it MUCH
-easier on me, as far as upgrading and stuff goes, but also it doesn't force
-you to install the launcher or GTK if you don't want it.  Of course there's
-no reason to NOT install the launcher, and probably every Linux distro in the
-universe has GTK nowadays, but still, it's better this way.  After you install
-bomns if you want the launcher just cd into the "launcher" subdirectory and
-do a ./configure && make && make install.  It doesn't matter where it installs,
-as long as the bomns executable is somewhere in your path the launcher will
-find it just fine.  You can even make a symlink to the "launcher" binary and
-call it "gbomns" or something, I'll leave that up to you.
+This will install a "bomns" binary and a "launcher" binary, and of course all 
+the bomns data.  To disable the building of the launcher, just pass the option
+--disable-launcher to the configure script (new to version 0.97).
 
 
 Note on Sound
@@ -86,8 +78,9 @@ Configuring
 -----------
 The first time you start Bomns for Linux, a file called "~/.bomnsrc" will
 be created.  You can open this up in any text editor and change the
-values inside for a bit more customization.  You'll figure it out.
-NOTE: Now obsolete!  Use the launcher!
+values inside for a bit more customization.  You'll figure it out.  Of 
+course you really don't HAVE to figure it out, that's what the launcher
+is for.
 
 
 - Keith Fancher

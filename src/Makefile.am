@@ -1,3 +1,5 @@
+SUBDIRS = launcher
+
 bin_PROGRAMS = bomns
 
 bomns_SOURCES = \

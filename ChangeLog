@@ -12,6 +12,12 @@
   * Some cleanups of stupidly implemented things
   * Some new (experimental) sounds (beginning sound, winning
     sound, warp sound)
+  * All the autoconf/automake stuff is much cooler.  Now the 
+    building of the launcher isn't a separate thing, it's all
+    taken care of in the configure script.  If you don't have
+    GTK or you --disable-launcher, then the launcher just simply
+    won't be built.  Otherwise it will.
+  * Moved launcher directory to src/launcher
 
 - Changes for 0.96
   * Added the option to give matches a time limit
