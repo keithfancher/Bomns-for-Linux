@@ -36,7 +36,7 @@
 
 - Changes for 0.9
   * New sound support via SDL Mixer
-  * Fixed the keyboard tapping while bomns  exploding bug
+  * Fixed the keyboard tapping while bomns exploding bug
   * Fixed a bug with bomns counting down incorrectly
   * More (less important) bugfixes
 

@@ -15,12 +15,11 @@ partition somewhere, and they could easily boot into Windows if they
 really wanted to play Bomns.  I also realize that's more trouble than
 it's worth.  I bring them Bomns for Linux, thus eliminating the need to
 boot into Windows, and increasing the chances that somebody'll actaully
-play it.  I recommend the first thing you do after seeing if BfL crashes
-your computer is to head over to bomns.sourceforge.net where the rest of
-the Bomns games are.  I personally recommend Bomns^2, as it's my favorite
-of the bunch so far, however I have a feeling that'll change if Charles
-Lindsay (the original Bomns pimp) would hurry the Christ up and finish
-DXBomns.
+play it.  The first thing you do after seeing if BfL crashesyour computer 
+is to head over to bomns.sourceforge.net where the rest of the Bomns games 
+are.  I personally recommend Bomns^2, as it's my favorite of the bunch so 
+far, however I have a feeling that'll change if Charles Lindsay (the 
+original Bomns pimp) would hurry the Christ up and finish DXBomns.
 
 NOTE: A new DXBomns was just released, head over to bomns.sourceforge.net
       and check it out.  It's definitely awesome.
@@ -51,7 +50,7 @@ I decided after much consideration that I should keep the launcher in a
 separate project from regular ol' Bomns.  For one thing, it makes it MUCH
 easier on me, as far as upgrading and stuff goes, but also it doesn't force
 you to install the launcher or GTK if you don't want it.  Of course there's
-no reason to NOT install the launcher, and probably every Linux in the
+no reason to NOT install the launcher, and probably every Linux distro in the
 universe has GTK nowadays, but still, it's better this way.  After you install
 bomns if you want the launcher just cd into the "launcher" subdirectory and
 do a ./configure && make && make install.  It doesn't matter where it installs,
@@ -72,7 +71,7 @@ SDL_mixer skills at this point.
 
 Playing
 -------
-Bomns is pretty simple, just use arrows for first player, wasd for
+Bomns is pretty simple, just use arrows for first player, 'wasd' for
 second player.  Player 1 lays a bomb with enter, and player 2 lays
 a bomb with spacebar.  Oh yeah, and 'f' switches from windowed to
 fullscreen mode and the other way around.  Fullscreen is better.  Just 
@@ -93,5 +92,5 @@ NOTE: Now obsolete!  Use the launcher!
 
 - Keith Fancher
   discostoo@punkass.com
-  greenridge.sourceforge.net/bomns
+  greenridge.sourceforge.net
 
