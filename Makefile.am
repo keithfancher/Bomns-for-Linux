@@ -1,6 +1,8 @@
 SUBDIRS = src \
           graphics \
-          sounds
+          sounds \
+					m4
 
 EXTRA_DIST = TODO  
 
+ACLOCAL_AMFLAGS = -I m4
