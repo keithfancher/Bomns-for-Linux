@@ -17,6 +17,7 @@
 		(as of now just ONE) example levels are installed there
 	* There is now a usage message if you pass incorrect command line options,
 		and there's also a new --help option
+	* Renamed "launcher" to "bomnslauncher" to help keep things together
 
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions

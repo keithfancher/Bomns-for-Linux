@@ -1,4 +1,4 @@
-launcher_SOURCES = \
+bomnslauncher_SOURCES = \
   callbacks.c \
   interface.c \
   main.c \
@@ -7,11 +7,11 @@ launcher_SOURCES = \
 # Build the launcher?
 if BUILD_LAUNCHER
 
-bin_PROGRAMS = launcher
+bin_PROGRAMS = bomnslauncher
 
 INCLUDES = `gtk-config --cflags`
 
-launcher_LDFLAGS = `gtk-config --libs`
+bomnslauncher_LDFLAGS = `gtk-config --libs`
 
 endif
 

@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-SOURCES = $(launcher_SOURCES)
+SOURCES = $(bomnslauncher_SOURCES)
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -37,7 +37,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_triplet = @host@
-@BUILD_LAUNCHER_TRUE@bin_PROGRAMS = launcher$(EXEEXT)
+@BUILD_LAUNCHER_TRUE@bin_PROGRAMS = bomnslauncher$(EXEEXT)
 subdir = src/launcher
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -51,10 +51,10 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_launcher_OBJECTS = callbacks.$(OBJEXT) interface.$(OBJEXT) \
+am_bomnslauncher_OBJECTS = callbacks.$(OBJEXT) interface.$(OBJEXT) \
 	main.$(OBJEXT) support.$(OBJEXT)
-launcher_OBJECTS = $(am_launcher_OBJECTS)
-launcher_LDADD = $(LDADD)
+bomnslauncher_OBJECTS = $(am_bomnslauncher_OBJECTS)
+bomnslauncher_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -65,8 +65,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(launcher_SOURCES)
-DIST_SOURCES = $(launcher_SOURCES)
+SOURCES = $(bomnslauncher_SOURCES)
+DIST_SOURCES = $(bomnslauncher_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -164,14 +164,14 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-launcher_SOURCES = \
+bomnslauncher_SOURCES = \
   callbacks.c \
   interface.c \
   main.c \
   support.c
 
 @BUILD_LAUNCHER_TRUE@INCLUDES = `gtk-config --cflags`
-@BUILD_LAUNCHER_TRUE@launcher_LDFLAGS = `gtk-config --libs`
+@BUILD_LAUNCHER_TRUE@bomnslauncher_LDFLAGS = `gtk-config --libs`
 EXTRA_DIST = \
   callbacks.h \
   interface.h \
@@ -233,9 +233,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-launcher$(EXEEXT): $(launcher_OBJECTS) $(launcher_DEPENDENCIES) 
-	@rm -f launcher$(EXEEXT)
-	$(LINK) $(launcher_LDFLAGS) $(launcher_OBJECTS) $(launcher_LDADD) $(LIBS)
+bomnslauncher$(EXEEXT): $(bomnslauncher_OBJECTS) $(bomnslauncher_DEPENDENCIES) 
+	@rm -f bomnslauncher$(EXEEXT)
+	$(LINK) $(bomnslauncher_LDFLAGS) $(bomnslauncher_OBJECTS) $(bomnslauncher_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
