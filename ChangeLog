@@ -8,6 +8,15 @@
 	* ShowFps option in the config file, although not yet in the launcher
 	* Doubled the framerate by changing some init code
 	* Even more autoconf/automake shenanigans, due to an upgrade to Slackware 10
+	* In preparation for the level editor that's coming next version, bomns
+		can now load a level from a file.  First the filename itself is checked, but
+		if the level isn't found there the directory prefix/share/bomns/levels
+		is checked.  The levels are simple text files that can be easily edited
+		without the editor, so feel free to fuck with them
+	* Now a prefix/share/bomns/levels directory is created on install, and some 
+		(as of now just ONE) example levels are installed there
+	* There is now a usage message if you pass incorrect command line options,
+		and there's also a new --help option
 
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions
