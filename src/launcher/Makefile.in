@@ -95,7 +95,6 @@ launcher_SOURCES = \
 EXTRA_DIST = \
   callbacks.h \
   interface.h \
-  main.h \
   support.h
 
 subdir = src/launcher

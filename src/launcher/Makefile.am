@@ -18,5 +18,4 @@ endif
 EXTRA_DIST = \
   callbacks.h \
   interface.h \
-  main.h \
   support.h
