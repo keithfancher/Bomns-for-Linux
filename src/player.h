@@ -76,6 +76,7 @@ class CPlayer
     Mix_Chunk *   m_mcOw;   //ouch!
     Mix_Chunk *   m_mcBeep; //beep...
     Mix_Chunk *   m_mcWarp; //teleporting
+    Mix_Chunk *   m_mcInvulnerable; // upon collecting invulnerability
     bool          m_abBeeped[5];
     bool          m_bBeep;
  };

@@ -58,6 +58,8 @@ CPlayer::~CPlayer()
     Mix_FreeChunk(m_mcBeep);
   if(m_mcWarp)
     Mix_FreeChunk(m_mcWarp);
+  if(m_mcInvulnerable)
+    Mix_FreeChunk(m_mcInvulnerable);
 }
 
 bool CPlayer::Init(int nXStart, int nYStart)
@@ -80,6 +82,7 @@ bool CPlayer::Init(int nXStart, int nYStart)
   m_mcOw = Mix_LoadWAV((m_nPlayer == PLAYER_ONE ? LoadResource("ow1.wav", RESOURCE_SOUND) : LoadResource("ow2.wav", RESOURCE_SOUND)));
   m_mcBeep = Mix_LoadWAV(LoadResource("beep.wav", RESOURCE_SOUND));
   m_mcWarp = Mix_LoadWAV(LoadResource("warp.wav", RESOURCE_SOUND));
+  m_mcInvulnerable = Mix_LoadWAV(LoadResource("invulnerable.wav", RESOURCE_SOUND));
   
 	return TRUE;
 }
@@ -128,6 +131,7 @@ bool CPlayer::Move(int nDirection, int nP2X, int nP2Y)
 		case OBJ_INVULNERABILITY:
 			if(m_nState != STATE_INVULNERABLE)
 			{
+        PlayWav(m_mcInvulnerable);
 				m_nState = STATE_INVULNERABLE;
 				m_dwInvulnerability = SDL_GetTicks();
 				g_anLevel[m_rcDestRect.x / 10][m_rcDestRect.y / 10] = OBJ_NONE;

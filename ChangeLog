@@ -18,6 +18,7 @@
 	* There is now a usage message if you pass incorrect command line options,
 		and there's also a new --help option
 	* Renamed "launcher" to "bomnslauncher" to help keep things together
+	* Added sound for when a player picks up an invulnerability powerup
 
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions

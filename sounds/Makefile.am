@@ -2,6 +2,7 @@ EXTRA_DIST = \
   beep.wav \
   begin.wav \
   explosion.wav \
+	invulnerable.wav \
   ow1.wav \
   ow2.wav \
   warp.wav \
@@ -12,6 +13,7 @@ sounds_DATA = \
   beep.wav \
   begin.wav \
   explosion.wav \
+	invulnerable.wav \
   ow1.wav \
   ow2.wav \
   warp.wav \
