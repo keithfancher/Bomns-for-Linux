@@ -293,7 +293,6 @@ int main(int argc, char * argv[])
       }
 
       // update and draw the timer
-      
       if(g_nGameTime)
       {
         g_nGameTimeLeft = g_nGameTime - ( (int)((SDL_GetTicks() - g_dwGameTimer) / 1000) );

@@ -182,7 +182,7 @@ void CPlayer::Hurt(int nDamage)
 		m_nHealth -= nDamage;
 		if(m_nHealth < 0)
 	 	  m_nHealth = 0;
-      PlayWav(m_mcOw);
+    PlayWav(m_mcOw);
 	}
 }
 
