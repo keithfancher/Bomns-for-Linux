@@ -24,11 +24,20 @@
 
 #include "level.h"
 #include "bomns.h"
+#include "player.h"
 
 
 extern SDL_Surface * g_psdlsHUD;
 extern SDL_Surface * g_psdlsObjects;
 extern int           g_nGameTime;
+
+extern CPlayer       g_Player1;
+extern CPlayer       g_Player2;
+
+extern int           g_nP1StartX;
+extern int           g_nP1StartY;
+extern int           g_nP2StartX;
+extern int           g_nP2StartY;
 
 int g_anLevel[80][58];
 
@@ -216,9 +225,13 @@ bool LoadLevelFromFile(const char * filename)
           case CHAR_WARP:
             g_anLevel[j][i] = OBJ_WARP;
             break;
-          case CHAR_P1START: //TODO: make these work
+          case CHAR_P1START:
+            g_nP1StartX = j * 10;
+            g_nP1StartY = i * 10;
             break;
           case CHAR_P2START:
+            g_nP2StartX = j * 10;
+            g_nP2StartY = i * 10;
             break;
         }
       }

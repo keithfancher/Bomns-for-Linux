@@ -43,7 +43,7 @@ extern int  g_nPowUps;
 extern int  g_nPowDowns;
 extern int  g_nInvulnerabilities;
 extern int  g_nHealth;
-extern int  g_anLevel[80][58];
+extern int  g_anLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
 extern unsigned long g_dwSeed;
 
 SDL_Surface * g_psdlsScreen    = NULL;
@@ -70,6 +70,11 @@ CPlayer       g_Player2(PLAYER_TWO);
 Uint32        g_dwGameTimer    = 0;
 int           g_nGameTimeLeft  = g_nGameTime;
 
+// default player starting coordinates
+int           g_nP1StartX      = 250;
+int           g_nP1StartY      = 280;
+int           g_nP2StartX      = 550;
+int           g_nP2StartY      = 280;
 
 
 int main(int argc, char * argv[])
@@ -264,8 +269,8 @@ int main(int argc, char * argv[])
 		fprintf(stderr, "Success!\n");
 
 		fprintf(stderr, "Initializing players... ");
-		g_Player1.Init(250, 280);
-		g_Player2.Init(550, 280);
+		g_Player1.Init(g_nP1StartX, g_nP1StartY); // these can get changed through LoadLevelFromFile()
+		g_Player2.Init(g_nP2StartX, g_nP2StartY);
 		fprintf(stderr, "Success!\n");
 
     // set the timer 

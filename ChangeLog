@@ -19,6 +19,8 @@
 		and there's also a new --help option
 	* Renamed "launcher" to "bomnslauncher" to help keep things together
 	* Added sound for when a player picks up an invulnerability powerup
+	* Added code to change where P1 and P2 start, used so a level file can
+		specify where the players begin
 
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions
