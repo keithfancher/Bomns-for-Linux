@@ -25,11 +25,14 @@ class Level
 {
   public:
     Level(const char * = NULL);
-    void ZeroLevel();
+    ~Level();
+
+    void DeleteLevel();
     void GenerateLevel();
     bool ReadFromFile(const char * = NULL);
     bool WriteToFile(const char * = NULL);
     void SetTile(int, int, Object *);
+    void DeleteTile(int, int);
     bool DrawLevel(SDL_Surface *);
 
   private:

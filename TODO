@@ -8,7 +8,11 @@
   * add LoadFromFile() to level.*
   * bomnsedit compiles seperately
   * navigate with keyboard, choose tiles and p1/p2 start positions
+  * mouse navigation, tile is cursor, left click for stamp, right for erase, wheel chooses tile
   * have a custom levels section on the website?
+  * needlessly object oriented... not sure if creating and destroying Objects on the fly is fast
+    or slow, but since it's not the actual GAME, it shouldn't matter, and I want to experiment.
+  * cursor has array of one of every object, and a current index of what kind to use
 
 -> Make timer text non-red (yellow?)
 

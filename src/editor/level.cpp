@@ -6,7 +6,7 @@
 
 Level::Level(const char * cszFileName)
 {
-  ZeroLevel();
+  DeleteLevel();
   if(cszFileName)
   {
     strncpy(szFileName, cszFileName, 80);
@@ -14,20 +14,20 @@ Level::Level(const char * cszFileName)
   }
 }
 
-void Level::ZeroLevel()
+Level::~Level()
 {
-//  memset(abyLevel, CHAR_NONE, sizeof(abyLevel));
+  DeleteLevel();
+}
 
-  /*
+void Level::DeleteLevel()
+{
   for(int i = 0; i < LEVEL_WIDTH; i++)
   {
     for(int j = 0; j < LEVEL_HEIGHT; j++)
     {
-      Level[i][j] = 
+      DeleteTile(i, j);
     }
-  }*/
-
-  memset(apobjLevel, 0, sizeof(apobjLevel)); // assume if there isn't a pointer, it's OBJ_NONE
+  }
 }
 
 void Level::GenerateLevel()
@@ -47,6 +47,13 @@ bool Level::WriteToFile(const char * cszFileName)
 void Level::SetTile(int xPos, int yPos, Object * object)
 {
   apobjLevel[xPos][yPos] = new Object(*object);
+}
+
+void Level::DeleteTile(int xPos, int yPos)
+{
+  if(apobjLevel[xPos][yPos])
+    delete apobjLevel[xPos][yPos];
+  apobjLevel[xPos][yPos] = NULL;
 }
 
 bool Level::DrawLevel(SDL_Surface * psdlsDest)
