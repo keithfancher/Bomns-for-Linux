@@ -45,11 +45,13 @@ bool Level::WriteToFile(const char * cszFileName)
   return true;
 }
 
-void Level::SetTile(int xPos, int yPos, Object * object) // TODO: fuckin... doesn't construct the right kind of object
+void Level::SetTile(int xPos, int yPos, Object * object)
 {
   DeleteTile(xPos, yPos);
-  apobjLevel[xPos][yPos] = new Object(*object);
-/*
+ // apobjLevel[xPos][yPos] = new Object(*object);
+
+  // TODO: is there a better way to do this?  giving each object its own blit function didn't
+  //       let me create objects this way, but this is okay, I guess.
   switch(object->GetChar())
   {
     case CHAR_WALL:
@@ -79,7 +81,7 @@ void Level::SetTile(int xPos, int yPos, Object * object) // TODO: fuckin... does
     case CHAR_P2START:
       apobjLevel[xPos][yPos] = new P2start(*object);
       break;
-  }*/
+  }
 }
 
 void Level::DeleteTile(int xPos, int yPos)

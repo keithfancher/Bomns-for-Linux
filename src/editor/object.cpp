@@ -54,41 +54,75 @@ Wall::Wall(int x, int y)
   SetRect(&rcSource, 0, 0, 10, 10);
   byObjChar = CHAR_WALL;
 }
+Wall::Wall(const Object & obj)
+  :Object(obj)
+{
+}
+
 Invulnerability::Invulnerability(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 10, 0, 10, 10);
   byObjChar = CHAR_INVULNERABILITY;
 }
+Invulnerability::Invulnerability(const Object & obj)
+  :Object(obj)
+{
+}
+
 Health::Health(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 40, 0, 10, 10);
   byObjChar = CHAR_HEALTH;
 }
+Health::Health(const Object & obj)
+  :Object(obj)
+{
+}
+
 Powup::Powup(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 20, 0, 10, 10);
   byObjChar = CHAR_POWUP;
 }
+Powup::Powup(const Object & obj)
+  :Object(obj)
+{
+}
+
 Powdown::Powdown(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 30, 0, 10, 10);
   byObjChar = CHAR_POWDOWN;
 }
+Powdown::Powdown(const Object & obj)
+  :Object(obj)
+{
+}
+
 Bomn::Bomn(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 70, 0, 10, 10);
   byObjChar = CHAR_BOMN;
 }
+Bomn::Bomn(const Object & obj)
+  :Object(obj)
+{
+}
+
 Warp::Warp(int x, int y)
  :Object(x, y)
 {
   SetRect(&rcSource, 80, 0, 10, 10);
   byObjChar = CHAR_WARP;
+}
+Warp::Warp(const Object & obj)
+  :Object(obj)
+{
 }
 
 P1start::P1start(int x, int y)
@@ -96,6 +130,10 @@ P1start::P1start(int x, int y)
 {
   SetRect(&rcSource, 0, 0, 10, 10);
   byObjChar = CHAR_P1START;
+}
+P1start::P1start(const Object & obj)
+  :Object(obj)
+{
 }
 bool P1start::BlitToSurface(SDL_Surface * psdlsDest)
 {
@@ -110,6 +148,10 @@ P2start::P2start(int x, int y)
   SetRect(&rcSource, 10, 0, 10, 10);
   byObjChar = CHAR_P2START;
 }
+P2start::P2start(const Object & obj)
+  :Object(obj)
+{
+}
 bool P2start::BlitToSurface(SDL_Surface * psdlsDest)
 {
  if(SDL_BlitSurface(psdlsPlayers, &rcSource, psdlsDest, &rcDest) < 0)
@@ -117,14 +159,3 @@ bool P2start::BlitToSurface(SDL_Surface * psdlsDest)
   return true;
 }
 
-/*
-None::None(int x, int y)
- :Object(x, y)
-{
-//  SetRect(&rcSource, 0, 0, 10, 10);
-  byObjChar = CHAR_NONE;
-}
-bool None::BlitToSurface(SDL_Surface * psdlsDest)
-{
-  return true;
-}*/
