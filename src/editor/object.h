@@ -9,7 +9,7 @@ class Object
     Object(int, int); // for now these take actual SCREEN COORDINATES, not level coords
 
 //    virtual bool BlitToSurface(SDL_Surface *) = 0;
-    bool BlitToSurface(SDL_Surface *);
+    virtual bool BlitToSurface(SDL_Surface *);
     char GetChar();
     void SetPosition(int, int); // still taking SCREEN COORDs
 

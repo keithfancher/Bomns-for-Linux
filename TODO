@@ -13,6 +13,7 @@
   * needlessly object oriented... not sure if creating and destroying Objects on the fly is fast
     or slow, but since it's not the actual GAME, it shouldn't matter, and I want to experiment.
   * cursor has array of one of every object, and a current index of what kind to use
+  * middle click toggles grid
 
 -> Make timer text non-red (yellow?)
 

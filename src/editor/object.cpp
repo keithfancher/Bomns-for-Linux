@@ -31,7 +31,6 @@ bool Object::BlitToSurface(SDL_Surface * psdlsDest)
 {
   if(SDL_BlitSurface(psdlsObjects, &rcSource, psdlsDest, &rcDest) < 0)
     return false;
-
   return true;
 }
 
@@ -100,7 +99,7 @@ P1start::P1start(int x, int y)
 }
 bool P1start::BlitToSurface(SDL_Surface * psdlsDest)
 {
- if(SDL_BlitSurface(psdlsPlayers, &rcSource, psdlsDest, &rcDest) < 0)
+  if(SDL_BlitSurface(psdlsPlayers, &rcSource, psdlsDest, &rcDest) < 0)
     return false;
   return true;
 }

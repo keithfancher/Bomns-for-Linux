@@ -38,6 +38,7 @@ class Level
   private:
 //    char abyLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
     Object * apobjLevel[LEVEL_WIDTH][LEVEL_HEIGHT]; // take THAT, hungarian notation!
+//    Object * apobjLevel[LEVEL_HEIGHT][LEVEL_WIDTH]; // accessed in ROWxCOL format
     char szFileName[80];
 };
 

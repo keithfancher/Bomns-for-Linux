@@ -12,35 +12,117 @@
 
 int main(int argc, char ** argv)
 {
-  SDL_Surface * sdlsScreen  = NULL;
-  SDL_Surface * sdlsObjects = NULL;
-  int           nWindowMode = MODE_WINDOWED;
+  SDL_Surface * psdlsScreen = NULL;
+  int           nVideoMode  = MODE_WINDOWED;
   bool          bDone       = false;
   
-  Level         level();
-  Cursor        cursor();
+  Level         level("fuckyou");
+  Cursor        cursor(0, 0);
   
   InitSDL();
-  SetVideoMode(sdlsScreen, nWindowMode);
+//  SetVideoMode(psdlsScreen, nVideoMode);
+  
+  // can't fucking use SetVideoMode here, for SOME REASON
+  fprintf(stderr, "Setting video mode to 800x600 %s mode... ", (nVideoMode == MODE_WINDOWED ? "windowed" : "fullscreen"));
+  SDL_WM_SetCaption("Bomns for Linux Level Editor", "Bomns for Linux Level Editor");
+  if(nVideoMode == MODE_WINDOWED)
+    psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF); 
+  else if(nVideoMode == MODE_FULLSCREEN)
+    psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+  else
+    QuitWithError("Que?\n");
+  if(!psdlsScreen)
+    QuitWithError("Error setting GODDAM VIDEO MODE... for some fucking reason!\n");
+  else
+    fprintf(stderr, "Success!\n");
+  SDL_ShowCursor(false);
   
   // main input loop
   while(!bDone)
   {
     SDL_Event sdleEvent;
-    
+    Uint8 *   anKeyState  = NULL;
+    Uint8     nMouseState = 0;
+
     while(SDL_PollEvent(&sdleEvent))
     {
       if(sdleEvent.type == SDL_QUIT)
         bDone = true;
-      
-      if(sdleEvent.type == SDL_KEYDOWN)
+
+      // TODO: use relative mouse motion so it doesn't jump around
+      if(sdleEvent.type == SDL_MOUSEMOTION)
+        cursor.SetPosition(sdleEvent.motion.x / 10, sdleEvent.motion.y / 10);
+
+      // process mouse input
+      nMouseState = SDL_GetMouseState(NULL, NULL);
+      if(nMouseState & SDL_BUTTON_LMASK)
+        cursor.StampCurrentObject(&level);
+      if(nMouseState & SDL_BUTTON_RMASK)
+        cursor.DeleteUnderCursor(&level);
+
+      if(sdleEvent.type == SDL_MOUSEBUTTONDOWN)
       {
-        if(sdleEvent.key.keysym.sym == SDLK_ESCAPE)
-          bDone = true;
+        switch(sdleEvent.button.button)
+        {
+          case SDL_BUTTON_WHEELUP:
+            cursor.ForwardObject();
+            break;
+          case SDL_BUTTON_WHEELDOWN:
+            cursor.BackwardObject();
+            break;
+        }
+      }
+      
+      // process keyboard input
+      anKeyState = SDL_GetKeyState(NULL);
+      
+      if(anKeyState[SDLK_UP])
+        cursor.MoveUp();
+      if(anKeyState[SDLK_DOWN])
+        cursor.MoveDown();
+      if(anKeyState[SDLK_LEFT])
+        cursor.MoveLeft();
+      if(anKeyState[SDLK_RIGHT])
+        cursor.MoveRight();
+
+      if(anKeyState[SDLK_SPACE] || anKeyState[SDLK_RETURN] || anKeyState[SDLK_s])
+        cursor.StampCurrentObject(&level);
+      if(anKeyState[SDLK_DELETE] || anKeyState[SDLK_d])
+        cursor.DeleteUnderCursor(&level);
+
+      if(anKeyState[SDLK_PAGEUP])
+        cursor.ForwardObject();
+      if(anKeyState[SDLK_PAGEDOWN])
+        cursor.BackwardObject();
+
+      // buttons that should only be pressed, never held down
+      if(sdleEvent.key.state == SDL_PRESSED)
+      {
+        switch(sdleEvent.key.keysym.sym)
+        {
+          case SDLK_ESCAPE:
+            bDone = true;
+            break;
+
+          case SDLK_f:
+            nVideoMode = !nVideoMode;
+            SetVideoMode(psdlsScreen, nVideoMode);
+            break;
+        }
       }
     } // SDL_PollEvent
 
-  }
+    ClearSurface(psdlsScreen);
+
+    if(!level.DrawLevel(psdlsScreen))
+      QuitWithError("Error drawing level to screen!\n");
+
+    if(!cursor.DrawCursor(psdlsScreen))
+      QuitWithError("Error drawing cursor to screen!\n");
+
+    SDL_Flip(psdlsScreen);
+
+  } // while(!bDone)
   
   ShutDown();
 
@@ -57,9 +139,11 @@ void InitSDL()
     exit(1);
   }
   fprintf(stderr, "Success!\n");
+
+  SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 }
 
-void SetVideoMode(SDL_Surface * screen, int nVideoMode)
+void SetVideoMode(SDL_Surface * psdlsScreen, int nVideoMode)
 {
   fprintf(stderr, "Setting video mode to 800x600 %s mode... ", (nVideoMode == MODE_WINDOWED ? "windowed" : "fullscreen"));
 
@@ -68,14 +152,14 @@ void SetVideoMode(SDL_Surface * screen, int nVideoMode)
   switch(nVideoMode)
   {
     case MODE_WINDOWED:
-      screen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
+      psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
       break;
     case MODE_FULLSCREEN:
-      screen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+      psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
       break;
   }
   
-  if(!screen)
+  if(!psdlsScreen)
     QuitWithError("Error setting video mode!\n");
   else
     fprintf(stderr, "Success!\n");
@@ -92,6 +176,7 @@ void QuitWithError(const char * szMessage)
 {
   if(szMessage)
     fprintf(stderr, szMessage);
+  fprintf(stderr, "SDL error message: %s\n", SDL_GetError());
   SDL_Quit();
   exit(1);
 }
@@ -113,3 +198,8 @@ char * LoadResource(const char * szName, int nResourceType)
   return szTmp;
 }
 
+void ClearSurface(SDL_Surface * psdlsSurface)
+{
+  if(SDL_FillRect(psdlsSurface, NULL, 0) < 0)
+    QuitWithError("Error clearing surface!\n");
+}

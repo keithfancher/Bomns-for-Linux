@@ -59,6 +59,25 @@ void Cursor::MoveRight()
   apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
 }
 
+void Cursor::SetPosition(int x, int y)
+{
+  xLevelPos = x;
+  yLevelPos = y;
+
+  if(xLevelPos >= LEVEL_WIDTH)
+    xLevelPos = LEVEL_WIDTH-1;
+  if(xLevelPos < 0)
+    xLevelPos = 0;
+  if(yLevelPos >= LEVEL_HEIGHT)
+    yLevelPos = LEVEL_HEIGHT-1;
+  if(yLevelPos < 0)
+    yLevelPos = 0;
+  
+  xScreenPos = 10 * xLevelPos;
+  yScreenPos = 10 * yLevelPos;
+  apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
+}
+
 void Cursor::ForwardObject()
 {
   if(++currentObject >= NUM_OBJECTS)
@@ -83,4 +102,9 @@ bool Cursor::DrawCursor(SDL_Surface * sdlsSurface)
 void Cursor::StampCurrentObject(Level * pLevel)
 {
   pLevel->SetTile(xLevelPos, yLevelPos, apobjObjects[currentObject]);
+}
+
+void Cursor::DeleteUnderCursor(Level * pLevel)
+{
+  pLevel->DeleteTile(xLevelPos, yLevelPos);
 }

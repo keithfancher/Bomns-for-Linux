@@ -6,7 +6,8 @@
 
 Level::Level(const char * cszFileName)
 {
-  DeleteLevel();
+  //DeleteLevel();  //<-- somehow calling this causes segfaults
+  memset(apobjLevel, 0, sizeof(Object *) * LEVEL_WIDTH * LEVEL_HEIGHT);
   if(cszFileName)
   {
     strncpy(szFileName, cszFileName, 80);
@@ -21,11 +22,11 @@ Level::~Level()
 
 void Level::DeleteLevel()
 {
-  for(int i = 0; i < LEVEL_WIDTH; i++)
+  for(int i = 0; i < LEVEL_HEIGHT; i++)
   {
-    for(int j = 0; j < LEVEL_HEIGHT; j++)
+    for(int j = 0; j < LEVEL_WIDTH; j++)
     {
-      DeleteTile(i, j);
+      DeleteTile(j, i);
     }
   }
 }
@@ -44,9 +45,41 @@ bool Level::WriteToFile(const char * cszFileName)
   return true;
 }
 
-void Level::SetTile(int xPos, int yPos, Object * object)
+void Level::SetTile(int xPos, int yPos, Object * object) // TODO: fuckin... doesn't construct the right kind of object
 {
+  DeleteTile(xPos, yPos);
   apobjLevel[xPos][yPos] = new Object(*object);
+/*
+  switch(object->GetChar())
+  {
+    case CHAR_WALL:
+      apobjLevel[xPos][yPos] = new Wall(*object);
+      break;
+    case CHAR_INVULNERABILITY:
+      apobjLevel[xPos][yPos] = new Invulnerability(*object);
+      break;
+    case CHAR_HEALTH:
+      apobjLevel[xPos][yPos] = new Health(*object);
+      break;
+    case CHAR_POWUP:
+      apobjLevel[xPos][yPos] = new Powup(*object);
+      break;
+    case CHAR_POWDOWN:
+      apobjLevel[xPos][yPos] = new Powdown(*object);
+      break;
+    case CHAR_BOMN:
+      apobjLevel[xPos][yPos] = new Bomn(*object);
+      break;
+    case CHAR_WARP:
+      apobjLevel[xPos][yPos] = new Warp(*object);
+      break;
+    case CHAR_P1START:
+      apobjLevel[xPos][yPos] = new P1start(*object);
+      break;
+    case CHAR_P2START:
+      apobjLevel[xPos][yPos] = new P2start(*object);
+      break;
+  }*/
 }
 
 void Level::DeleteTile(int xPos, int yPos)
@@ -58,5 +91,16 @@ void Level::DeleteTile(int xPos, int yPos)
 
 bool Level::DrawLevel(SDL_Surface * psdlsDest)
 {
+  for(int i = 0; i < LEVEL_HEIGHT; i++)
+  {
+    for(int j = 0; j < LEVEL_WIDTH; j++)
+    {
+      if(apobjLevel[j][i])
+      {
+        if(!apobjLevel[j][i]->BlitToSurface(psdlsDest))
+          return false;
+      }
+    }
+  }
   return true;
 }
