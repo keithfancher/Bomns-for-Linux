@@ -12,6 +12,7 @@ class Cursor
     void MoveLeft();
     void MoveRight();
 
+    bool DrawCursor(SDL_Surface *);
     void StampCurrentObject(Level *);
 
   private:

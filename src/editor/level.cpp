@@ -15,11 +15,11 @@ Level::Level(const char * cszFileName)
 
 void Level::ZeroLevel()
 {
-  for(int i = 0; i < LEVEL_WIDTH; i++)
-  {
-    for(int j = 0; j < LEVEL_HEIGHT; j++)
-      abyLevel[i][j] = CHAR_NONE;
-  }
+  memset(abyLevel, CHAR_NONE, sizeof(abyLevel));
+}
+
+void Level::GenerateLevel()
+{
 }
 
 bool Level::ReadFromFile(const char * cszFileName)

@@ -30,6 +30,11 @@ void Cursor::MoveRight()
 {
 }
 
+bool Cursor::DrawCursor(SDL_Surface * sdlsSurface)
+{
+  return true;
+}
+
 void Cursor::StampCurrentObject(Level * pLevel)
 {
   pLevel->SetTile(xLevelPos, yLevelPos, currentObject);

@@ -25,6 +25,7 @@ class Level
   public:
     Level(const char * = NULL);
     void ZeroLevel();
+    void GenerateLevel();
     bool ReadFromFile(const char * = NULL);
     bool WriteToFile(const char * = NULL);
     void SetTile(int, int, char);

@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <SDL/SDL.h>
 
 #include "editor.h"
 #include "level.h"
 #include "cursor.h"
+#include "../../config.h"
 
 
 int main(int argc, char ** argv)
@@ -92,3 +94,21 @@ void QuitWithError(const char * szMessage)
   SDL_Quit();
   exit(1);
 }
+
+void SetRect(SDL_Rect * rcRect, int nX, int nY, int nW, int nH)
+{
+  rcRect->x = nX;
+  rcRect->y = nY;
+  rcRect->w = nW;
+  rcRect->h = nH;
+}
+
+char * LoadResource(const char * szName, int nResourceType)
+{
+  static char szTmp[80] = {0};
+
+  memset(szTmp, 0, sizeof(szTmp));
+  sprintf(szTmp, "%s/%s/%s", DATA_PATH, (nResourceType == RESOURCE_SOUND ? "sounds" : (nResourceType == RESOURCE_GRAPHIC ? "graphics" : "levels")), szName);
+  return szTmp;
+}
+
