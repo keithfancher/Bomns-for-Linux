@@ -46,6 +46,9 @@
 #define PlayWav(x) {if(g_bSound) Mix_PlayChannel(-1, x, 0);}
 
 
+#include <SDL/SDL.h>  // this just makes it more managable...
+
+
 bool Explode(int, int, int);
 void SetRect(SDL_Rect *, int, int, int, int);
 void ProcInput(SDLKey);

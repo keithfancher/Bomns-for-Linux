@@ -18,7 +18,6 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
@@ -27,6 +26,7 @@
 
 #include "bomns.h"
 #include "player.h"
+#include "ai.h"
 #include "level.h"
 #include "config.h"
 
@@ -42,7 +42,7 @@ extern int  g_nPowDowns;
 extern int  g_nInvulnerabilities;
 extern int  g_nHealth;
 extern int  g_anLevel[80][58];
-extern unsigned long g_ulSeed;
+extern unsigned long g_dwSeed;
 
 SDL_Surface * g_psdlsScreen    = NULL;
 SDL_Surface * g_psdlsPlayers   = NULL;
@@ -59,6 +59,7 @@ bool          g_bExploding     = FALSE;  //Fixes keyboard bug, so we know when N
 
 CPlayer       g_Player1(PLAYER_ONE);
 CPlayer       g_Player2(PLAYER_TWO);
+//CAI_Player    g_Player2(100);
 
 
 //Timer vars - gotta be global so Explode() can see 'em
@@ -89,7 +90,7 @@ int main(int argc, char * argv[])
   else
   	fprintf(stderr, "Success!\n");
     
-  // check this AFTER the config file load so the command-line takes priority.
+  // check this AFTER the config file loads so the command-line takes priority.
   if(argv[1])
   {
     if(!strcmp(argv[1], "-nosound") || !strcmp(argv[1], "--nosound"))
@@ -186,11 +187,6 @@ int main(int argc, char * argv[])
 		}
 		fprintf(stderr, "Success!\n");
 
-		if(g_ulSeed == SEED_RAND)
-			srand(time(NULL));
-		else
-			srand(g_ulSeed);
-			
 		fprintf(stderr, "Loading level... ");
 		g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
 		g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
@@ -200,7 +196,8 @@ int main(int argc, char * argv[])
 		}
 		fprintf(stderr, "Success!\n");
 		
-		FillLevel(g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
+		// fills level with correct seed
+    FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
 		
 		fprintf(stderr, "Loading players surface into memory... ");
 		g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
@@ -255,7 +252,7 @@ int main(int argc, char * argv[])
       
       g_Player1.Update();
 			g_Player2.Update();
-     
+
       if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
 			{
 				QuitWithError("Unable to clear screen\n");

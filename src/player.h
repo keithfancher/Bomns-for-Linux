@@ -34,6 +34,10 @@
 #define STATE_INVULNERABLE 1
 
 
+#include <SDL/SDL.h>        // this is lame, but it prevents having to include SDL.h in 
+#include <SDL/SDL_mixer.h>  // every file that includes player.h
+
+
 class CPlayer
 {
   public:
@@ -48,13 +52,15 @@ class CPlayer
 		void Update();
 		bool Draw(SDL_Surface *);
 
-		int  Health() {return m_nHealth;}
-		int  Bomns()  {return m_nBomns;}
-		int  GetX()   {return m_rcDestRect.x;}
-		int  GetY()   {return m_rcDestRect.y;}
-		
-  private:
-		int           m_nPlayer;
+		int  Health()   {return m_nHealth;}
+		int  Bomns()    {return m_nBomns;}
+		int  GetX()     {return m_rcDestRect.x;}
+		int  GetY()     {return m_rcDestRect.y;}
+    int  GetState() {return m_nState;}
+
+  //this saves SO much work with CAI_Player, and is no less safe
+  protected:
+  	int           m_nPlayer;
 		int           m_nState;
 		int           m_nHealth;
 		int           m_nBomns;
@@ -71,7 +77,7 @@ class CPlayer
     Mix_Chunk *   m_mcBeep;
     bool          m_abBeeped[5];
     bool          m_bBeep;
-};
+ };
 
 
 #endif

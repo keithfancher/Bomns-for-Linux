@@ -5,6 +5,11 @@
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions
   * Made explosions last even LONGER (400 ms now)
+  * Changed around some autoconf/automake business to be more
+    compatible with newer versions (after my upgrade to 
+    Slackware 8.1, and all its new shinyness).
+  * Beginnings of an AI system
+  * Some cleanups of stupidly implemented things
 
 - Changes for 0.96
   * Added the option to give matches a time limit

@@ -37,8 +37,10 @@ void InitLevel()
     
 }
 
-void FillLevel(int nWalls, int nInvulns, int nHealths, int nPowUps, int nPowDowns, int nBomns, int nWarps)
+void FillLevel(unsigned long dwSeed, int nWalls, int nInvulns, int nHealths, int nPowUps, int nPowDowns, int nBomns, int nWarps)
 {
+  srand(dwSeed);
+  
   memset(g_anLevel, OBJ_NONE, sizeof(g_anLevel));
 	for(int i = 0; i < nWalls; i++)
 		g_anLevel[rand() % 80][rand() % 58] = OBJ_WALL;

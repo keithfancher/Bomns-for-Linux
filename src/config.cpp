@@ -21,7 +21,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <SDL/SDL.h>
 
 #include "config.h"
 #include "bomns.h"
@@ -39,7 +38,7 @@ int           g_nInvulnerabilities = DEF_INVULNERABILITIES;
 int           g_nHealth            = DEF_HEALTH;
 int           g_nP1StartBomns      = DEF_STARTBOMNS;
 int           g_nP2StartBomns      = DEF_STARTBOMNS;
-unsigned long g_ulSeed             = SEED_RAND;
+unsigned long g_dwSeed             = SEED_RAND;
 
 
 bool LoadConfigFile()
@@ -186,5 +185,5 @@ void Parse(const char * cszBuf)
     g_nP2StartBomns = DEF_STARTBOMNS;
   
 	if(!strcmp("seed", szTemp1))
-	  g_ulSeed = atol(szTemp2);
+	  g_dwSeed = atol(szTemp2);
 }

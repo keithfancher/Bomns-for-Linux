@@ -80,7 +80,8 @@ bomns_SOURCES = \
   bomns.cpp \
   config.cpp \
   level.cpp \
-  player.cpp
+  player.cpp \
+  ai.cpp
 
 
 bomns_LDADD = -lSDL_mixer -lSDL -lpthread
@@ -89,7 +90,8 @@ EXTRA_DIST = \
   bomns.h \
   config.h \
   level.h \
-  player.h
+  player.h \
+  ai.h
 
 subdir = src
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -99,7 +101,7 @@ bin_PROGRAMS = bomns$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
 am_bomns_OBJECTS = bomns.$(OBJEXT) config.$(OBJEXT) level.$(OBJEXT) \
-	player.$(OBJEXT)
+	player.$(OBJEXT) ai.$(OBJEXT)
 bomns_OBJECTS = $(am_bomns_OBJECTS)
 bomns_DEPENDENCIES =
 bomns_LDFLAGS =
@@ -110,8 +112,9 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/bomns.Po $(DEPDIR)/config.Po \
-@AMDEP_TRUE@	$(DEPDIR)/level.Po $(DEPDIR)/player.Po
+@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/ai.Po $(DEPDIR)/bomns.Po \
+@AMDEP_TRUE@	$(DEPDIR)/config.Po $(DEPDIR)/level.Po \
+@AMDEP_TRUE@	$(DEPDIR)/player.Po
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
@@ -166,6 +169,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/ai.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/bomns.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/config.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/level.Po@am__quote@

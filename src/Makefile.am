@@ -4,7 +4,8 @@ bomns_SOURCES = \
   bomns.cpp \
   config.cpp \
   level.cpp \
-  player.cpp
+  player.cpp \
+  ai.cpp
 
 bomns_LDADD = -lSDL_mixer -lSDL -lpthread
 
@@ -12,4 +13,5 @@ EXTRA_DIST = \
   bomns.h \
   config.h \
   level.h \
-  player.h
+  player.h \
+  ai.h

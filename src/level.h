@@ -36,7 +36,7 @@
 #define EXPLOSION_3         3
 
 void InitLevel();
-void FillLevel(int, int, int, int, int, int, int);  //wall, invul, health, powup, powdown, bomns, warps
+void FillLevel(unsigned long, int, int, int, int, int, int, int);  //seed, wall, invul, health, powup, powdown, bomns, warps
 bool DrawLevel(SDL_Surface *, int, int, int, int);
 bool DrawHUD(SDL_Surface *, int, int, int, int);    //don't ask
 bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int = EXPLOSION_1);
