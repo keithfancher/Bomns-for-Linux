@@ -21,7 +21,10 @@
 #define __LEVEL_H__
 
 //80x58 level
+#define LEVEL_WIDTH         80
+#define LEVEL_HEIGHT        58
 
+// different objects filling the level
 #define OBJ_NONE            0
 #define OBJ_WALL            1
 #define OBJ_INVULNERABILITY 2
@@ -31,6 +34,20 @@
 #define OBJ_BOMN            6
 #define OBJ_WARP            7
 
+// the chars to use in the .lvl file for each object
+#define CHAR_NONE            '.'
+#define CHAR_WALL            '@'
+#define CHAR_INVULNERABILITY '!'
+#define CHAR_HEALTH          '+'
+#define CHAR_POWUP           '^'
+#define CHAR_POWDOWN         '-'
+#define CHAR_BOMN            'o'
+#define CHAR_WARP            '*'
+#define CHAR_P1START         '1'
+#define CHAR_P2START         '2'
+#define CHAR_COMMENT         '#' // lines beginning with this will be ignored in the .lvl file
+
+// different stages of exposions (affects the sprite used)
 #define EXPLOSION_1         1
 #define EXPLOSION_2         2
 #define EXPLOSION_3         3
@@ -41,6 +58,7 @@ bool DrawLevel(SDL_Surface *, int, int, int, int);
 bool DrawHUD(SDL_Surface *, int, int, int, int);    //don't ask
 bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int = EXPLOSION_1);
 bool ClearTile(int, int, SDL_Surface *);
+bool LoadLevelFromFile(const char *);
 
 
 #endif

@@ -17,6 +17,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA
 
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL.h>
@@ -168,4 +169,62 @@ bool ClearTile(int nX, int nY, SDL_Surface * psdlsDest)
   SDL_Rect rcSrc = {246, 0, 10, 10};
   if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
     return FALSE;
+}
+
+bool LoadLevelFromFile(const char * filename)
+{
+  FILE * fpLevel     =  NULL;
+  char   szLine[100] = {0};
+  int    i           =  0;
+  int    j           =  0;
+  
+  fpLevel = fopen(filename, "r");
+  if(!fpLevel)
+    return FALSE;
+
+  while(!feof(fpLevel) && i < LEVEL_HEIGHT)
+  {
+    fgets(szLine, 100, fpLevel);
+    if(szLine[0] != CHAR_COMMENT && szLine[0] != '\n' && szLine[0] != ' ') // not a comment
+    {
+      for(j = 0; j < LEVEL_WIDTH; j++) // god I was stupid when I did this shit, now I pay
+      {
+        switch(szLine[j])
+        {
+          case CHAR_WALL:
+            g_anLevel[j][i] = OBJ_WALL;
+            break;
+          case CHAR_INVULNERABILITY:
+            g_anLevel[j][i] = OBJ_INVULNERABILITY;
+            break;
+          case CHAR_HEALTH:
+            g_anLevel[j][i] = OBJ_HEALTH;
+            break;
+          case CHAR_POWUP:
+            g_anLevel[j][i] = OBJ_POWUP;
+            break;
+          case CHAR_POWDOWN:
+            g_anLevel[j][i] = OBJ_POWDOWN;
+            break;
+          case CHAR_BOMN:
+            g_anLevel[j][i] = OBJ_BOMN;
+            break;
+          case CHAR_WARP:
+            g_anLevel[j][i] = OBJ_WARP;
+            break;
+          case CHAR_P1START: //TODO: make these work
+            break;
+          case CHAR_P2START:
+            break;
+        }
+      }
+      i++; // load next row
+    }
+    
+  }
+
+  if(fpLevel)
+    fclose(fpLevel);
+
+  return TRUE;
 }

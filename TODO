@@ -2,16 +2,24 @@
 | Bomns for Linux TODO list |
  ---------------------------
 
--> Increase framerates (improve DrawLevel() function)
+-> Level editor
+  * bomnsedit <some.lvl>
+  * load a text file, so it's editable w/out the editor
+  * add LoadFromFile() to level.*
+  * bomnsedit compiles seperately
+  * navigate with keyboard, choose tiles and p1/p2 start positions
+  * have a custom levels section on the website?
+
+-> Make timer text non-red (yellow?)
+
+-> Increase framerates (improve DrawLevel() function?)
+
+-> Network play! (using SDL_net?)
 
 -> Add ability to remap keys
 
 -> Music of some sort?  midi, but midi support on linux is retarded...
 
--> Make timer text non-red (yellow?)
-
--> Level editor
-
--> Network play! (using SDL_net?)
-
 -> GTK2 launcher, and the ability to choose which is compiled
+
+-> Eventually do away w/ separate launcher altogether, configure in-game

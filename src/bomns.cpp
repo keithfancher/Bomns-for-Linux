@@ -86,7 +86,25 @@ int main(int argc, char * argv[])
   ////////////////////////////
   bool    bDrawLevel = TRUE;  ///// <== This is experimental, only draw level when there's an explosion
   ////////////////////////////
+  bool    bLoadLevelFromFile  = FALSE;
+  char    szLevelFileName[80] = {0};
 
+
+  // get command line options, show usage if not right
+  if(argc > 3) // too many
+  {
+    ShowUsage();
+    exit(1);
+  }
+  if(argv[1] && argc > 1)
+  {
+    if(!strcmp(argv[1], "-h") || !strcmp(argv[1], "-help") || !strcmp(argv[1], "--help"))
+    {
+      ShowUsage();
+      exit(0);
+    }
+  }
+  
 
 	fprintf(stderr, "\n----------------------\nBomns for Linux v%s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
   
@@ -99,13 +117,26 @@ int main(int argc, char * argv[])
   	fprintf(stderr, "Success!\n");
     
   // check this AFTER the config file loads so the command-line takes priority.
-  if(argv[1])
+  if(argv[1] && argc > 1)
   {
     if(!strcmp(argv[1], "-nosound") || !strcmp(argv[1], "--nosound"))
     {
       g_bSound = FALSE;
       fprintf(stderr, "Sound was disabled because of commandline option %s\n", argv[1]);
     }
+    else // if it's not --nosound, just treat it like a level to be loaded
+    {
+      bLoadLevelFromFile = TRUE;
+      strncpy(szLevelFileName, argv[1], 80);
+      szLevelFileName[79] = 0;
+    }
+  }
+
+  if(argv[2] && argc > 2) // this HAS to be the level file the way command line args work now
+  {
+    bLoadLevelFromFile = TRUE;
+    strncpy(szLevelFileName, argv[2], 80);
+    szLevelFileName[79] = 0; // just in case
   }
 
   // I discovered that passing SDL_INIT_AUDIO when the sound isn't available
@@ -141,7 +172,7 @@ int main(int argc, char * argv[])
     fprintf(stderr, "Success!\n");
   }
   
-	fprintf(stderr, "Setting video mode to 800x600x16... ");
+	fprintf(stderr, "Setting video mode to 800x600... ");
 	SDL_WM_SetCaption("Bomns for Linux", "Bomns for Linux");
 	if(g_bFullScreen)
 		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
@@ -150,7 +181,7 @@ int main(int argc, char * argv[])
 
   if(!g_psdlsScreen)
   {
-    fprintf(stderr, "Unable to set 800x600x16 video: %s\n", SDL_GetError());
+    fprintf(stderr, "Unable to set 800x600 video: %s\n", SDL_GetError());
     QuitWithError(NULL);
   }
   SDL_ShowCursor(FALSE);
@@ -206,7 +237,23 @@ int main(int argc, char * argv[])
 		fprintf(stderr, "Success!\n");
 		
 		// fills level with correct seed
-    FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
+    if(bLoadLevelFromFile)
+    {
+      fprintf(stderr, "Loading level from file: %s... ", szLevelFileName);
+      if(!LoadLevelFromFile(szLevelFileName))
+      {
+        fprintf(stderr, "ERROR!  Just creating a random level instead\n");
+        FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
+      }
+      else
+        fprintf(stderr, "Success!\n");
+    }
+    else
+    {
+      fprintf(stderr, "Randomly filling level with objects... ");
+      FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
+      fprintf(stderr, "Success!\n");
+    }
 		
 		fprintf(stderr, "Loading players surface into memory... ");
 		g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
@@ -771,3 +818,10 @@ char * LoadResource(char * szName, int nResourceType)
   return szTmp;
 }
 
+void ShowUsage()
+{
+  printf("Usage:   bomns [options] <levelfile>\n");
+  printf("Options: --nosound    turns off sound, takes precidence over config file\n");
+  printf("         --help       shows this message\n");
+  printf("         <levelfile>  optional - the path to the level for bomns to load\n");
+}

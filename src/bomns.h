@@ -60,6 +60,7 @@ void SwitchMode();
 int  DrawWinDialog(int, int, int);
 void QuitWithError(const char *);
 char * LoadResource(char *, int);
+void ShowUsage();
 
 
 #endif
