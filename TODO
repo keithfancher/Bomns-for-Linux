@@ -6,10 +6,12 @@
 
 -> Add ability to remap keys
 
--> Music of some sort
+-> Music of some sort?  midi, but midi support on linux is retarded...
 
 -> Make timer text non-red (yellow?)
 
 -> Level editor
 
 -> Network play! (using SDL_net?)
+
+-> GTK2 launcher, and the ability to choose which is compiled
