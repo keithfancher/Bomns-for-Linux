@@ -75,6 +75,8 @@ void Cursor::BackwardObject()
 
 bool Cursor::DrawCursor(SDL_Surface * sdlsSurface)
 {
+  if(!apobjObjects[currentObject]->BlitToSurface(sdlsSurface))
+    return false;
   return true;
 }
 

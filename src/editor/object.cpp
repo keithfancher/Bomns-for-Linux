@@ -118,6 +118,7 @@ bool P2start::BlitToSurface(SDL_Surface * psdlsDest)
   return true;
 }
 
+/*
 None::None(int x, int y)
  :Object(x, y)
 {
@@ -127,4 +128,4 @@ None::None(int x, int y)
 bool None::BlitToSurface(SDL_Surface * psdlsDest)
 {
   return true;
-}
+}*/

@@ -68,15 +68,15 @@ void FillLevel(unsigned long dwSeed, int nWalls, int nInvulns, int nHealths, int
 	  g_anLevel[rand() % 80][rand() % 58] = OBJ_WARP;
 }
 
-//TODO: This function is WAY too fucking inefficient
+//TODO: more efficiency?
 bool DrawLevel(SDL_Surface * psdlsDest, int nP1Health, int nP2Health, int nP1Bomns, int nP2Bomns)
 {
 	SDL_Rect rcSrc  = {0, 0, 10, 10};
 	SDL_Rect rcDest = {0, 0, 10, 10};
 
-  for(int i = 0; i < 80; i++)
+  for(int i = 0; i < LEVEL_WIDTH; i++)
 	{
-		for(int j = 0; j < 58; j++)
+		for(int j = 0; j < LEVEL_HEIGHT; j++)
 		{
 			SetRect(&rcDest, i * 10, j * 10, 10, 10);
 

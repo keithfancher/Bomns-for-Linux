@@ -70,12 +70,14 @@ class P2start : public Object
     P2start(int, int);
     bool BlitToSurface(SDL_Surface *); // need this 'cause it uses a different surface
 };
+
+/*
 class None : public Object
 {
   public:
     None(int, int);
     bool BlitToSurface(SDL_Surface *); // this needs its own 'cause it won't actually DO anything (to save time)
 };
-
+*/
 
 #endif
