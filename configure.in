@@ -76,7 +76,8 @@ AC_OUTPUT(
            src/Makefile \
            src/launcher/Makefile \
            graphics/Makefile \
-           sounds/Makefile
+           sounds/Makefile \
+           m4/Makefile
          )
 
 # Tell 'em what's what
