@@ -1,6 +1,7 @@
 SUBDIRS = src \
           graphics \
           sounds \
+					levels \
 					m4
 
 EXTRA_DIST = TODO  

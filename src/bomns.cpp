@@ -809,12 +809,12 @@ void QuitWithError(const char * szMessage)
   exit(1);
 }
 
-char * LoadResource(char * szName, int nResourceType)
+char * LoadResource(const char * szName, int nResourceType)
 {
   static char szTmp[80] = {0};
 
   memset(szTmp, 0, sizeof(szTmp));
-  sprintf(szTmp, "%s/%s/%s", DATA_PATH, (nResourceType == RESOURCE_SOUND ? "sounds" : "graphics"), szName);
+  sprintf(szTmp, "%s/%s/%s", DATA_PATH, (nResourceType == RESOURCE_SOUND ? "sounds" : (nResourceType == RESOURCE_GRAPHIC ? "graphics" : "levels")), szName);
   return szTmp;
 }
 

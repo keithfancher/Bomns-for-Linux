@@ -179,8 +179,12 @@ bool LoadLevelFromFile(const char * filename)
   int    j           =  0;
   
   fpLevel = fopen(filename, "r");
-  if(!fpLevel)
-    return FALSE;
+  if(!fpLevel) // if not in the current path, try the default bomns level path (such as /usr/local/share/bomns/levels)
+  {
+    fpLevel = fopen(LoadResource(filename, RESOURCE_LEVEL), "r");
+    if(!fpLevel) // if still not able to load there's a problem
+      return FALSE;
+  }
 
   while(!feof(fpLevel) && i < LEVEL_HEIGHT)
   {

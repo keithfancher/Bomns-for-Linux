@@ -24,6 +24,7 @@
 
 #define RESOURCE_SOUND   0
 #define RESOURCE_GRAPHIC 1
+#define RESOURCE_LEVEL   2
 
 #define TRUE             1
 #define FALSE            0
@@ -59,7 +60,7 @@ void Shutdown();
 void SwitchMode();
 int  DrawWinDialog(int, int, int);
 void QuitWithError(const char *);
-char * LoadResource(char *, int);
+char * LoadResource(const char *, int);
 void ShowUsage();
 
 
