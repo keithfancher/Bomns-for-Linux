@@ -2,6 +2,11 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
+- Changes for 0.98
+	* A better framefrate counter, doesn't fuck up with explosions,
+		and it's now on by default.
+	* Doubled the framerate by changing some init code
+
 - Changes for 0.97
   * Fixed bug where timer disappeared during explosions
   * Made explosions last even LONGER (400 ms now)

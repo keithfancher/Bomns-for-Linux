@@ -82,6 +82,10 @@ int main(int argc, char * argv[])
   Uint32  dwFpsTimer     = 0;
   bool    bDrawFps       = TRUE;
 
+  ////////////////////////////
+  bool    bDrawLevel = TRUE;  ///// <== This is experimental, only draw level when there's an explosion
+  ////////////////////////////
+
 
 	fprintf(stderr, "\n----------------------\nBomns for Linux v%s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
   
@@ -139,9 +143,10 @@ int main(int argc, char * argv[])
 	fprintf(stderr, "Setting video mode to 800x600x16... ");
 	SDL_WM_SetCaption("Bomns for Linux", "Bomns for Linux");
 	if(g_bFullScreen)
-		g_psdlsScreen = SDL_SetVideoMode(800, 600, 16, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
 	else
-		g_psdlsScreen = SDL_SetVideoMode(800, 600, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
+
   if(!g_psdlsScreen)
   {
     fprintf(stderr, "Unable to set 800x600x16 video: %s\n", SDL_GetError());
@@ -260,20 +265,41 @@ int main(int argc, char * argv[])
       g_Player1.Update();
 			g_Player2.Update();
 
-      //FPS SHIT
+      // getticks so we can figure out how long it takes to draw a frame
       if(bDrawFps)
       {
         dwFpsTimer = SDL_GetTicks();
       }
 
-      if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
-			{
-				QuitWithError("Unable to clear screen\n");
-			}
-			if(!DrawLevel(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns()))
-			{
-				QuitWithError("Unable to draw level to screen\n");
-			}
+      ///////////////experimental//////////////////
+      if(bDrawLevel)
+      {
+        if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
+			  {
+				  QuitWithError("Unable to clear screen\n");
+        }
+      }
+      //////////////experimental////////////////////
+      
+/*      ClearTile(0, 0, g_psdlsScreen);
+      ClearTile(0, 1, g_psdlsScreen);
+      ClearTile(1, 0, g_psdlsScreen);
+      ClearTile(1, 1, g_psdlsScreen);
+      ClearTile(0, 2, g_psdlsScreen);
+      ClearTile(1, 2, g_psdlsScreen);
+      ClearTile(1, 3, g_psdlsScreen);*/
+
+
+      //////////////////// experimental ///////////////////////
+      if(bDrawLevel)
+      {
+        if(!DrawLevel(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns()))
+			  {
+				  QuitWithError("Unable to draw level to screen\n");
+			  }
+      }
+      ///////////////////////////////////////////////////////////
+
 			if(!g_Player1.Draw(g_psdlsScreen))
 			{
 				QuitWithError("Unable to draw player1 to screen\n");
@@ -283,7 +309,7 @@ int main(int argc, char * argv[])
 				QuitWithError("Unable to draw player2 to screen\n");
 			}
       
-      // COUNT DEM FRAMES!
+      // this is the OLD fps counting behavior, it kinda sucked
       /*if(bDrawFps)
       {
         nFramecount++;
@@ -299,7 +325,6 @@ int main(int argc, char * argv[])
         }
         
         DrawNum(nFps, 10, 10, g_psdlsScreen, RED);
-        
       }*/
 
       // update and draw the timer
@@ -311,15 +336,14 @@ int main(int argc, char * argv[])
         DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
       }
 
-    
-      // FPS SHIT
+      // Draw the framerate
       if(bDrawFps)
-        DrawNum(nFps, 10, 10, g_psdlsScreen, RED);
+        DrawNum(nFps, 0, 0, g_psdlsScreen, RED);
             
+      // FLIP THE BUFFERS!
       SDL_Flip(g_psdlsScreen);
 
-
-      //FPS SHIT
+      // calculate how long it took to draw that last frame
       if(bDrawFps)
       {
         dwFpsTimer = SDL_GetTicks() - dwFpsTimer;
@@ -660,9 +684,9 @@ void SwitchMode()
 {
 	fprintf(stderr, "Changing to %s mode... ", (g_bFullScreen ? "windowed" : "fullscreen"));
 	if(g_bFullScreen)
-		g_psdlsScreen = SDL_SetVideoMode(800, 600, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
+		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	else
-	  g_psdlsScreen = SDL_SetVideoMode(800, 600, 16, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+	  g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
 
 	if(!g_psdlsScreen)
 	{

@@ -40,6 +40,7 @@ void FillLevel(unsigned long, int, int, int, int, int, int, int);  //seed, wall,
 bool DrawLevel(SDL_Surface *, int, int, int, int);
 bool DrawHUD(SDL_Surface *, int, int, int, int);    //don't ask
 bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int = EXPLOSION_1);
+bool ClearTile(int, int, SDL_Surface *);
 
 
 #endif

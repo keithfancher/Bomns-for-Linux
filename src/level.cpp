@@ -160,3 +160,12 @@ bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int nExplosionState)
 		
 	return TRUE;
 }
+
+bool ClearTile(int nX, int nY, SDL_Surface * psdlsDest)
+{
+  SDL_Rect rcDest = {nX * 10, nY * 10, 10, 10};
+//  SDL_Rect rcSrc  = {X: 246 - 255}
+  SDL_Rect rcSrc = {246, 0, 10, 10};
+  if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
+    return FALSE;
+}
