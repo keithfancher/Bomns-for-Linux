@@ -78,9 +78,9 @@ int main(int argc, char * argv[])
 
   //Framecount vars
   int     nFps           = 0;
-  int     nFramecount    = 0;
+  //int     nFramecount    = 0;
   Uint32  dwFpsTimer     = 0;
-  bool    bDrawFps       = FALSE;
+  bool    bDrawFps       = TRUE;
 
 
 	fprintf(stderr, "\n----------------------\nBomns for Linux v%s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
@@ -260,6 +260,12 @@ int main(int argc, char * argv[])
       g_Player1.Update();
 			g_Player2.Update();
 
+      //FPS SHIT
+      if(bDrawFps)
+      {
+        dwFpsTimer = SDL_GetTicks();
+      }
+
       if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
 			{
 				QuitWithError("Unable to clear screen\n");
@@ -278,7 +284,7 @@ int main(int argc, char * argv[])
 			}
       
       // COUNT DEM FRAMES!
-      if(bDrawFps)
+      /*if(bDrawFps)
       {
         nFramecount++;
         if(SDL_GetTicks() - dwFpsTimer >= 1000)
@@ -294,7 +300,7 @@ int main(int argc, char * argv[])
         
         DrawNum(nFps, 10, 10, g_psdlsScreen, RED);
         
-      }
+      }*/
 
       // update and draw the timer
       if(g_nGameTime)
@@ -304,10 +310,22 @@ int main(int argc, char * argv[])
           g_nGameTimeLeft = 0;
         DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
       }
-      
-      
+
+    
+      // FPS SHIT
+      if(bDrawFps)
+        DrawNum(nFps, 10, 10, g_psdlsScreen, RED);
+            
       SDL_Flip(g_psdlsScreen);
 
+
+      //FPS SHIT
+      if(bDrawFps)
+      {
+        dwFpsTimer = SDL_GetTicks() - dwFpsTimer;
+        nFps = 1000l / dwFpsTimer;
+      }
+      
       
       if(!g_nGameTime)
       {
