@@ -1,0 +1,25 @@
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+#undef DATA_PATH
+
+/* Define if `stat' has the bug that it succeeds when given the zero-length
+   file name argument. */
+#undef HAVE_STAT_EMPTY_STRING_BUG
+
+/* Define if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define if `lstat' dereferences a symlink specified with a trailing slash.
+   */
+#undef LSTAT_FOLLOWS_SLASHED_SYMLINK
+
+/* Name of package */
+#undef PACKAGE
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const

@@ -1,0 +1,97 @@
+ ------------------------ 
+| Bomns for Linux README |
+ ------------------------
+     by Keith Fancher
+  <discostoo@punkass.com>
+
+
+Intro
+-----
+For a while Bomns, the single greatest game to ever grace a computer,
+was confined to people who had DOS and Windows.  Enter me.  I realized
+that there are a lot of people out there who have Linux, and that they
+NEEDED to play Bomns.  I realize that most Linux users have a Windows
+partition somewhere, and they could easily boot into Windows if they
+really wanted to play Bomns.  I also realize that's more trouble than
+it's worth.  I bring them Bomns for Linux, thus eliminating the need to
+boot into Windows, and increasing the chances that somebody'll actaully
+play it.  I recommend the first thing you do after seeing if BfL crashes
+your computer is to head over to bomns.sourceforge.net where the rest of
+the Bomns games are.  I personally recommend Bomns^2, as it's my favorite
+of the bunch so far, however I have a feeling that'll change if Charles
+Lindsay (the original Bomns pimp) would hurry the Christ up and finish
+DXBomns.
+
+NOTE: A new DXBomns was just released, head over to bomns.sourceforge.net
+      and check it out.  It's definitely awesome.
+
+
+System Requirements
+-------------------
+- Linux (although now it'll probably compile on other unices as well)
+- SDL - get the latest version at www.libsdl.org
+- SDL mixer - get the latest version at www.libsdl.org/projects/SDL_mixer/  
+- GTK+ 1.2 - for the launcher, if you don't use the launcher
+  then you don't need it (but you should use it)
+- The header files for those libraries if you're compiling (obviously)
+- Another person
+- Umm, a keyboard?
+
+
+Installation
+------------
+Bomns for Linux just has a regular ol' GNU installation.  Read the
+file "INSTALL" for full details, but basically it boils down to:
+
+  ./configure
+  make
+  make install
+
+I decided after much consideration that I should keep the launcher in a 
+separate project from regular ol' Bomns.  For one thing, it makes it MUCH
+easier on me, as far as upgrading and stuff goes, but also it doesn't force
+you to install the launcher or GTK if you don't want it.  Of course there's
+no reason to NOT install the launcher, and probably every Linux in the
+universe has GTK nowadays, but still, it's better this way.  After you install
+bomns if you want the launcher just cd into the "launcher" subdirectory and
+do a ./configure && make && make install.  It doesn't matter where it installs,
+as long as the bomns executable is somewhere in your path the launcher will
+find it just fine.  You can even make a symlink to the "launcher" binary and
+call it "gbomns" or something, I'll leave that up to you.
+
+
+Note on Sound
+-------------
+The sound is pretty (really) new, so it might be kind of buggy.  I'd like
+everybody to at least try and to report any bugs or incompatibilities,
+but if you really just can't stand it any longer you can just turn it off.  
+I know the sounds aren't anything spectacular, but please at least try them 
+so I can figure out what bugs there are.  I'm not too confident about my 
+SDL_mixer skills at this point.
+
+
+Playing
+-------
+Bomns is pretty simple, just use arrows for first player, wasd for
+second player.  Player 1 lays a bomb with enter, and player 2 lays
+a bomb with spacebar.  Oh yeah, and 'f' switches from windowed to
+fullscreen mode and the other way around.  Fullscreen is better.  Just 
+type "bomns" and you're ready to rock.  Now there's also an optional
+timer, it works pretty much like the timer in any standard fighting
+game.  If the time ends before anybody's dead, whoever has the most life
+wins.  If both players have the same life, it's a tie.  I've grown to like
+it, but if you don't then just disable it.
+
+
+Configuring
+-----------
+The first time you start Bomns for Linux, a file called "~/.bomnsrc" will
+be created.  You can open this up in any text editor and change the
+values inside for a bit more customization.  You'll figure it out.
+NOTE: Now obsolete!  Use the launcher!
+
+
+- Keith Fancher
+  discostoo@punkass.com
+  greenridge.sourceforge.net/bomns
+

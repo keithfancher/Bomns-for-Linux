@@ -1,0 +1,66 @@
+# Process this file with autoconf to produce a configure script.
+AC_INIT(src/bomns.cpp)
+AM_INIT_AUTOMAKE(bomns,0.96)
+AM_CONFIG_HEADER(config.h)
+AC_PREFIX_DEFAULT(/usr/local)
+
+
+# Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_CXX
+AC_PROG_AWK
+
+
+# Check for SDL
+AM_PATH_SDL(1.2.0,,AC_MSG_ERROR(SDL >= 1.2.0 is required))
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+LIBS="$LIBS $SDL_LIBS"
+
+
+# Check for SDL_mixer
+have_SDLmixer=no
+AC_CHECK_LIB(SDL_mixer, Mix_OpenAudio, have_SDLmixer=yes)
+if test x$have_SDLmixer != xyes
+then
+  AC_MSG_ERROR([*** Can't find the SDL_mixer library
+Try: http://www.libsdl.org/projects/SDL_mixer/
+])
+fi
+      
+
+# Checks for header files.
+AC_CHECK_HEADERS([stdlib.h string.h])
+
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+
+# Checks for library functions.
+AC_FUNC_STAT
+
+
+if test "$prefix" = "NONE"
+then
+  prefix="/usr/local"
+  AC_MSG_RESULT($prefix)
+fi
+AC_DEFINE_UNQUOTED(DATA_PATH, "${prefix}/share/bomns")
+
+
+AC_OUTPUT( 
+           Makefile \
+           src/Makefile \
+           graphics/Makefile \
+           sounds/Makefile
+         )
+
+# Tell 'em what's what
+echo
+echo "Now type \"make\" to compile Bomns for Linux, then \"make install\""
+echo "(as root) to install it.  Don't forget to do the same for the launcher!"
+echo
+

@@ -1,0 +1,11 @@
+ ---------------------------
+| Bomns for Linux TODO list |
+ ---------------------------
+
+-> Increase framerates (improve DrawLevel() function)
+
+-> Add ability to remap keys
+
+-> Music of some sort
+
+-> Make timer text non-red (yellow?)

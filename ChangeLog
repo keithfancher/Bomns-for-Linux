@@ -1,0 +1,84 @@
+= ------------------------- =
+= BOMNS FOR LINUX CHANGELOG =
+= ------------------------- =
+
+- Changes for 0.97
+  * Fixed bug where timer disappeared during explosions
+  * Made explosions last even LONGER (400 ms now)
+
+- Changes for 0.96
+  * Added the option to give matches a time limit
+  * Now launcher loads from a config file if there is one
+    instead of just automatically loading default settings
+  * Bigger (better) launcher
+  * Added a _tiny_ bit more error checking when reading in
+    the config file values (don't wanna get too stringent)
+  * If sound is set to false, it doesn't even MESS with /dev/dsp
+  * Changed around the quasi-HUD a bit (added incentive to KILL!)
+  * Explosions last longer (300 ms pause between frames intead of
+    200 ms)
+  * Better explosion sound
+  * A quasi framerate counter, not really meant for end user use
+  * Changed max seed value in launcher (it still should be bigger...)
+
+- Changes for 0.95
+  * Entire project released under GPL
+  * Now the installation is GNU/Linux-afied, with the classic 
+    "configure && make && make install" routine
+  * Now there's a LoadResource() function that figures out 
+    where all the graphics/sounds are so they can be loaded
+    correctly
+
+- Changes for 0.9
+  * New sound support via SDL Mixer
+  * Fixed the keyboard tapping while bomns  exploding bug
+  * Fixed a bug with bomns counting down incorrectly
+  * More (less important) bugfixes
+
+- Changes for 0.8
+  * Bomns for Linux launcher debut
+  * Changed all the printf() error and info messages to 
+    fprintf(stderr)'s, thus eliminating the need to run 
+    BfL from a console.
+  * Changed "startbomns" config value to "p1startbomns"
+    and "p2startbomns" so they can be changed independently
+  * Tons more optimizations
+  * Rewrote Makefile
+  * Redid a few of the graphics
+
+- Changes for 0.7
+  * Changed DEF_WALLS to 900
+  * Fixed bug with the inifinitely invincible player
+  * Added new value "startbomns" to config file 
+
+- Changes for 0.6
+  * Much better intro screen
+  * Much better explosions
+  * Even MORE bugfixes
+
+- Changes for 0.5:
+  * Finally players can set bomns!
+  * That means there can now be ties
+  * TONS of bugfixes and optimizations
+
+- Changes for 0.4:
+  * Intro screen
+  * Ability to actually kill the other player
+  * Now (of course) score is kept
+  * The shiny new win dialog
+
+- Changes for 0.3:
+  * Warps implemented
+  * Config file
+
+- Changes for 0.2:
+  * Quasi-HUD
+  * Powerups actually have some effect
+
+- Changes for 0.1:
+  * Now it exists
+  * You can move around, there's collision detection
+    with the walls but not with powerups.
+  
+
+
