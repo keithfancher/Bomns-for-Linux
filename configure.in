@@ -1,5 +1,11 @@
 # Process this file with autoconf to produce a configure script.
 AC_INIT(src/bomns.cpp)
+
+# this junk
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
+# this junk
 AM_INIT_AUTOMAKE(bomns,0.97)
 AM_CONFIG_HEADER(config.h)
 AC_PREFIX_DEFAULT(/usr/local)
@@ -9,9 +15,7 @@ AC_PREFIX_DEFAULT(/usr/local)
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
-AC_PROG_LN_S
 AC_PROG_CXX
-AC_PROG_AWK
 
 
 # Allow for --disable'ing the launcher
@@ -44,15 +48,15 @@ if test "x$build_launcher" = xyes; then
 fi
 
 # Checks for header files.
-AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
+#AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
 
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
+#AC_C_CONST
 
 
 # Checks for library functions.
-AC_FUNC_STAT
+#AC_FUNC_STAT
 
 
 # Set the right ${prefix}
