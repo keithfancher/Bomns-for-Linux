@@ -1,4 +1,5 @@
 #include <SDL/SDL.h>
+#include <string.h>
 #include "level.h"
 
 

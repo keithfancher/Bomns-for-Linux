@@ -3,13 +3,19 @@
 #include <SDL/SDL.h>
 
 #include "editor.h"
+#include "level.h"
+#include "cursor.h"
 
 
 int main(int argc, char ** argv)
 {
   SDL_Surface * sdlsScreen  = NULL;
+  SDL_Surface * sdlsObjects = NULL;
   int           nWindowMode = MODE_WINDOWED;
   bool          bDone       = false;
+  
+  Level         level();
+  Cursor        cursor();
   
   InitSDL();
   SetVideoMode(sdlsScreen, nWindowMode);
