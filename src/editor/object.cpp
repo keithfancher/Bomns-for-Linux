@@ -40,6 +40,11 @@ char Object::GetChar()
   return byObjChar;
 }
 
+void Object::SetPosition(int x, int y)
+{
+  SetRect(&rcDest, x, y, 10, 10);
+}
+
 
 //////////////////////////////////
 //  ALL THE INHERITING OBJECTS  /

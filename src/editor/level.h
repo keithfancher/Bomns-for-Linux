@@ -7,6 +7,7 @@
 #define LEVEL_HEIGHT         58
 
 // the chars to use in the .lvl file for each object
+#define NUM_OBJECTS          9   // change this if you add or remove objects - DON'T count CHAR_NONE or CHAR_COMMENT
 #define CHAR_NONE            '.'
 #define CHAR_WALL            '@'
 #define CHAR_INVULNERABILITY '!'
@@ -28,11 +29,12 @@ class Level
     void GenerateLevel();
     bool ReadFromFile(const char * = NULL);
     bool WriteToFile(const char * = NULL);
-    void SetTile(int, int, char);
+    void SetTile(int, int, Object *);
     bool DrawLevel(SDL_Surface *);
 
   private:
-    char abyLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
+//    char abyLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
+    Object * apobjLevel[LEVEL_WIDTH][LEVEL_HEIGHT]; // take THAT, hungarian notation!
     char szFileName[80];
 };
 

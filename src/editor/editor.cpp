@@ -3,6 +3,7 @@
 #include <string.h>
 #include <SDL/SDL.h>
 
+#include "object.h"
 #include "editor.h"
 #include "level.h"
 #include "cursor.h"

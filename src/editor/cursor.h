@@ -12,6 +12,9 @@ class Cursor
     void MoveLeft();
     void MoveRight();
 
+    void ForwardObject();
+    void BackwardObject();
+
     bool DrawCursor(SDL_Surface *);
     void StampCurrentObject(Level *);
 
@@ -21,7 +24,8 @@ class Cursor
     int xScreenPos;
     int yScreenPos;
 
-    char currentObject;
+    Object * apobjObjects[NUM_OBJECTS];
+    int currentObject;
 };
 
 

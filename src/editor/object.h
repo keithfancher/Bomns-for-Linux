@@ -11,6 +11,7 @@ class Object
 //    virtual bool BlitToSurface(SDL_Surface *) = 0;
     bool BlitToSurface(SDL_Surface *);
     char GetChar();
+    void SetPosition(int, int); // still taking SCREEN COORDs
 
   protected:
     static SDL_Surface * psdlsObjects; // I think this means all the objects share this (it'd better mean that...)
