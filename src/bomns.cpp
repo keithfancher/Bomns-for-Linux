@@ -52,7 +52,9 @@ SDL_Surface * g_psdlsWinDialog = NULL;
 SDL_Surface * g_psdlsObjects   = NULL;
 SDL_Surface * g_psdlsHUD       = NULL;
 
-Mix_Chunk   * g_mcExplosion    = NULL;
+Mix_Chunk   * g_mcExplosion    = NULL;   //Explosion noise
+Mix_Chunk   * g_mcWinner       = NULL;   //Game ends (needed a bit more BANG)
+Mix_Chunk   * g_mcBegin        = NULL;   //When match starts
 
 bool          g_bExploding     = FALSE;  //Fixes keyboard bug, so we know when NOT to get input
 
@@ -221,6 +223,10 @@ int main(int argc, char * argv[])
 
 		fprintf(stderr, "Entering main loop...\n");
 		bool bDone = FALSE;
+    
+    //play beginning match sound
+    PlayWav(g_mcBegin);
+    
 		while(!bDone)
 		{
 			SDL_Event sdleEvent;
@@ -556,7 +562,12 @@ bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool
 
 void LoadSounds()
 {
-  g_mcExplosion = Mix_LoadWAV(LoadResource("explosion.wav", RESOURCE_SOUND));
+  if(g_bSound)
+  {
+    g_mcExplosion = Mix_LoadWAV(LoadResource("explosion.wav", RESOURCE_SOUND));
+    g_mcWinner    = Mix_LoadWAV(LoadResource("winner.wav", RESOURCE_SOUND));
+    g_mcBegin     = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
+  }
 }
 
 int Intro()
@@ -616,6 +627,10 @@ void Shutdown()
 {
   if(g_mcExplosion)
     Mix_FreeChunk(g_mcExplosion);
+  if(g_mcWinner)
+    Mix_FreeChunk(g_mcWinner);
+  if(g_mcBegin)
+    Mix_FreeChunk(g_mcBegin);
     
   Mix_CloseAudio();
 	SDL_Quit();
@@ -642,6 +657,10 @@ void SwitchMode()
 int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 {
 	bool bDone = FALSE;
+
+  //This sound owns j00 (or so it would seem)
+  PlayWav(g_mcWinner);
+  
 	while(!bDone)
   {
     SDL_Event sdleEvent;

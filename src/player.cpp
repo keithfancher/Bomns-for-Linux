@@ -39,7 +39,7 @@ extern bool          g_bSound;
 
 CPlayer::CPlayer(int nPlayer)
   :m_nState(STATE_NORMAL), m_nPlayer(nPlayer), m_nHealth(10), m_dwInvulnerability(0),
-	 m_nBlastRadius(1), m_dwBomnTime(0), m_mcOw(NULL), m_mcBeep(NULL), m_bBeep(FALSE)
+	 m_nBlastRadius(1), m_dwBomnTime(0), m_mcOw(NULL), m_mcBeep(NULL), m_mcWarp(NULL), m_bBeep(FALSE)
 
 {
   memset(&m_rcDestRect, 0, sizeof(m_rcDestRect));
@@ -56,6 +56,8 @@ CPlayer::~CPlayer()
     Mix_FreeChunk(m_mcOw);
   if(m_mcBeep)
     Mix_FreeChunk(m_mcBeep);
+  if(m_mcWarp)
+    Mix_FreeChunk(m_mcWarp);
 }
 
 bool CPlayer::Init(int nXStart, int nYStart)
@@ -77,6 +79,7 @@ bool CPlayer::Init(int nXStart, int nYStart)
   // don't know if I should check for NULLs or not
   m_mcOw = Mix_LoadWAV((m_nPlayer == PLAYER_ONE ? LoadResource("ow1.wav", RESOURCE_SOUND) : LoadResource("ow2.wav", RESOURCE_SOUND)));
   m_mcBeep = Mix_LoadWAV(LoadResource("beep.wav", RESOURCE_SOUND));
+  m_mcWarp = Mix_LoadWAV(LoadResource("warp.wav", RESOURCE_SOUND));
   
 	return TRUE;
 }
@@ -154,12 +157,16 @@ bool CPlayer::Move(int nDirection, int nP2X, int nP2Y)
 			break;
 
 		case OBJ_WARP:
-			do
+      //this noise is yo' daddy
+      PlayWav(m_mcWarp);
+      
+      do
 			{
 				m_rcDestRect.x = ((rand() % 80) * 10);
 				m_rcDestRect.y = ((rand() % 58) * 10);
 			} while(g_anLevel[m_rcDestRect.x / 10][m_rcDestRect.y / 10] == OBJ_WALL
 							|| (m_rcDestRect.x == nP2X && m_rcDestRect.y == nP2Y));
+           
 			Move(DONT_MOVE, -1, -1);  //pick up the powerup if you landed on one (p2 coords don't matter)
 			break;
 	}

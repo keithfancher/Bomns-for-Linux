@@ -10,6 +10,8 @@
     Slackware 8.1, and all its new shinyness).
   * Beginnings of an AI system
   * Some cleanups of stupidly implemented things
+  * Some new (experimental) sounds (beginning sound, winning
+    sound, warp sound)
 
 - Changes for 0.96
   * Added the option to give matches a time limit

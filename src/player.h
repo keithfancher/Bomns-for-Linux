@@ -73,8 +73,9 @@ class CPlayer
 		SDL_Rect      m_rcBomnSrc;
 
     //sounds
-    Mix_Chunk *   m_mcOw;
-    Mix_Chunk *   m_mcBeep;
+    Mix_Chunk *   m_mcOw;   //ouch!
+    Mix_Chunk *   m_mcBeep; //beep...
+    Mix_Chunk *   m_mcWarp; //teleporting
     bool          m_abBeeped[5];
     bool          m_bBeep;
  };
