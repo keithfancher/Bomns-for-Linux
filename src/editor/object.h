@@ -12,6 +12,8 @@ class Object
     virtual bool BlitToSurface(SDL_Surface *);
     char GetChar();
     void SetPosition(int, int); // still taking SCREEN COORDs
+//    int  GetLevelX();  // just divides the current screen pos. by tilesize... very useful
+//    int  GetLevelY();  // just divides the current screen pos. by tilesize... very useful
 
   protected:
     static SDL_Surface * psdlsObjects; // I think this means all the objects share this (it'd better mean that...)

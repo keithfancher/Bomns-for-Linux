@@ -44,6 +44,17 @@ void Object::SetPosition(int x, int y)
   SetRect(&rcDest, x, y, 10, 10);
 }
 
+/*
+int Object::GetLevelX()
+{
+  return rcDest.x / 10;
+}
+
+int Object::GetLevelY()
+{
+  return rcDest.y / 10;
+}*/
+
 
 //////////////////////////////////
 //  ALL THE INHERITING OBJECTS  /

@@ -13,6 +13,8 @@ Level::Level(const char * cszFileName)
     strncpy(szFileName, cszFileName, 80);
     ReadFromFile(szFileName);
   }
+
+  existP1Start = existP2Start = false;
 }
 
 Level::~Level()
@@ -77,9 +79,11 @@ void Level::SetTile(int xPos, int yPos, Object * object)
       break;
     case CHAR_P1START:
       apobjLevel[xPos][yPos] = new P1start(*object);
+      ReplaceP1Start(xPos, yPos);
       break;
     case CHAR_P2START:
       apobjLevel[xPos][yPos] = new P2start(*object);
+      ReplaceP2Start(xPos, yPos);
       break;
   }
 }
@@ -89,6 +93,12 @@ void Level::DeleteTile(int xPos, int yPos)
   if(apobjLevel[xPos][yPos])
     delete apobjLevel[xPos][yPos];
   apobjLevel[xPos][yPos] = NULL;
+
+  // make sure the p1 and p2starts get cleared
+  if(existP1Start && xPos == p1StartX && yPos == p1StartY)
+    existP1Start = false;
+  if(existP2Start && xPos == p2StartX && yPos == p2StartY)
+    existP2Start = false;
 }
 
 bool Level::DrawLevel(SDL_Surface * psdlsDest)
@@ -105,4 +115,22 @@ bool Level::DrawLevel(SDL_Surface * psdlsDest)
     }
   }
   return true;
+}
+
+void Level::ReplaceP1Start(int xPos, int yPos)
+{
+  if(existP1Start)
+    DeleteTile(p1StartX, p1StartY); // delete the old one
+  existP1Start = true;
+  p1StartX = xPos;
+  p1StartY = yPos;
+}
+
+void Level::ReplaceP2Start(int xPos, int yPos)
+{
+  if(existP2Start)
+    DeleteTile(p2StartX, p2StartY); // delete the old one
+  existP2Start = true;
+  p2StartX = xPos;
+  p2StartY = yPos;
 }

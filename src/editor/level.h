@@ -35,11 +35,20 @@ class Level
     void DeleteTile(int, int);
     bool DrawLevel(SDL_Surface *);
 
+    void ReplaceP1Start(int, int); // this only sets coordinates, doesn't actually create any OBJECTS
+    void ReplaceP2Start(int, int);
+
   private:
 //    char abyLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
     Object * apobjLevel[LEVEL_WIDTH][LEVEL_HEIGHT]; // take THAT, hungarian notation!
 //    Object * apobjLevel[LEVEL_HEIGHT][LEVEL_WIDTH]; // accessed in ROWxCOL format
     char szFileName[80];
+
+    // should only have one starting point for each player in the level
+    bool existP1Start;
+    bool existP2Start;
+    int  p1StartX, p1StartY;
+    int  p2StartX, p2StartY;
 };
 
 
