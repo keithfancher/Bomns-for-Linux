@@ -31,6 +31,7 @@
 #define DEF_INVULNERABILITIES 10
 #define DEF_HEALTH            10
 #define DEF_STARTBOMNS        10
+#define DEF_SHOWFPS         TRUE
 
 #define SEED_RAND              0
 

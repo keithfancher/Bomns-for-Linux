@@ -34,6 +34,7 @@
 
 extern bool g_bFullScreen;
 extern bool g_bSound;
+extern bool g_bShowFps;
 extern int  g_nGameTime;
 extern int  g_nBomns;
 extern int  g_nWalls;
@@ -80,7 +81,7 @@ int main(int argc, char * argv[])
   int     nFps           = 0;
   //int     nFramecount    = 0;
   Uint32  dwFpsTimer     = 0;
-  bool    bDrawFps       = TRUE;
+//  bool    bDrawFps       = TRUE;
 
   ////////////////////////////
   bool    bDrawLevel = TRUE;  ///// <== This is experimental, only draw level when there's an explosion
@@ -266,7 +267,7 @@ int main(int argc, char * argv[])
 			g_Player2.Update();
 
       // getticks so we can figure out how long it takes to draw a frame
-      if(bDrawFps)
+      if(g_bShowFps)
       {
         dwFpsTimer = SDL_GetTicks();
       }
@@ -337,14 +338,14 @@ int main(int argc, char * argv[])
       }
 
       // Draw the framerate
-      if(bDrawFps)
+      if(g_bShowFps)
         DrawNum(nFps, 0, 0, g_psdlsScreen, RED);
             
       // FLIP THE BUFFERS!
       SDL_Flip(g_psdlsScreen);
 
       // calculate how long it took to draw that last frame
-      if(bDrawFps)
+      if(g_bShowFps)
       {
         dwFpsTimer = SDL_GetTicks() - dwFpsTimer;
         nFps = 1000l / dwFpsTimer;

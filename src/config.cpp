@@ -38,6 +38,7 @@ int           g_nInvulnerabilities = DEF_INVULNERABILITIES;
 int           g_nHealth            = DEF_HEALTH;
 int           g_nP1StartBomns      = DEF_STARTBOMNS;
 int           g_nP2StartBomns      = DEF_STARTBOMNS;
+bool          g_bShowFps           = DEF_SHOWFPS;
 unsigned long g_dwSeed             = SEED_RAND;
 
 
@@ -87,6 +88,9 @@ bool CreateDefaultConfig()
 	fprintf(fpConfig, "# this can be either true or false, I suggest setting it to true\n");
 	fprintf(fpConfig, "# if it doesn't crash your computer (which it shouldn't)\n");
 	fprintf(fpConfig, "fullscreen = %s\n\n", (DEF_FULLSCREEN ? "true" : "false"));
+
+  fprintf(fpConfig, "# show the framerate or... not\n");
+  fprintf(fpConfig, "showfps = %s\n\n", (DEF_SHOWFPS ? "true" : "false"));
   
   fprintf(fpConfig, "# pretty obvious, play sounds or not\n");
   fprintf(fpConfig, "sound = %s\n\n", (DEF_SOUND ? "true" : "false"));
@@ -146,6 +150,13 @@ void Parse(const char * cszBuf)
 		else  //to be safe
 		  g_bFullScreen = FALSE;
 	}
+  if(!strcmp("showfps", szTemp1))
+  {
+    if(!strcmp("true", szTemp2))
+      g_bShowFps = TRUE;
+    else
+      g_bShowFps = FALSE;
+  }
   if(!strcmp("sound", szTemp1))
   {
     if(!strcmp("true", szTemp2))
