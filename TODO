@@ -11,3 +11,5 @@
 -> Make timer text non-red (yellow?)
 
 -> Level editor
+
+-> Network play! (using SDL_net?)
