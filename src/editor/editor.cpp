@@ -7,6 +7,7 @@
 #include "editor.h"
 #include "level.h"
 #include "cursor.h"
+#include "hud.h"
 #include "../../config.h"
 
 
@@ -18,6 +19,7 @@ int main(int argc, char ** argv)
   
   Level         level("fuckyou");
   Cursor        cursor(0, 0);
+  Hud           hud;
   
   InitSDL();
 //  SetVideoMode(psdlsScreen, nVideoMode);
@@ -116,6 +118,9 @@ int main(int argc, char ** argv)
 
     if(!level.DrawLevel(psdlsScreen))
       QuitWithError("Error drawing level to screen!\n");
+
+    if(!hud.DrawHUD(psdlsScreen, 0, 580))
+      QuitWithError("Error drawing HUD to screen!\n");
 
     if(!cursor.DrawCursor(psdlsScreen))
       QuitWithError("Error drawing cursor to screen!\n");
