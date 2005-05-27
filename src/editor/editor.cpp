@@ -13,13 +13,32 @@
 
 int main(int argc, char ** argv)
 {
-  SDL_Surface * psdlsScreen = NULL;
-  int           nVideoMode  = MODE_WINDOWED;
-  bool          bDone       = false;
+  SDL_Surface * psdlsScreen     = NULL;
+  int           nVideoMode      = MODE_WINDOWED;
+  bool          bDone           = false;
+  char          szFilename[256] = {"default.lvl\0"};
   
   Level         level("fuckyou");
   Cursor        cursor(0, 0);
   Hud           hud;
+
+
+  // deal with command line shit
+  if(argc > 2)
+  {
+    ShowUsage();
+    exit(1);
+  }
+  if(argc == 2)
+  {
+    if(!strcmp("--help", argv[1]) || !strcmp("-h", argv[1]) || !strcmp("-help", argv[1]))
+    {
+      ShowUsage();
+      exit(0);
+    }
+    sprintf(szFilename, "%s", argv[1]);
+  }
+  fprintf(stderr, "Using filename: %s\n", szFilename);
   
   InitSDL();
 //  SetVideoMode(psdlsScreen, nVideoMode);
@@ -110,6 +129,13 @@ int main(int argc, char ** argv)
             nVideoMode = !nVideoMode;
             SetVideoMode(psdlsScreen, nVideoMode);
             break;
+
+          case SDLK_F2:
+            if(!level.WriteToFile(szFilename))
+              fprintf(stderr, "Error writing level to: %s\n", szFilename);
+            else
+              fprintf(stderr, "Level successfully written to: %s\n", szFilename);
+            break;
         }
       }
     } // SDL_PollEvent
@@ -184,6 +210,13 @@ void QuitWithError(const char * szMessage)
   fprintf(stderr, "SDL error message: %s\n", SDL_GetError());
   SDL_Quit();
   exit(1);
+}
+
+void ShowUsage()
+{
+  printf("Usage:   bomnsedit [options] <levelfile>\n");
+  printf("Options: --help       shows this message\n");
+  printf("         <levelfile>  the level file to use, if not provided \"default.lvl\" will be used\n");
 }
 
 void SetRect(SDL_Rect * rcRect, int nX, int nY, int nW, int nH)

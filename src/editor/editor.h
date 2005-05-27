@@ -16,6 +16,7 @@ void InitSDL();
 void SetVideoMode(SDL_Surface *, int);
 void ShutDown();
 void QuitWithError(const char * = NULL);
+void ShowUsage();
 void SetRect(SDL_Rect *, int, int, int, int);
 char * LoadResource(const char *, int);
 void ClearSurface(SDL_Surface *);

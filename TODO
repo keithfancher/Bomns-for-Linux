@@ -14,6 +14,7 @@
     or slow, but since it's not the actual GAME, it shouldn't matter, and I want to experiment.
   * cursor has array of one of every object, and a current index of what kind to use
   * middle click toggles grid
+  * press something (L?) to launch level in bomns for testing
 
 -> Make timer text non-red (yellow?)
 

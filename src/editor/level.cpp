@@ -44,6 +44,38 @@ bool Level::ReadFromFile(const char * cszFileName)
 
 bool Level::WriteToFile(const char * cszFileName)
 {
+  FILE * fpLevel = NULL;
+
+  fpLevel = fopen(cszFileName, "w");
+  if(!fpLevel)
+    return false;
+
+  fprintf(fpLevel, "# Level generated with the Bomns for Linux level editor, feel free to fuck with it!\n\n");
+  fprintf(fpLevel, "# KEY:\n");
+  fprintf(fpLevel, "#   %c - empty space\n", CHAR_NONE);
+  fprintf(fpLevel, "#   %c - invulnerability\n", CHAR_INVULNERABILITY);
+  fprintf(fpLevel, "#   %c - health\n", CHAR_HEALTH);
+  fprintf(fpLevel, "#   %c - bomn powerup\n", CHAR_POWUP);
+  fprintf(fpLevel, "#   %c - bomn powerdown\n", CHAR_POWDOWN);
+  fprintf(fpLevel, "#   %c - bomn\n", CHAR_BOMN);
+  fprintf(fpLevel, "#   %c - warp\n", CHAR_WARP);
+  fprintf(fpLevel, "#   %c - p1 start position (only put 1 of these at a time on each map)\n", CHAR_P1START);
+  fprintf(fpLevel, "#   %c - p2 start position (only put 1 of these at a time on each map)\n\n", CHAR_P2START);
+
+  for(int i = 0; i < LEVEL_HEIGHT; i++)
+  {
+    for(int j = 0; j < LEVEL_WIDTH; j++)
+    {
+      if(apobjLevel[j][i]) // if the object exists, it's not a space, write the char
+        fputc(apobjLevel[j][i]->GetChar(), fpLevel);
+      else // otherwise write the "none" char
+        fputc(CHAR_NONE, fpLevel);
+    }
+    fputc('\n', fpLevel);
+  }
+  
+  if(fpLevel)
+    fclose(fpLevel);
   return true;
 }
 
