@@ -37,8 +37,13 @@ int main(int argc, char ** argv)
       exit(0);
     }
     sprintf(szFilename, "%s", argv[1]);
+    if(!level.ReadFromFile(szFilename))
+      fprintf(stderr, "Couldn't read level from: %s, assuming file doesn't exist yet\n", szFilename);
+    else
+      fprintf(stderr, "Level read successfully from: %s\n", szFilename);
   }
-  fprintf(stderr, "Using filename: %s\n", szFilename);
+  else
+    fprintf(stderr, "No file name specified, using: %s\n", szFilename);
   
   InitSDL();
 //  SetVideoMode(psdlsScreen, nVideoMode);

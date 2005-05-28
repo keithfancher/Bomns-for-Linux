@@ -1,4 +1,5 @@
 #include <SDL/SDL.h>
+#include <stdio.h>
 #include <string.h>
 #include "object.h"
 #include "level.h"
@@ -37,8 +38,68 @@ void Level::GenerateLevel()
 {
 }
 
-bool Level::ReadFromFile(const char * cszFileName)
+bool Level::ReadFromFile(const char * cszFileName) // copied almost verbatim from the bomns level.cpp
 {
+  FILE * fpLevel     =  NULL;
+  char   szLine[256] = {0};
+  int    i           =  0;
+  int    j           =  0;
+  
+  fpLevel = fopen(cszFileName, "r");
+  if(!fpLevel)
+    return false;
+
+  while(!feof(fpLevel) && i < LEVEL_HEIGHT)
+  {
+    fgets(szLine, 256, fpLevel);
+    if(szLine[0] != CHAR_COMMENT && szLine[0] != '\n' && szLine[0] != ' ') // not a comment
+    {
+      for(j = 0; j < LEVEL_WIDTH; j++) // god I was stupid when I did this shit, now I pay
+      {
+        switch(szLine[j])
+        {
+          case CHAR_NONE: // actually have to delete the object to make sure it's empty
+            delete apobjLevel[j][i];
+            apobjLevel[j][i] = NULL;
+            break;
+          case CHAR_WALL:
+            apobjLevel[j][i] = new Wall(j*10, i*10);
+            break;
+          case CHAR_INVULNERABILITY:
+            apobjLevel[j][i] = new Invulnerability(j*10, i*10);
+            break;
+          case CHAR_HEALTH:
+            apobjLevel[j][i] = new Health(j*10, i*10);
+            break;
+          case CHAR_POWUP:
+            apobjLevel[j][i] = new Powup(j*10, i*10);
+            break;
+          case CHAR_POWDOWN:
+            apobjLevel[j][i] = new Powdown(j*10, i*10);
+            break;
+          case CHAR_BOMN:
+            apobjLevel[j][i] = new Bomn(j*10, i*10);
+            break;
+          case CHAR_WARP:
+            apobjLevel[j][i] = new Warp(j*10, i*10);
+            break;
+          case CHAR_P1START:
+            apobjLevel[j][i] = new P1start(j*10, i*10);
+            ReplaceP1Start(j, i);
+            break;
+          case CHAR_P2START:
+            apobjLevel[j][i] = new P2start(j*10, i*10);
+            ReplaceP2Start(j, i);
+            break;
+        }
+      }
+      i++; // load next row
+    }
+  }
+
+  if(fpLevel)
+    fclose(fpLevel);
+
   return true;
 }
 
