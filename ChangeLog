@@ -24,7 +24,10 @@
 		you're not doing some un-changable thing before you launch.
 
 -bomnslauncher
-	* None
+	* Now there is a MUCH better launcher, built with GTK2.  The original
+		launcher still exists, if for some reason you want to use it.  It's in
+		src/launcher and the new one is in src/launcher2.  Do yourself a favor and
+		use the new one, seriously.
 	
 
 - Changes for 0.98:
