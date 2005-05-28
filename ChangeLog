@@ -4,7 +4,9 @@
 
 - Changes for 0.99:
 -bomns
-	* None
+	* Now the filename variable for the level is 512 characters instead of the
+		previous 80, which makes much more sense considering there might also be
+		an entire path, not just the filename.
 
 -bomnsedit
 	* It exists!
@@ -16,7 +18,7 @@
 		filename.
 	* Use mouse or keyboard to create a level, press F2 to save the level to the
 		specified filename
-	* Press 'l' to launch the level in bomns.  It will only work if the "bomns"
+	* Press 'l' to launch the level in Bomns.  It will only work if the "bomns"
 		executable is in your path, obviously.  Also note that this will
 		automatically save the level before it launches (it has to), so make sure
 		you're not doing some un-changable thing before you launch.

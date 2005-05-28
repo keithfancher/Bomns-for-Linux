@@ -16,7 +16,7 @@ int main(int argc, char ** argv)
   SDL_Surface * psdlsScreen     = NULL;
   int           nVideoMode      = MODE_WINDOWED;
   bool          bDone           = false;
-  char          szFilename[256] = {"default.lvl\0"};
+  char          szFilename[512] = {"default.lvl\0"};
   
   Level         level("fuckyou");
   Cursor        cursor(0, 0);
@@ -136,7 +136,7 @@ int main(int argc, char ** argv)
             break;
 
           case SDLK_l:
-            char szTmp[256];
+            char szTmp[520];
             sprintf(szTmp, "bomns %s", szFilename);
             if(!level.WriteToFile(szFilename))
               fprintf(stderr, "Error writing level to: %s\n", szFilename);

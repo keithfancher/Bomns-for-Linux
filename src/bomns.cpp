@@ -92,7 +92,7 @@ int main(int argc, char * argv[])
   bool    bDrawLevel = TRUE;  ///// <== This is experimental, only draw level when there's an explosion
   ////////////////////////////
   bool    bLoadLevelFromFile  = FALSE;
-  char    szLevelFileName[80] = {0};
+  char    szLevelFileName[512] = {0};
 
 
   // get command line options, show usage if not right
@@ -132,16 +132,16 @@ int main(int argc, char * argv[])
     else // if it's not --nosound, just treat it like a level to be loaded
     {
       bLoadLevelFromFile = TRUE;
-      strncpy(szLevelFileName, argv[1], 80);
-      szLevelFileName[79] = 0;
+      strncpy(szLevelFileName, argv[1], 512);
+      szLevelFileName[511] = 0;
     }
   }
 
   if(argv[2] && argc > 2) // this HAS to be the level file the way command line args work now
   {
     bLoadLevelFromFile = TRUE;
-    strncpy(szLevelFileName, argv[2], 80);
-    szLevelFileName[79] = 0; // just in case
+    strncpy(szLevelFileName, argv[2], 512);
+    szLevelFileName[511] = 0; // just in case
   }
 
   // I discovered that passing SDL_INIT_AUDIO when the sound isn't available
