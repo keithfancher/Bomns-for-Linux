@@ -135,6 +135,18 @@ int main(int argc, char ** argv)
             SetVideoMode(psdlsScreen, nVideoMode);
             break;
 
+          case SDLK_l:
+            char szTmp[256];
+            sprintf(szTmp, "bomns %s", szFilename);
+            if(!level.WriteToFile(szFilename))
+              fprintf(stderr, "Error writing level to: %s\n", szFilename);
+            else
+              fprintf(stderr, "Level written successfully to: %s\n", szFilename);
+            fprintf(stderr, "Launching level in bomns...\n");
+            system(szTmp);
+            fprintf(stderr, "Back to editing!\n");
+            break;
+
           case SDLK_F2:
             if(!level.WriteToFile(szFilename))
               fprintf(stderr, "Error writing level to: %s\n", szFilename);

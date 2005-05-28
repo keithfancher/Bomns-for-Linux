@@ -2,16 +2,36 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
-- Changes for 0.99
-	*
+- Changes for 0.99:
+-bomns
+	* None
 
-- Changes for 0.98
+-bomnsedit
+	* It exists!
+	* Pass it a level on the command line, if that level exists it will load it,
+    if it doesn't exist it will use that filename to save to
+	* If you don't pass it a file name it will use "default.lvl", and start with
+		a blank editing space.  This is true even if default.lvl already exists,
+		so take care to not overwrite levels if you always use the default
+		filename.
+	* Use mouse or keyboard to create a level, press F2 to save the level to the
+		specified filename
+	* Press 'l' to launch the level in bomns.  It will only work if the "bomns"
+		executable is in your path, obviously.  Also note that this will
+		automatically save the level before it launches (it has to), so make sure
+		you're not doing some un-changable thing before you launch.
+
+-bomnslauncher
+	* None
+	
+
+- Changes for 0.98:
 	* A better framefrate counter, doesn't fuck up with explosions,
 		and it's now on by default
 	* ShowFps option in the config file, although not yet in the launcher
 	* Doubled the framerate by changing some init code
 	* Even more autoconf/automake shenanigans, due to an upgrade to Slackware 10
-	* In preparation for the level editor that's coming next version, bomns
+	* In preparation for the level editor that's coming next version, Bomns
 		can now load a level from a file.  First the filename itself is checked, but
 		if the level isn't found there the directory prefix/share/bomns/levels
 		is checked.  The levels are simple text files that can be easily changed
@@ -25,7 +45,7 @@
 	* Added code to change where P1 and P2 start, used so a level file can
 		specify where the players begin
 
-- Changes for 0.97
+- Changes for 0.97:
   * Fixed bug where timer disappeared during explosions
   * Made explosions last even LONGER (400 ms now)
   * Changed around some autoconf/automake business to be more
@@ -42,7 +62,7 @@
     won't be built.  Otherwise it will.
   * Moved launcher directory to src/launcher
 
-- Changes for 0.96
+- Changes for 0.96:
   * Added the option to give matches a time limit
   * Now launcher loads from a config file if there is one
     instead of just automatically loading default settings
@@ -57,7 +77,7 @@
   * A quasi framerate counter, not really meant for end user use
   * Changed max seed value in launcher (it still should be bigger...)
 
-- Changes for 0.95
+- Changes for 0.95:
   * Entire project released under GPL
   * Now the installation is GNU/Linux-afied, with the classic 
     "configure && make && make install" routine
@@ -65,13 +85,13 @@
     where all the graphics/sounds are so they can be loaded
     correctly
 
-- Changes for 0.9
+- Changes for 0.9:
   * New sound support via SDL Mixer
   * Fixed the keyboard tapping while bomns exploding bug
   * Fixed a bug with bomns counting down incorrectly
   * More (less important) bugfixes
 
-- Changes for 0.8
+- Changes for 0.8:
   * Bomns for Linux launcher debut
   * Changed all the printf() error and info messages to 
     fprintf(stderr)'s, thus eliminating the need to run 
@@ -82,12 +102,12 @@
   * Rewrote Makefile
   * Redid a few of the graphics
 
-- Changes for 0.7
+- Changes for 0.7:
   * Changed DEF_WALLS to 900
   * Fixed bug with the inifinitely invincible player
   * Added new value "startbomns" to config file 
 
-- Changes for 0.6
+- Changes for 0.6:
   * Much better intro screen
   * Much better explosions
   * Even MORE bugfixes
