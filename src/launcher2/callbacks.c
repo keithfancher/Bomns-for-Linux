@@ -1,6 +1,8 @@
+/*
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
+*/
 
 #include <gtk/gtk.h>
 
@@ -33,14 +35,14 @@ on_play_button_clicked                 (GtkButton       *button,
   char * szFileName = (char *)gtk_entry_get_text(GTK_ENTRY(levelfile_textentry));
   char szTmp[525] = {0};
 
-  // so the executable will use our settings
+  /* so the executable will use our settings */
   write_bomns_rc();
   
-  // should we generate random level...
+  /* should we generate random level... */
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(generate_level_radio)))
     sprintf(szTmp, "bomns");
 
-  // ...or load level from a file
+  /* ...or load level from a file */
   else
     sprintf(szTmp, "bomns %s", szFileName);
 

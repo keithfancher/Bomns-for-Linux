@@ -5,6 +5,8 @@
 int main(int, char **);
 void set_defaults();
 void write_bomns_rc();
+void load_bomns_rc();
+void parse_bomns_rc();
 
 
 #endif
