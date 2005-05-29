@@ -1,4 +1,6 @@
-SUBDIRS = launcher
+SUBDIRS = \
+	launcher \
+#	launcher2
 
 bin_PROGRAMS = bomns
 

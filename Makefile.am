@@ -2,7 +2,9 @@ SUBDIRS = src \
           graphics \
           sounds \
 					levels \
-					m4
+					m4 \
+					src/launcher \
+					src/launcher2
 
 EXTRA_DIST = TODO  
 

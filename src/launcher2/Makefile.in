@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-SOURCES = $(bomnslauncher_SOURCES)
+SOURCES = $(bomnslauncher2_SOURCES)
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -39,8 +39,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-@BUILD_LAUNCHER1_TRUE@bin_PROGRAMS = bomnslauncher$(EXEEXT)
-subdir = src/launcher
+@BUILD_LAUNCHER2_TRUE@bin_PROGRAMS = bomnslauncher2$(EXEEXT)
+subdir = src/launcher2
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/sdl.m4 \
@@ -53,10 +53,10 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_bomnslauncher_OBJECTS = callbacks.$(OBJEXT) interface.$(OBJEXT) \
-	main.$(OBJEXT) support.$(OBJEXT)
-bomnslauncher_OBJECTS = $(am_bomnslauncher_OBJECTS)
-bomnslauncher_LDADD = $(LDADD)
+am_bomnslauncher2_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
+	interface.$(OBJEXT) callbacks.$(OBJEXT)
+bomnslauncher2_OBJECTS = $(am_bomnslauncher2_OBJECTS)
+bomnslauncher2_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -64,8 +64,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(bomnslauncher_SOURCES)
-DIST_SOURCES = $(bomnslauncher_SOURCES)
+SOURCES = $(bomnslauncher2_SOURCES)
+DIST_SOURCES = $(bomnslauncher2_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -171,18 +171,17 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-bomnslauncher_SOURCES = \
-  callbacks.c \
-  interface.c \
-  main.c \
-  support.c
+bomnslauncher2_SOURCES = \
+	main.c \
+	support.c support.h \
+	interface.c interface.h \
+	callbacks.c callbacks.h
 
-@BUILD_LAUNCHER1_TRUE@INCLUDES = `gtk-config --cflags`
-@BUILD_LAUNCHER1_TRUE@bomnslauncher_LDFLAGS = `gtk-config --libs`
+@BUILD_LAUNCHER2_TRUE@INCLUDES = @PACKAGE_CFLAGS@
+@BUILD_LAUNCHER2_TRUE@bomnslauncher2_LDADD = @PACKAGE_LIBS@
 EXTRA_DIST = \
-  callbacks.h \
-  interface.h \
-  support.h
+	bomnslauncher2.glade \
+	bomnslauncher2.gladep
 
 all: all-am
 
@@ -197,9 +196,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/launcher/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/launcher2/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/launcher/Makefile
+	  $(AUTOMAKE) --gnu  src/launcher2/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -240,9 +239,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-bomnslauncher$(EXEEXT): $(bomnslauncher_OBJECTS) $(bomnslauncher_DEPENDENCIES) 
-	@rm -f bomnslauncher$(EXEEXT)
-	$(LINK) $(bomnslauncher_LDFLAGS) $(bomnslauncher_OBJECTS) $(bomnslauncher_LDADD) $(LIBS)
+bomnslauncher2$(EXEEXT): $(bomnslauncher2_OBJECTS) $(bomnslauncher2_DEPENDENCIES) 
+	@rm -f bomnslauncher2$(EXEEXT)
+	$(LINK) $(bomnslauncher2_LDFLAGS) $(bomnslauncher2_OBJECTS) $(bomnslauncher2_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

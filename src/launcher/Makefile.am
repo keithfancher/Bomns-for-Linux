@@ -5,7 +5,7 @@ bomnslauncher_SOURCES = \
   support.c
 
 # Build the launcher?
-if BUILD_LAUNCHER
+if BUILD_LAUNCHER1
 
 bin_PROGRAMS = bomnslauncher
 
