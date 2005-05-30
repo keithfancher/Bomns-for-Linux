@@ -73,6 +73,7 @@ AM_CONDITIONAL(BUILD_LAUNCHER2, test "x$build_launcher2" = xyes)
 AC_OUTPUT( 
            Makefile \
            src/Makefile \
+           src/editor/Makefile \
            src/launcher/Makefile \
            src/launcher2/Makefile \
            graphics/Makefile \

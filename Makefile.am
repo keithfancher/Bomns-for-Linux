@@ -1,8 +1,9 @@
-SUBDIRS = src \
-          graphics \
-          sounds \
+SUBDIRS = graphics \
 					levels \
 					m4 \
+          sounds \
+					src \
+					src/editor \
 					src/launcher \
 					src/launcher2
 
