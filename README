@@ -1,88 +1,151 @@
  ------------------------ 
 | Bomns for Linux README |
  ------------------------
-  by Keith Fancher  <discostoo at users.sourceforge.net>
+
+Keith T. Fancher 
+<discostoo at users.sourceforge.net>
+http://greenridge.sourceforge.net
 
 
-Intro
------
-For a while Bomns, the single greatest game to ever grace a computer,
-was confined to people who had DOS and Windows.  Enter me.  I realized
-that there are a lot of people out there who have Linux, and that they
-NEEDED to play Bomns.  I realize that most Linux users have a Windows
-partition somewhere, and they could easily boot into Windows if they
-really wanted to play Bomns.  I also realize that's more trouble than
-it's worth.  I bring them Bomns for Linux, thus eliminating the need to
-boot into Windows, and increasing the chances that somebody'll actaully
-play it.  The first thing you should do after seeing if BfL crashes your 
-computer is to head over to bomns.sourceforge.net where the rest of the 
-Bomns games are.  I personally recommend Bomns^2, as it's my favorite of 
-the bunch so far, however I have a feeling that'll change if Charles Lindsay 
-(the original Bomns pimp) would hurry the Christ up and finish DXBomns.
 
-NOTE: A new DXBomns was just released, head over to bomns.sourceforge.net
-      and check it out.  It's definitely awesome.
+Intro/What the Hell is Bomns?
+-----------------------------
+Bomns (the bomb with an 'n') was originally a DOS game programmed by Charles
+Lindsay in 1998, which immediately took the world by storm.  Its simplistic
+deathmatch style gameplay achieved that oft-discussed but almost ne'er reached
+level of video game perfection.  It was fun, it was addictive, and it was
+freely available.  Of course even the greatest video game experiences can be
+worn by the passage of time, and Bomns was no exception.  After a couple of
+years people stopped talking about it, new games came out, and Charles wasn't
+the celebrity he once was.  He turned to alcohol and drugs to soothe his pain,
+and before long became a shiftless addict, slumming through life an injection
+at a time.  It was around this time he met me (Keith Fancher), and we began to
+develop a friendship.  We spent our nights drinking, snorting coke, dropping
+cinderblocks on cars from overpasses, engaging in acts of listless sodomy, and
+talking about the glory days.  In was during one of these crazy nights we got
+an incredible idea: to collaborate on a sequel to Bomns.  Bomns^2 (that's
+Bomns Squared), as it would come to be called, would be even more
+revolutionary than the original.  We toyed with different game concepts, and
+out of our brainstorming sessions Bomns gameplay staples like warps, health,
+and punching the other player were born.  In perhaps a week of furious
+programming we had realized our vision: the ultimate Bomns experience.
+Charles was back from the gutter, and he brought me with him.  We rode this
+wave of success for a while, but the next incarnation of Bomns was never far
+from either of our minds.  We experimented with different platforms and
+gameplay ideas, but for a while nothing of interest happened in the Bomns
+world.  Then suddenly, in 2002, out of NOWHERE, it came: DXBomns.  This was
+Charles' solo project, programming a version of Bomns using DirectX.  It was,
+to quote Charles himself, "awesome in just about every respect."
+Revolutionary gameplay aspects like breakable walls and up to 4 player support
+made this one an instant classic.  For a few months prior to this monumental
+event in gaming history, I had been expermimenting with the Linux operating
+system, and I decided that the Linux users of the world had a right--no, a
+need--to play Bomns, and experience the joy.  I then began to work on what you
+are about to play: Bomns for Linux.  It brings the spirit of Bomns^2 to the
+Linux world, with a few modern conveniences thrown in to boot.  Prepare
+yourself.
+
 
 
 System Requirements
 -------------------
-- Linux (although now it'll probably compile on other unices as well)
+- Linux, or some POSIX environment... I've only tested it on Linux
 - SDL - get the latest version at www.libsdl.org
-- SDL mixer - get the latest version at www.libsdl.org/projects/SDL_mixer/  
-- GTK+ 1.2 - for the launcher, if you don't use the launcher
-  then you don't need it (but you should use it)
-- The header files for those libraries if you're compiling (obviously)
-- Another person
-- Umm, a keyboard?
+- SDL_mixer - get the latest version at www.libsdl.org/projects/SDL_mixer/
+- GTK - you'll need GTK2 for the newest launcher, although there is a GTK
+  1.2.x version of the launcher you can use
+- The header files for those libraries
+
 
 
 Installation
 ------------
-Bomns for Linux just has a regular ol' GNU installation.  Read the
-file "INSTALL" for full details, but basically it boils down to:
+Bomns for Linux has a regular GNU installation.  Read the file "INSTALL" for
+the full details, but basically it boils down to:
 
   ./configure
   make
   make install
 
-This will install a "bomns" binary and a "launcher" binary, and of course all 
-the bomns data.  To disable the building of the launcher, just pass the option
---disable-launcher to the configure script (new to version 0.97).
+This, by default, will build and install "bomns" (the main game), "bomnsedit"
+(the level editor), and "bomnslauncher2" (the GTK2 game launcher).  You can
+change what's built by passing some of the following arguments to the
+configure script:
+
+  --enable-launcher1   (build the GTK 1.2 launcher, which sucks)
+  --disable-launcher2  (don't build the GTK2 launcher)
+  --disable-editor     (don't build the level editor)
+
+The default installation should be fine for most people.
 
 
-Note on Sound
--------------
-The sound is pretty (really) new, so it might be kind of buggy.  I'd like
-everybody to at least try and to report any bugs or incompatibilities,
-but if you really just can't stand it any longer you can just turn it off.  
-I know the sounds aren't anything spectacular, but please at least try them 
-so I can figure out what bugs there are.  I'm not too confident about my 
-SDL_mixer skills at this point.
+
+Playing Bomns for Linux
+-----------------------
+The gameplay of Bomns for Linux is quite simple: just move around the level,
+picking up powerups and avoiding powerdowns, all the while laying bomns and
+plotting your opponent's desctruction.  A bomn will do 5 damage to the other
+player player, and running into them will do 1 damage.  The first to kill
+their opponent before the time runs out is declared the winner.
+
+Player one controls:
+  Move      : arrow keys
+  Drop Bomn : enter
+
+Player two controls:
+  Move      : w,a,s,d
+  Drop Bomn : spacebar
+
+Other controls:
+  Enter/exit fullscreen mode: f
 
 
-Playing
--------
-Bomns is pretty simple, just use arrows for first player, 'wasd' for
-second player.  Player 1 lays a bomb with enter, and player 2 lays
-a bomb with spacebar.  Oh yeah, and 'f' switches from windowed to
-fullscreen mode and the other way around.  Fullscreen is better.  Just 
-type "bomns" and you're ready to rock.  Now there's also an optional
-timer, it works pretty much like the timer in any standard fighting
-game.  If the time ends before anybody's dead, whoever has the most life
-wins.  If both players have the same life, it's a tie.  I've grown to like
-it, but if you don't then just disable it.
+
+Configuring Bomns for Linux
+---------------------------
+Bomns reads its configuration from a file called "~/.bomnsrc", which will be
+created the first time you run the game.  This is a simple text file, fairly
+well-commented, and it can be easily edited.  Of course this should never be
+necessary, because you can just use the launcher, as described below.
 
 
-Configuring
------------
-The first time you start Bomns for Linux, a file called "~/.bomnsrc" will
-be created.  You can open this up in any text editor and change the
-values inside for a bit more customization.  You'll figure it out.  Of 
-course you really don't HAVE to figure it out, that's what the launcher
-is for.
+
+Using the Bomns for Linux Launcher
+----------------------------------
+The launcher is what you can use to customize your Bomns playing experience.
+There are several values you can change, and most of them are self-explanatory
+(and tooltipped, at that).  Some things to note: in the "Game Settings"
+section there is a text entry box where you can either type in a level file
+to play, or open a file selection dialog to choose the level to load.  This
+will only have an effect if you choose to "Load Level From File", as opposed
+to "Generate Random Level".  Also: if you choose to "Load Level From File", but
+fail to choose a level file to load, Bomns will just generate a random level.
+Clicking on the "Editor" button will launch the level editor, using the level
+file name specified in the text box, or if that is empty, "default.lvl" in the
+current directory.
 
 
-- Keith Fancher
-  <discostoo at users.sourceforge.net>
-  greenridge.sourceforge.net
 
+Using the Level Editor
+----------------------
+The Bomns for Linux level editor is a fairly simple tool you can use to create
+your own custom levels in which to play.  Use the keyboard or mouse to create
+a level, then press F2 to save it to the filename specified either on the
+command line, or with the launcher.  The most crucial keyboard commands are
+layed out on the bottom of the editor screen, but here are the full controls:
+
+Keyboard Controls:
+  Move cursor         : arrow keys
+  Stamp tile          : s, spacebar, enter
+  Delete tile         : d, delete
+  Next tile           : page up
+  Previous tile       : page down
+  Test level in Bomns : l
+  Fullscreen mode     : f
+
+Mouse Controls:
+  Move cursor   : mouse
+  Stamp tile    : left click
+  Delete tile   : right click
+  Next tile     : mouse wheel up
+  Previous tile : mouse wheel down

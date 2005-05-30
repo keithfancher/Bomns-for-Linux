@@ -111,7 +111,7 @@ int main(int argc, char * argv[])
   }
   
 
-	fprintf(stderr, "\n----------------------\nBomns for Linux v%s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
+	fprintf(stderr, "\n----------------------\nBomns for Linux %s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
   
   fprintf(stderr, "Loading settings in config file... ");
 	if(!LoadConfigFile())
@@ -178,7 +178,9 @@ int main(int argc, char * argv[])
   }
   
 	fprintf(stderr, "Setting video mode to 800x600... ");
-	SDL_WM_SetCaption("Bomns for Linux", "Bomns for Linux");
+  char szCaptionText[25] = {0};
+  sprintf(szCaptionText, "Bomns for Linux %s", VERSION);
+	SDL_WM_SetCaption(szCaptionText, szCaptionText);
 	if(g_bFullScreen)
 		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
 	else

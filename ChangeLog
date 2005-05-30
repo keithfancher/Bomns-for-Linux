@@ -4,6 +4,7 @@
 
 - Changes for 0.99:
 -bomns
+	* Display version string in window caption
 	* Now the filename variable for the level is 512 characters instead of the
 		previous 80, which makes much more sense considering there might also be
 		an entire path, not just the filename.
@@ -22,12 +23,15 @@
 		executable is in your path, obviously.  Also note that this will
 		automatically save the level before it launches (it has to), so make sure
 		you're not doing some un-changable thing before you launch.
+	* If you don't want bomnsedit built, pass --disable-editor to ./configure
 
 -bomnslauncher
-	* Now there is a MUCH better launcher, built with GTK2.  The original
-		launcher still exists, if for some reason you want to use it.  It's in
-		src/launcher and the new one is in src/launcher2.  Do yourself a favor and
-		use the new one, seriously.
+	* Now there is a MUCH better launcher, built with GTK2, which is compiled by
+		default.  The original launcher still exists, if for some reason you want
+		to use it.  It's not compiled by default, however, you have to use the
+		./configure option --enable-launcher1 to build it.
+	* If you don't want the new launcher built, pass --disable-launcher2 to the
+		./configure script
 	
 
 - Changes for 0.98:
