@@ -1,4 +1,3 @@
-bin_PROGRAMS = bomnsedit
 
 bomnsedit_SOURCES = \
 	cursor.cpp \
@@ -7,7 +6,14 @@ bomnsedit_SOURCES = \
 	level.cpp \
 	object.cpp
 
+# build the editor
+if BUILD_EDITOR
+
+bin_PROGRAMS = bomnsedit
+
 bomnsedit_LDADD = -lSDL
+
+endif
 
 EXTRA_DIST = \
 	cursor.h \

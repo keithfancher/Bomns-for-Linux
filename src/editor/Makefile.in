@@ -39,7 +39,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-bin_PROGRAMS = bomnsedit$(EXEEXT)
+@BUILD_EDITOR_TRUE@bin_PROGRAMS = bomnsedit$(EXEEXT)
 subdir = src/editor
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -78,6 +78,8 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BUILD_EDITOR_FALSE = @BUILD_EDITOR_FALSE@
+BUILD_EDITOR_TRUE = @BUILD_EDITOR_TRUE@
 BUILD_LAUNCHER1_FALSE = @BUILD_LAUNCHER1_FALSE@
 BUILD_LAUNCHER1_TRUE = @BUILD_LAUNCHER1_TRUE@
 BUILD_LAUNCHER2_FALSE = @BUILD_LAUNCHER2_FALSE@
@@ -179,7 +181,7 @@ bomnsedit_SOURCES = \
 	level.cpp \
 	object.cpp
 
-bomnsedit_LDADD = -lSDL
+@BUILD_EDITOR_TRUE@bomnsedit_LDADD = -lSDL
 EXTRA_DIST = \
 	cursor.h \
 	editor.h \

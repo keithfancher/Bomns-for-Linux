@@ -17,9 +17,11 @@ AC_PROG_CXX
 
 
 # Allow for --disable'ing the launcher
-AC_ARG_ENABLE(launcher1, [  --disable-launcher1     Skip building the GTK+ 1.2.x launcher], build_launcher1="$enableval", build_launcher1="yes")
+AC_ARG_ENABLE(launcher1, [  --enable-launcher1      Build the GTK+ 1.2.x launcher (default = no)], build_launcher1="$enableval", build_launcher1="no")
 
 AC_ARG_ENABLE(launcher2, [  --disable-launcher2     Skip building the GTK2 launcher], build_launcher2="$enableval", build_launcher2="yes")
+
+AC_ARG_ENABLE(editor,    [  --disable-editor        Don't build the (awesome) bomns level editor], build_editor="$enableval", build_editor="yes")
 
 
 # Check for SDL
@@ -68,6 +70,7 @@ AC_DEFINE_UNQUOTED(DATA_PATH, "${prefix}/share/bomns")
 # Do substitutions
 AM_CONDITIONAL(BUILD_LAUNCHER1, test "x$build_launcher1" = xyes)
 AM_CONDITIONAL(BUILD_LAUNCHER2, test "x$build_launcher2" = xyes)
+AM_CONDITIONAL(BUILD_EDITOR, test "x$build_editor" = xyes)
 
 
 AC_OUTPUT( 
