@@ -670,9 +670,10 @@ void LoadSounds()
 
 int Intro()
 {
+  /*
 	SDL_Surface * psdlsTux = SDL_LoadBMP(LoadResource("tux.bmp", RESOURCE_GRAPHIC));
   if(!psdlsTux)
-	  return RET_ERROR;
+	  return RET_ERROR; */
 	
 	g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
 	if(!g_psdlsIntro)
@@ -703,6 +704,7 @@ int Intro()
 		if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
 		  return FALSE;
 		
+    /*
 		SDL_Rect rcDest = {270, 197, 266, 350};
 	  SDL_Rect rcSrc  = {0, 0, 560, 211};
 		if(SDL_BlitSurface(psdlsTux, NULL, g_psdlsScreen, &rcDest) < 0)
@@ -712,8 +714,12 @@ int Intro()
 		if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
 		  return RET_ERROR;
 		SetRect(&rcDest, 150, 554, 500, 50);
-		SetRect(&rcSrc, 35, 186, 500, 50);
+		SetRect(&rcSrc, 35, 186, 500, 50); */
+
+    /*
 		if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
+		  return FALSE; */
+		if(SDL_BlitSurface(g_psdlsIntro, NULL, g_psdlsScreen, NULL) < 0)
 		  return FALSE;
 		
 		SDL_Flip(g_psdlsScreen);
