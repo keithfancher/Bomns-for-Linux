@@ -680,8 +680,8 @@ int Intro()
 	g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
 	if(!g_psdlsIntro)
 	  return RET_ERROR;
-	if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
-		return RET_ERROR;
+//	if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
+//		return RET_ERROR;
 	
 
 	bool bDone = FALSE;
