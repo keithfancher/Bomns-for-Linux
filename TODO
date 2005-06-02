@@ -19,6 +19,8 @@ done  * press something (L?) to launch level in bomns for testing
   
 done -> GTK2 launcher, and the ability to choose which is compiled
 
+-> Move entire HUD a few pixels to the right to make everything more centered
+
 -> Eventually do away w/ separate launcher altogether, configure in-game (fuck this, I think)
 
 -> Make timer text non-red (yellow?)
@@ -29,4 +31,5 @@ done -> GTK2 launcher, and the ability to choose which is compiled
 
 -> Add ability to remap keys
 
--> Music of some sort?  midi, but midi support on linux is retarded...
+-> Music of some sort?  Midi, but midi support on linux is retarded, and why wouldn't you just play
+   an MP3 or CD of your OWN while playing, instead of some retarded-ass midi?  Fuck this too.

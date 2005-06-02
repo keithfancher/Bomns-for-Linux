@@ -389,7 +389,8 @@ int main(int argc, char * argv[])
         g_nGameTimeLeft = g_nGameTime - ( (int)((SDL_GetTicks() - g_dwGameTimer) / 1000) );
         if(g_nGameTimeLeft <= 0)
           g_nGameTimeLeft = 0;
-        DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
+//        DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
+        DrawNum(g_nGameTimeLeft, 392, 584, g_psdlsScreen, RED, TRUE);
       }
 
       // Draw the framerate
