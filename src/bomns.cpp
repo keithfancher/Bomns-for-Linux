@@ -156,10 +156,11 @@ int main(int argc, char * argv[])
     }
     fprintf(stderr, "Success!\n");
 
-    fprintf(stderr, "Setting audio mode @ 8-bit 11025 Hz... ");
-    if (Mix_OpenAudio(11025, AUDIO_U8, 1, 512) < 0) 
+    fprintf(stderr, "Setting audio mode @ mono 16-bit 22050 Hz... ");
+//    if (Mix_OpenAudio(11025, AUDIO_U8, 1, 512) < 0) 
+    if(Mix_OpenAudio(22050, AUDIO_S16SYS, 1, 1024) < 0)
     {
-	  	fprintf(stderr, "Warning: Couldn't set 11025 Hz 8-bit audio\n- Reason: %s\n", SDL_GetError());
+	  	fprintf(stderr, "Warning: Couldn't set 22050 Hz 16-bit mono audio\n- Reason: %s\n", SDL_GetError());
       g_bSound = FALSE;    
 	  }
     else
