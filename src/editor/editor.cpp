@@ -142,9 +142,17 @@ int main(int argc, char ** argv)
               fprintf(stderr, "Error writing level to: %s\n", szFilename);
             else
               fprintf(stderr, "Level written successfully to: %s\n", szFilename);
+
+            // can't do this while editor is in fullscreen without a pretty big crash
+            if(nVideoMode == MODE_FULLSCREEN) // not changing the nVideoMode variable so down there...
+              SetVideoMode(psdlsScreen, MODE_WINDOWED);
+            
             fprintf(stderr, "Launching level in bomns...\n");
             system(szTmp);
             fprintf(stderr, "Back to editing!\n");
+            
+            if(nVideoMode == MODE_FULLSCREEN)  // ...we can just read it again and change accordingly
+              SetVideoMode(psdlsScreen, nVideoMode);
             break;
 
           case SDLK_F2:

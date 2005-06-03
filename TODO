@@ -5,10 +5,10 @@
 -> Level editor
   * editor cursor sprite, a yellow outline of the tile, just to distinguish
   * number keys select tiles, quicker than scrolling
-  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
   * have a custom levels section on the website?
   * middle click toggles grid
 
+done  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
 done  * bomnsedit <some.lvl>
 done  * load a text file, so it's editable w/out the editor
 done  * add LoadFromFile() to level.*
