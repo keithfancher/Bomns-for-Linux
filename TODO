@@ -3,11 +3,12 @@
  ---------------------------
 
 -> Level editor
-  * editor cursor sprite, a yellow outline of the tile, just to distinguish
+  * press a button to clear the level (c?)
   * number keys select tiles, quicker than scrolling
   * have a custom levels section on the website? (this is dumb, I think)
   * middle click toggles grid
 
+done  * editor cursor sprite, a purple outline of the tile, just to distinguish
 done  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
 done  * bomnsedit <some.lvl>
 done  * load a text file, so it's editable w/out the editor

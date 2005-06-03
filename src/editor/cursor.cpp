@@ -3,6 +3,7 @@
 #include "object.h"
 #include "level.h"
 #include "cursor.h"
+#include "editor.h"
 
 
 Cursor::Cursor(int initXLevelPos, int initYLevelPos)
@@ -25,6 +26,13 @@ Cursor::Cursor(int initXLevelPos, int initYLevelPos)
   currentObject = 0;
 
   apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
+
+  psdlsCursorBorder = SDL_LoadBMP(LoadResource("editor_cursor.bmp", RESOURCE_GRAPHIC));
+  if(!psdlsCursorBorder)
+    QuitWithError("Error creating surface for editor_cursor.bmp!\n");
+  if(SDL_SetColorKey(psdlsCursorBorder, SDL_SRCCOLORKEY, 0) < 0)
+    QuitWithError("Error setting color key for psdlsCursorBorder!\n");
+
 }
 
 void Cursor::MoveUp()
@@ -94,6 +102,11 @@ void Cursor::BackwardObject()
 
 bool Cursor::DrawCursor(SDL_Surface * sdlsSurface)
 {
+  // draw the cursor border
+  SDL_Rect rcDest = {xScreenPos - 3, yScreenPos - 3, 16, 16};
+  if(SDL_BlitSurface(psdlsCursorBorder, NULL, sdlsSurface, &rcDest) < 0)
+    return false;
+  
   if(!apobjObjects[currentObject]->BlitToSurface(sdlsSurface))
     return false;
   return true;

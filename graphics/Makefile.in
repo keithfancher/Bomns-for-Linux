@@ -164,6 +164,7 @@ target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
 EXTRA_DIST = \
+  editor_cursor.bmp \
   editor_hud.bmp \
   font.bmp \
   hud.bmp \
@@ -175,6 +176,7 @@ EXTRA_DIST = \
 
 graphicsdir = $(prefix)/share/bomns/graphics
 graphics_DATA = \
+	editor_cursor.bmp \
   editor_hud.bmp \
   font.bmp \
   hud.bmp \

@@ -26,6 +26,8 @@ class Cursor
     int xScreenPos;
     int yScreenPos;
 
+    SDL_Surface * psdlsCursorBorder;
+
     Object * apobjObjects[NUM_OBJECTS];
     int currentObject;
 };
