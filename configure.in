@@ -85,7 +85,27 @@ AC_OUTPUT(
            levels/Makefile
          )
 
-# Tell 'em what's what
+
+# do this better later, don't feel like screwing with it now
+echo
+if test "x$build_launcher1" = xyes; then
+  echo "Building GTK+ 1.2.x launcher : yes"
+else
+  echo "Building GTK+ 1.2.x launcher : no"
+fi
+
+if test "x$build_launcher2" = xyes; then
+  echo "Building GTK2 launcher       : yes"
+else
+  echo "Building GTK2 launcher       : no"
+fi
+
+if test "x$build_editor" = xyes; then
+  echo "Building level editor        : yes"
+else
+  echo "Building level editor        : no"
+fi
+
 echo
 echo "Now type \"make\" to compile Bomns for Linux, then \"make install\""
 echo "(as root) to install it.  Then play, dammit!"

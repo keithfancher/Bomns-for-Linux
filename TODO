@@ -5,8 +5,10 @@
 -> Level editor
   * editor cursor sprite, a yellow outline of the tile, just to distinguish
   * number keys select tiles, quicker than scrolling
+  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
   * have a custom levels section on the website?
   * middle click toggles grid
+
 done  * bomnsedit <some.lvl>
 done  * load a text file, so it's editable w/out the editor
 done  * add LoadFromFile() to level.*
@@ -17,12 +19,14 @@ done  * needlessly object oriented... not sure if creating and destroying Object
         or slow, but since it's not the actual GAME, it shouldn't matter, and I want to experiment.
 done  * cursor has array of one of every object, and a current index of what kind to use
 done  * press something (L?) to launch level in bomns for testing
+
   
 done -> GTK2 launcher, and the ability to choose which is compiled
 
--> Much more ominous beginning sound need, something like KIIIIIIIIILLL (growling)
+done -> Much more ominous beginning sound need, something like KIIIIIIIIILLL (growling)
 
--> Change autoconf stuff so at the end of ./configure it tells you what is and isn't being built
+done -> Change autoconf stuff so at the end of ./configure it tells you what is and isn't being built
+
 
 -> Move entire HUD a few pixels to the right to make everything more centered
 
