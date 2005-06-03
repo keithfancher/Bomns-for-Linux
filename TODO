@@ -5,7 +5,7 @@
 -> Level editor
   * editor cursor sprite, a yellow outline of the tile, just to distinguish
   * number keys select tiles, quicker than scrolling
-  * have a custom levels section on the website?
+  * have a custom levels section on the website? (this is dumb, I think)
   * middle click toggles grid
 
 done  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
