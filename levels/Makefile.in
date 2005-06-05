@@ -163,9 +163,19 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-EXTRA_DIST = test.lvl
+EXTRA_DIST = \
+	faceoff.lvl \
+	killyou.lvl \
+	narrow.lvl \
+	test.lvl
+
 levelsdir = $(prefix)/share/bomns/levels
-levels_DATA = test.lvl
+levels_DATA = \
+	faceoff.lvl \
+	killyou.lvl \
+	narrow.lvl \
+	test.lvl
+
 all: all-am
 
 .SUFFIXES:

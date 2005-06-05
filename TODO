@@ -28,6 +28,9 @@ done -> Much more ominous beginning sound need, something like KIIIIIIIIILLL (gr
 
 done -> Change autoconf stuff so at the end of ./configure it tells you what is and isn't being built
 
+-> GOOD IDEA: have a random chance every once in a while for a scary wav to play, like in b+w
+   (backwards talking, kill whispering, et cetera)
+   -> maybe just a random beginning noise for now
 
 -> Move entire HUD a few pixels to the right to make everything more centered
 
