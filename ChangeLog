@@ -5,6 +5,8 @@
 - Changes for 0.99:
 -bomns
 	* Display version string in window caption
+	* 20 fps increase!  Now running at at least 60 fps all the time (on my
+		machine)
 	* Newer better (but bigger) intro screen.  The increased size is well worth
 		it.
 	* Much better bomn sprite AND pre-explosion number animation

@@ -55,6 +55,7 @@ void SetRect(SDL_Rect *, int, int, int, int);
 void ProcInput(SDLKey);
 bool DrawNum(int, int, int, SDL_Surface *, int, bool = FALSE);
 void LoadSounds();
+SDL_Surface * LoadImage(const char *);
 int  Intro();
 void Shutdown();
 void SwitchMode();

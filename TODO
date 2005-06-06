@@ -12,7 +12,7 @@
   * Move entire HUD a few pixels to the right to make everything more centered
   * Make timer font monospaced, would make the new HUD come together better probably
   * Make timer text non-red (yellow?)
-  * Increase framerates (improve DrawLevel() function?)
+  * Increase framerates (improve DrawLevel() function?) -- they're pretty good now, perhaps this is done
   * Network play! (using SDL_net?)
   * Add ability to remap keys (use the SDL_whatever in the config, make another dialog for the
     launcher with drop down boxes for the various controls)

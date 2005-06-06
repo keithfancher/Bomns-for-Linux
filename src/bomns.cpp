@@ -219,7 +219,8 @@ int main(int argc, char * argv[])
     //############################################################
 
 		fprintf(stderr, "Loading fonts... ");
-		g_psdlsFont = SDL_LoadBMP(LoadResource("font.bmp", RESOURCE_GRAPHIC));
+    g_psdlsFont = LoadImage("font.bmp");
+//		g_psdlsFont = SDL_LoadBMP(LoadResource("font.bmp", RESOURCE_GRAPHIC));
 		if(!g_psdlsFont)
 		{
 			QuitWithError("Unable to load graphics/font.bmp!\n");
@@ -231,7 +232,8 @@ int main(int argc, char * argv[])
 		fprintf(stderr, "Success!\n");
 
 		fprintf(stderr, "Loading win dialog box... ");
-		g_psdlsWinDialog = SDL_LoadBMP(LoadResource("winscreen.bmp", RESOURCE_GRAPHIC));
+    g_psdlsWinDialog = LoadImage("winscreen.bmp");
+//		g_psdlsWinDialog = SDL_LoadBMP(LoadResource("winscreen.bmp", RESOURCE_GRAPHIC));
 		if(!g_psdlsWinDialog)
 		{
 			QuitWithError("Unable to load file \"graphics/winscreen.bmp\"\n");
@@ -239,8 +241,10 @@ int main(int argc, char * argv[])
 		fprintf(stderr, "Success!\n");
 
 		fprintf(stderr, "Loading level... ");
-		g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
-		g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
+    g_psdlsHUD = LoadImage("hud.bmp");
+    g_psdlsObjects = LoadImage("objects.bmp");
+//		g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
+//		g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
 		if(!g_psdlsHUD || !g_psdlsObjects)
 		{
 			QuitWithError("Failed!\n");
@@ -267,7 +271,8 @@ int main(int argc, char * argv[])
     }
 		
 		fprintf(stderr, "Loading players surface into memory... ");
-		g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
+    g_psdlsPlayers = LoadImage("players.bmp");
+//		g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
 		if(!g_psdlsPlayers)
 		{
 			QuitWithError("Failed! Couldn't load file \"graphics/players.bmp\"\n");
@@ -680,12 +685,24 @@ void LoadSounds()
     g_amcBegin[4] = Mix_LoadWAV(LoadResource("begin5.wav", RESOURCE_SOUND)); */
     
     char szTmp[8] = {0};
-    for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)
+    for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)  // load the beginning sounds into their arrray
     {
       sprintf(szTmp, "begin%d.wav", i+1);
       g_amcBegin[i] = Mix_LoadWAV(LoadResource(szTmp, RESOURCE_SOUND));
     }
   }
+}
+
+// loads the image on to the surface, but converts it (testing for higher fps)
+SDL_Surface * LoadImage(const char * cszFile)
+{
+  SDL_Surface * tmp = NULL;
+  SDL_Surface * ret = NULL;
+
+  tmp = SDL_LoadBMP(LoadResource(cszFile, RESOURCE_GRAPHIC));
+  ret = SDL_DisplayFormat(tmp);
+  SDL_FreeSurface(tmp);
+  return ret;
 }
 
 int Intro()
@@ -695,7 +712,8 @@ int Intro()
   if(!psdlsTux)
 	  return RET_ERROR; */
 	
-	g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
+  g_psdlsIntro = LoadImage("intro.bmp");
+//	g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
 	if(!g_psdlsIntro)
 	  return RET_ERROR;
 //	if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
