@@ -79,7 +79,8 @@ bool CPlayer::Init(int nXStart, int nYStart)
 	m_dwBomnTime = 0;
   
   // don't know if I should check for NULLs or not
-  m_mcOw = Mix_LoadWAV((m_nPlayer == PLAYER_ONE ? LoadResource("ow1.wav", RESOURCE_SOUND) : LoadResource("ow2.wav", RESOURCE_SOUND)));
+//  m_mcOw = Mix_LoadWAV((m_nPlayer == PLAYER_ONE ? LoadResource("ow1.wav", RESOURCE_SOUND) : LoadResource("ow2.wav", RESOURCE_SOUND)));
+  m_mcOw = Mix_LoadWAV(LoadResource("hurt.wav", RESOURCE_SOUND));
   m_mcBeep = Mix_LoadWAV(LoadResource("beep.wav", RESOURCE_SOUND));
   m_mcWarp = Mix_LoadWAV(LoadResource("warp.wav", RESOURCE_SOUND));
   m_mcInvulnerable = Mix_LoadWAV(LoadResource("invulnerable.wav", RESOURCE_SOUND));

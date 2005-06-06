@@ -26,7 +26,6 @@
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
   g_object_set_data (G_OBJECT (component), name, widget)
 
-
 GtkWidget*
 create_bfl_launcher_dialog (void)
 {
@@ -328,7 +327,7 @@ create_bfl_launcher_dialog (void)
   matchtime_spinner = gtk_spin_button_new (GTK_ADJUSTMENT (matchtime_spinner_adj), 1, 0);
   gtk_widget_show (matchtime_spinner);
   gtk_box_pack_start (GTK_BOX (hbox3), matchtime_spinner, TRUE, TRUE, 0);
-  gtk_tooltips_set_tip (tooltips, matchtime_spinner, "Time for the match (in seconds)", NULL);
+  gtk_tooltips_set_tip (tooltips, matchtime_spinner, "Time for the match (in seconds).  Enter 0 for unlimited time.", NULL);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (matchtime_spinner), TRUE);
 
   matchsettings_frame_label = gtk_label_new ("<b>Match Settings</b>");

@@ -98,6 +98,7 @@ Player two controls:
 
 Other controls:
   Enter/exit fullscreen mode: f
+  Quit current game         : escape
 
 
 
@@ -142,6 +143,8 @@ Keyboard Controls:
   Previous tile       : page down
   Test level in Bomns : l
   Fullscreen mode     : f
+  Save level          : F2
+  Exit editor         : escape
 
 Mouse Controls:
   Move cursor   : mouse
@@ -149,3 +152,5 @@ Mouse Controls:
   Delete tile   : right click
   Next tile     : mouse wheel up
   Previous tile : mouse wheel down
+
+Enjoy!

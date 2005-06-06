@@ -32,6 +32,8 @@
 #include "config.h"
 
 
+#define NUM_BEGIN_SOUNDS 6 // change this to the number of sounds for the beginning wav
+
 extern bool g_bFullScreen;
 extern bool g_bSound;
 extern bool g_bShowFps;
@@ -54,11 +56,12 @@ SDL_Surface * g_psdlsWinDialog = NULL;
 SDL_Surface * g_psdlsObjects   = NULL;
 SDL_Surface * g_psdlsHUD       = NULL;
 
-Mix_Chunk   * g_mcExplosion    = NULL;   //Explosion noise
+Mix_Chunk   * g_mcExplosion    = NULL;   // Explosion noise
 Mix_Chunk   * g_mcWinner       = NULL;   //Game ends (needed a bit more BANG)
-Mix_Chunk   * g_mcBegin        = NULL;   //When match starts
+//Mix_Chunk   * g_mcBegin        = NULL;   // When match starts
+Mix_Chunk   * g_amcBegin[NUM_BEGIN_SOUNDS] = {NULL}; // change the size of this array to add more sounds
 
-bool          g_bExploding     = FALSE;  //Fixes keyboard bug, so we know when NOT to get input
+bool          g_bExploding     = FALSE;  // Fixes keyboard bug, so we know when NOT to get input
 
 
 CPlayer       g_Player1(PLAYER_ONE);
@@ -287,7 +290,9 @@ int main(int argc, char * argv[])
 		bool bDone = FALSE;
     
     //play beginning match sound
-    PlayWav(g_mcBegin);
+//    PlayWav(g_mcBegin);
+//    srand(time(NULL));
+    PlayWav(g_amcBegin[rand() % NUM_BEGIN_SOUNDS]);
     
 		while(!bDone)
 		{
@@ -666,7 +671,20 @@ void LoadSounds()
   {
     g_mcExplosion = Mix_LoadWAV(LoadResource("explosion.wav", RESOURCE_SOUND));
     g_mcWinner    = Mix_LoadWAV(LoadResource("winner.wav", RESOURCE_SOUND));
-    g_mcBegin     = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
+//    g_mcBegin     = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
+/*
+    g_amcBegin[0] = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
+    g_amcBegin[1] = Mix_LoadWAV(LoadResource("begin2.wav", RESOURCE_SOUND));
+    g_amcBegin[2] = Mix_LoadWAV(LoadResource("begin3.wav", RESOURCE_SOUND));
+    g_amcBegin[3] = Mix_LoadWAV(LoadResource("begin4.wav", RESOURCE_SOUND));
+    g_amcBegin[4] = Mix_LoadWAV(LoadResource("begin5.wav", RESOURCE_SOUND)); */
+    
+    char szTmp[8] = {0};
+    for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)
+    {
+      sprintf(szTmp, "begin%d.wav", i+1);
+      g_amcBegin[i] = Mix_LoadWAV(LoadResource(szTmp, RESOURCE_SOUND));
+    }
   }
 }
 
@@ -735,8 +753,15 @@ void Shutdown()
     Mix_FreeChunk(g_mcExplosion);
   if(g_mcWinner)
     Mix_FreeChunk(g_mcWinner);
-  if(g_mcBegin)
-    Mix_FreeChunk(g_mcBegin);
+  
+  for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)
+  {
+    if(g_amcBegin[i])
+      Mix_FreeChunk(g_amcBegin[i]);
+  }
+     
+//  if(g_mcBegin)
+//    Mix_FreeChunk(g_mcBegin);
     
   Mix_CloseAudio();
 	SDL_Quit();
@@ -764,7 +789,6 @@ int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 {
 	bool bDone = FALSE;
 
-  //This sound owns j00 (or so it would seem)
   PlayWav(g_mcWinner);
   
 	while(!bDone)

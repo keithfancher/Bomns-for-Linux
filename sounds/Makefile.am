@@ -1,20 +1,28 @@
 EXTRA_DIST = \
   beep.wav \
-  begin.wav \
+  begin1.wav \
+  begin2.wav \
+  begin3.wav \
+  begin4.wav \
+  begin5.wav \
+  begin6.wav \
   explosion.wav \
+	hurt.wav \
 	invulnerable.wav \
-  ow1.wav \
-  ow2.wav \
   warp.wav \
   winner.wav
 
 soundsdir = $(prefix)/share/bomns/sounds
 sounds_DATA = \
-  beep.wav \
-  begin.wav \
+	beep.wav \
+  begin1.wav \
+  begin2.wav \
+  begin3.wav \
+  begin4.wav \
+  begin5.wav \
+  begin6.wav \
   explosion.wav \
+	hurt.wav \
 	invulnerable.wav \
-  ow1.wav \
-  ow2.wav \
   warp.wav \
   winner.wav

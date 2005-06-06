@@ -6,45 +6,19 @@
   * press a button to clear the level (c?)
   * number keys select tiles, quicker than scrolling
   * have a custom levels section on the website? (this is dumb, I think)
-  * middle click toggles grid
+  * middle click toggles grid (I can't decide if this is dumb or not)
 
-done  * editor cursor sprite, a purple outline of the tile, just to distinguish
-done  * fix crash when launching bomns while editor is in fullscreen mode (just switch modes first?)
-done  * bomnsedit <some.lvl>
-done  * load a text file, so it's editable w/out the editor
-done  * add LoadFromFile() to level.*
-done  * bomnsedit compiles seperately
-done  * navigate with keyboard, choose tiles and p1/p2 start positions
-done  * mouse navigation, tile is cursor, left click for stamp, right for erase, wheel chooses tile
-done  * needlessly object oriented... not sure if creating and destroying Objects on the fly is fast
-        or slow, but since it's not the actual GAME, it shouldn't matter, and I want to experiment.
-done  * cursor has array of one of every object, and a current index of what kind to use
-done  * press something (L?) to launch level in bomns for testing
+-> Bomns
+  * have a random chance every once in a while for a scary wav to play, like in b+w
+  * Move entire HUD a few pixels to the right to make everything more centered
+  * Make timer font monospaced, would make the new HUD come together better probably
+  * Eventually do away w/ separate launcher altogether, configure in-game (fuck this, I think)
+  * Make timer text non-red (yellow?)
+  * Increase framerates (improve DrawLevel() function?)
+  * Network play! (using SDL_net?)
+  * Add ability to remap keys
+  * Music of some sort?  Midi, but midi support on linux is retarded, and why wouldn't you just play
+    an MP3 or CD of your OWN while playing, instead of some retarded-ass midi?  Fuck this too.
 
-  
-done -> GTK2 launcher, and the ability to choose which is compiled
-
-done -> Much more ominous beginning sound need, something like KIIIIIIIIILLL (growling)
-
-done -> Change autoconf stuff so at the end of ./configure it tells you what is and isn't being built
-
--> GOOD IDEA: have a random chance every once in a while for a scary wav to play, like in b+w
-   (backwards talking, kill whispering, et cetera)
-   -> maybe just a random beginning noise for now
-
--> Move entire HUD a few pixels to the right to make everything more centered
-
--> Make timer font monospaced, would make the new HUD come together better probably
-
--> Eventually do away w/ separate launcher altogether, configure in-game (fuck this, I think)
-
--> Make timer text non-red (yellow?)
-
--> Increase framerates (improve DrawLevel() function?)
-
--> Network play! (using SDL_net?)
-
--> Add ability to remap keys
-
--> Music of some sort?  Midi, but midi support on linux is retarded, and why wouldn't you just play
-   an MP3 or CD of your OWN while playing, instead of some retarded-ass midi?  Fuck this too.
+-> Launcher
+  * Nothing, really
