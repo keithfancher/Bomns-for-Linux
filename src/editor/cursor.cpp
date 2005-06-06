@@ -119,6 +119,18 @@ void Cursor::BackwardObject()
   apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
 }
 
+void Cursor::SelectObject(int nObjectNum)
+{
+  // some error checking
+  if(nObjectNum < 0)
+    nObjectNum = 0;
+  if(nObjectNum > NUM_OBJECTS - 1)
+    nObjectNum = NUM_OBJECTS - 1;
+
+  currentObject = nObjectNum;
+  apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
+}
+
 bool Cursor::DrawCursor(SDL_Surface * sdlsSurface)
 {
   // draw the cursor border

@@ -34,6 +34,7 @@ class Cursor
 
     void ForwardObject();
     void BackwardObject();
+    void SelectObject(int);  // a number 0-(NUM_OBJECTS-1) for the object
 
     bool DrawCursor(SDL_Surface *);
     void StampCurrentObject(Level *);

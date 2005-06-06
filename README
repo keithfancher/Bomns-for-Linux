@@ -141,9 +141,11 @@ Keyboard Controls:
   Delete tile         : d, delete
   Next tile           : page up
   Previous tile       : page down
+  Select tile         : 1-9
   Test level in Bomns : l
   Fullscreen mode     : f
   Save level          : F2
+  Clear level         : F12
   Exit editor         : escape
 
 Mouse Controls:

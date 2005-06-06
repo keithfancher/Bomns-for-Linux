@@ -3,20 +3,20 @@
  ---------------------------
 
 -> Level editor
-  * press a button to clear the level (c?)
-  * number keys select tiles, quicker than scrolling
-  * have a custom levels section on the website? (this is dumb, I think)
-  * middle click toggles grid (I can't decide if this is dumb or not)
+  * F1 should open a help dialog that has the FULL controls
+  * Have a custom levels section on the website? (this is dumb, I think)
+  * Middle click toggles grid (I can't decide if this is dumb or not)
 
 -> Bomns
-  * have a random chance every once in a while for a scary wav to play, like in b+w
+  * Have a random chance every once in a while for a scary wav to play, like in B+W
   * Move entire HUD a few pixels to the right to make everything more centered
   * Make timer font monospaced, would make the new HUD come together better probably
-  * Eventually do away w/ separate launcher altogether, configure in-game (fuck this, I think)
   * Make timer text non-red (yellow?)
   * Increase framerates (improve DrawLevel() function?)
   * Network play! (using SDL_net?)
-  * Add ability to remap keys
+  * Add ability to remap keys (use the SDL_whatever in the config, make another dialog for the
+    launcher with drop down boxes for the various controls)
+  * Eventually do away w/ separate launcher altogether, configure in-game (fuck this, I think)
   * Music of some sort?  Midi, but midi support on linux is retarded, and why wouldn't you just play
     an MP3 or CD of your OWN while playing, instead of some retarded-ass midi?  Fuck this too.
 

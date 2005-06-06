@@ -118,7 +118,7 @@ int main(int argc, char ** argv)
         }
       }
       
-      // process keyboard input
+      // process keyboard state data
       anKeyState = SDL_GetKeyState(NULL);
       
       if(anKeyState[SDLK_UP])
@@ -140,7 +140,27 @@ int main(int argc, char ** argv)
       if(anKeyState[SDLK_PAGEDOWN])
         cursor.BackwardObject();
 
-      // buttons that should only be pressed, never held down
+      // 1 - 9 keys select object
+      if(anKeyState[SDLK_1])
+        cursor.SelectObject(0);
+      if(anKeyState[SDLK_2])
+        cursor.SelectObject(1);
+      if(anKeyState[SDLK_3])
+        cursor.SelectObject(2);
+      if(anKeyState[SDLK_4])
+        cursor.SelectObject(3);
+      if(anKeyState[SDLK_5])
+        cursor.SelectObject(4);
+      if(anKeyState[SDLK_6])
+        cursor.SelectObject(5);
+      if(anKeyState[SDLK_7])
+        cursor.SelectObject(6);
+      if(anKeyState[SDLK_8])
+        cursor.SelectObject(7);
+      if(anKeyState[SDLK_9])
+        cursor.SelectObject(8);
+
+      // buttons that should only be pressed, never held down (keyboard event data)
       if(sdleEvent.key.state == SDL_PRESSED)
       {
         switch(sdleEvent.key.keysym.sym)
@@ -179,6 +199,10 @@ int main(int argc, char ** argv)
               fprintf(stderr, "Error writing level to: %s\n", szFilename);
             else
               fprintf(stderr, "Level successfully written to: %s\n", szFilename);
+            break;
+
+          case SDLK_F12: // clear the level... F12 is hard to hit by mistake, right?
+            level.DeleteLevel();
             break;
         }
       }
