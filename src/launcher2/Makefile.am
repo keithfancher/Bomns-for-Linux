@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 bomnslauncher2_SOURCES = \
-	main.c \
+	main.c main.h \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h
