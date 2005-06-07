@@ -6,7 +6,6 @@ EXTRA_DIST = \
   intro.bmp \
   objects.bmp \
   players.bmp \
-  tux.bmp \
   winscreen.bmp
 
 graphicsdir = $(prefix)/share/bomns/graphics
@@ -18,5 +17,4 @@ graphics_DATA = \
   intro.bmp \
   objects.bmp \
   players.bmp \
-  tux.bmp \
   winscreen.bmp
