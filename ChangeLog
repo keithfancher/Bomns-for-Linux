@@ -20,6 +20,8 @@
 		"winner.wav" sound, it's much cooler than anything I came up with.
 	* Now a random beginning match sound is played, instead of just the same one
 		every time
+	* Invulnerability sprites have different colored eyes so you can tell them
+		apart (sort of)
 	* Changed configure.in so at the end of ./configure it tells the user what
 		is and isn't being built
 

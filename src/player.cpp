@@ -136,7 +136,12 @@ bool CPlayer::Move(int nDirection, int nP2X, int nP2Y)
 				m_nState = STATE_INVULNERABLE;
 				m_dwInvulnerability = SDL_GetTicks();
 				g_anLevel[m_rcDestRect.x / 10][m_rcDestRect.y / 10] = OBJ_NONE;
-				SetRect(&m_rcSrcRect, 20, 0, 10, 10);
+        
+        if(m_nPlayer == PLAYER_ONE)
+          SetRect(&m_rcSrcRect, 20, 0, 10, 10);
+        if(m_nPlayer == PLAYER_TWO)
+          SetRect(&m_rcSrcRect, 30, 0, 10, 10);
+//				SetRect(&m_rcSrcRect, 20, 0, 10, 10);
 			}
 			break;
 
