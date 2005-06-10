@@ -25,6 +25,7 @@
 */
 
 #include <gtk/gtk.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "main.h"

@@ -25,6 +25,7 @@
 */
 
 #include <gtk/gtk.h>
+#include <stdio.h>
 
 #include "callbacks.h"
 #include "interface.h"

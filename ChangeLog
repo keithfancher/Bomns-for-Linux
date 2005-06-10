@@ -2,6 +2,11 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
+- Changes for 0.99.1:
+	* Stupid bugfix - I forgot to #include <stdio.h> in
+		src/launcher2/callbacks.c and src/launcher2/main.c.  For some reason this
+		went totally undetected on my machine.  I am retarded.
+
 - Changes for 0.99:
 -bomns
 	* Display version string in window caption
