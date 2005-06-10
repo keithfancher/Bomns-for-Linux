@@ -868,7 +868,7 @@ void QuitWithError(const char * szMessage)
 
 char * LoadResource(const char * szName, int nResourceType)
 {
-  static char szTmp[80] = {0};
+  static char szTmp[512] = {0};
 
   memset(szTmp, 0, sizeof(szTmp));
   sprintf(szTmp, "%s/%s/%s", DATA_PATH, (nResourceType == RESOURCE_SOUND ? "sounds" : (nResourceType == RESOURCE_GRAPHIC ? "graphics" : "levels")), szName);

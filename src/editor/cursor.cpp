@@ -45,13 +45,16 @@ Cursor::Cursor(int initXLevelPos, int initYLevelPos)
   currentObject = 0;
 
   apobjObjects[currentObject]->SetPosition(xScreenPos, yScreenPos);
+ }
 
-  psdlsCursorBorder = SDL_LoadBMP(LoadResource("editor_cursor.bmp", RESOURCE_GRAPHIC));
+void Cursor::CreateSurfaces()
+{
+//  psdlsCursorBorder = SDL_LoadBMP(LoadResource("editor_cursor.bmp", RESOURCE_GRAPHIC));
+  psdlsCursorBorder = LoadImage("editor_cursor.bmp");
   if(!psdlsCursorBorder)
     QuitWithError("Error creating surface for editor_cursor.bmp!\n");
   if(SDL_SetColorKey(psdlsCursorBorder, SDL_SRCCOLORKEY, 0) < 0)
     QuitWithError("Error setting color key for psdlsCursorBorder!\n");
-
 }
 
 void Cursor::MoveUp()

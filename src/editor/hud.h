@@ -26,6 +26,8 @@ class Hud
   public:
     Hud();
 
+    void CreateSurfaces(); // call after setting video mode, before drawing anything
+
     bool DrawHUD(SDL_Surface *, int, int);  // dest surface, dest coords
     bool DrawHelp(SDL_Surface *, int, int); // dest surface, dest coords
 

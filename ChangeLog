@@ -3,9 +3,17 @@
 = ------------------------- =
 
 - Changes for 0.99.1:
+-bomns
+	* None
+
+-bomnsedit
+	* Fixed possible bug with SDL_DisplayFormat
+
+-bomnslauncher
 	* Stupid bugfix - I forgot to #include <stdio.h> in
 		src/launcher2/callbacks.c and src/launcher2/main.c.  For some reason this
 		went totally undetected on my machine.  I am retarded.
+
 
 - Changes for 0.99:
 -bomns

@@ -38,6 +38,7 @@ void QuitWithError(const char * = NULL);
 void ShowUsage();
 void SetRect(SDL_Rect *, int, int, int, int);
 char * LoadResource(const char *, int);
+SDL_Surface * LoadImage(const char *);
 void ClearSurface(SDL_Surface *);
 
 

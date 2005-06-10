@@ -46,6 +46,8 @@ class Level
     Level(const char * = NULL);
     ~Level();
 
+    void CreateSurfaces();
+
     void DeleteLevel();
     void GenerateLevel();
     bool ReadFromFile(const char * = NULL);

@@ -26,6 +26,8 @@ class Cursor
   public:
     Cursor(int = 0, int = 0); // the cursor takes LEVEL x and y
 
+    void CreateSurfaces(); // have to call this before doing any drawing, but AFTER setting video mode
+
     void MoveUp();
     void MoveDown();
     void MoveLeft();

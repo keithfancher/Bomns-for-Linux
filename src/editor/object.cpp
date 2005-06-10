@@ -32,6 +32,7 @@ Object::Object(int x, int y)
 {
   SetRect(&rcDest, x, y, 10, 10);
   
+  /*
   if(!psdlsObjects)
   {
     psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
@@ -41,6 +42,24 @@ Object::Object(int x, int y)
   if(!psdlsPlayers)
   {
     psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
+    if(!psdlsPlayers)
+      QuitWithError("Error creating surface for players.bmp resource!\n");
+  }*/
+}
+
+void Object::CreateSurfaces()
+{
+  if(!psdlsObjects)
+  {
+//    psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
+    psdlsObjects = LoadImage("objects.bmp");
+    if(!psdlsObjects)
+      QuitWithError("Error creating surface for objects.bmp resource!\n");
+  }
+  if(!psdlsPlayers)
+  {
+//    psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
+    psdlsPlayers = LoadImage("players.bmp");
     if(!psdlsPlayers)
       QuitWithError("Error creating surface for players.bmp resource!\n");
   }

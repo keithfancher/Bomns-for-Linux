@@ -81,6 +81,11 @@ int main(int argc, char ** argv)
   else
     fprintf(stderr, "Success!\n");
   SDL_ShowCursor(false);
+
+  // do this here so the surfaces can read the display format
+  cursor.CreateSurfaces();
+  hud.CreateSurfaces();
+  level.CreateSurfaces();
   
   // main input loop
   while(!bDone)
@@ -297,11 +302,20 @@ void SetRect(SDL_Rect * rcRect, int nX, int nY, int nW, int nH)
 
 char * LoadResource(const char * szName, int nResourceType)
 {
-  static char szTmp[80] = {0};
+  static char szTmp[512] = {0};
 
   memset(szTmp, 0, sizeof(szTmp));
   sprintf(szTmp, "%s/%s/%s", DATA_PATH, (nResourceType == RESOURCE_SOUND ? "sounds" : (nResourceType == RESOURCE_GRAPHIC ? "graphics" : "levels")), szName);
   return szTmp;
+}
+
+SDL_Surface * LoadImage(const char * cszFile)
+{
+  SDL_Surface * tmp = SDL_LoadBMP(LoadResource(cszFile, RESOURCE_GRAPHIC));
+  SDL_Surface * ret = NULL;
+  ret = SDL_DisplayFormat(tmp);
+  SDL_FreeSurface(tmp);
+  return ret;
 }
 
 void ClearSurface(SDL_Surface * psdlsSurface)

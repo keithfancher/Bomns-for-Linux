@@ -24,16 +24,21 @@
 
 Hud::Hud()
 {
+  /*
   if(!psdlsHUD)
   {
     psdlsHUD = SDL_LoadBMP(LoadResource("editor_hud.bmp", RESOURCE_GRAPHIC));
     if(!psdlsHUD)
       QuitWithError("Error creating surface for editor_hud.bmp resource!\n");
-  }
+  }*/
+}
 
-  //
-  // create help surface here
-  // 
+void Hud::CreateSurfaces()
+{
+//  psdlsHUD = SDL_LoadBMP(LoadResource("editor_hud.bmp", RESOURCE_GRAPHIC));
+  psdlsHUD = LoadImage("editor_hud.bmp");
+  if(!psdlsHUD)
+    QuitWithError("Error creating surface for editor_hud.bmp resource!\n");
 }
 
 bool Hud::DrawHUD(SDL_Surface * psdlsDest, int x, int y)

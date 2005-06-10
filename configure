@@ -1676,7 +1676,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=bomns
- VERSION=0.99
+ VERSION=0.99.1
 
 
 cat >>confdefs.h <<_ACEOF

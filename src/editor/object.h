@@ -27,6 +27,8 @@ class Object
   public:
     Object(int, int); // for now these take actual SCREEN COORDINATES, not level coords
 
+    static void CreateSurfaces();
+
 //    virtual bool BlitToSurface(SDL_Surface *) = 0;
     virtual bool BlitToSurface(SDL_Surface *);
     char GetChar();

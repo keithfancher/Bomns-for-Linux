@@ -42,6 +42,11 @@ Level::~Level()
   DeleteLevel();
 }
 
+void Level::CreateSurfaces()
+{
+  Object::CreateSurfaces();
+}
+
 void Level::DeleteLevel()
 {
   for(int i = 0; i < LEVEL_HEIGHT; i++)

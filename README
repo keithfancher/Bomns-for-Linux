@@ -49,7 +49,6 @@ yourself.
 
 System Requirements
 -------------------
-- Linux, or some POSIX environment... I've only tested it on Linux
 - SDL - get the latest version at www.libsdl.org
 - SDL_mixer - get the latest version at www.libsdl.org/projects/SDL_mixer/
 - GTK - you'll need GTK2 for the newest launcher, although there is a GTK
