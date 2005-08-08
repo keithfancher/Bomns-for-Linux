@@ -27,6 +27,7 @@ AC_ARG_ENABLE(editor,    [  --disable-editor        Don't build the (awesome) bo
 # Check for SDL
 AM_PATH_SDL(1.2.0,,AC_MSG_ERROR(*** SDL >= 1.2.0 is required))
 CFLAGS="$CFLAGS $SDL_CFLAGS"
+CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 
 
