@@ -2,7 +2,7 @@
 AC_INIT(src/bomns.cpp)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE(bomns,0.99.1)
+AM_INIT_AUTOMAKE(bomns,0.99.2)
 AM_CONFIG_HEADER(config.h)
 AC_PREFIX_DEFAULT(/usr/local)
 
@@ -42,13 +42,14 @@ Try: http://www.libsdl.org/projects/SDL_mixer/
 fi
 
 
+# This is giving an error, and frankly GTK1 is obsolete now anyway
 # Check for GTK+ 1.2.x (if the launcher will be built)
-if test "x$build_launcher1" = xyes; then
-
-  AM_PATH_GTK(1.2.0, [LIBS="$LIBS $GTK_LIBS" CFLAGS="$GTK_CFLAGS $CFLAGS"],
-  AC_MSG_WARN(*** Unable to find Gtk+ with a version >= 1.2.0, not building launcher) ; build_launcher1=no)
-      
-fi
+#if test "x$build_launcher1" = xyes; then
+#
+#  AM_PATH_GTK(1.2.0, [LIBS="$LIBS $GTK_LIBS" CFLAGS="$GTK_CFLAGS $CFLAGS"],
+#  AC_MSG_WARN(*** Unable to find Gtk+ with a version >= 1.2.0, not building launcher) ; build_launcher1=no)
+#      
+#fi
 
 
 # Check for GTK2

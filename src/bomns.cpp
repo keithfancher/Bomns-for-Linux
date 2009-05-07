@@ -1,5 +1,5 @@
 // bomns.cpp
-// Copyright (C) 2001-2005 Keith Fancher <discostoo at users.sourceforge.net> 
+// Copyright (C) 2001-2009 Keith Fancher <discostoo at users.sourceforge.net> 
 // 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -684,7 +684,7 @@ void LoadSounds()
     g_amcBegin[3] = Mix_LoadWAV(LoadResource("begin4.wav", RESOURCE_SOUND));
     g_amcBegin[4] = Mix_LoadWAV(LoadResource("begin5.wav", RESOURCE_SOUND)); */
     
-    char szTmp[8] = {0};
+    char szTmp[255] = {0};
     for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)  // load the beginning sounds into their arrray
     {
       sprintf(szTmp, "begin%d.wav", i+1);

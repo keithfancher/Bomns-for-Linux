@@ -2,6 +2,22 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
+- Changes for 0.99.2:
+- bommns
+	* Fixed stupid glitches in intro.bmp
+	* Fixed EXTRA-stupid buffer overflow problem
+	* More autoconf/automake fixes... it's been YEARS, after all
+	* Removed option to compile GTK1 launcher from configure script.
+		(It can still be compiled by hand, but it was causing 
+		autoconf errors.  And GTK1 is obsolete now anyway.)
+
+- bomnsedit
+	* None
+
+- bomnslauncher
+	* None
+
+
 - Changes for 0.99.1:
 -bomns
 	* None
