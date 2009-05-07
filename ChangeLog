@@ -4,8 +4,8 @@
 
 - Changes for 0.99.2:
 - bommns
-	* Fixed stupid glitches in intro.bmp
-	* Fixed EXTRA-stupid buffer overflow problem
+	* Fixed glitches in intro.bmp, plus improved it overall
+	* Fixed stupid buffer overflow problem
 	* Changed audio chunk size to fix the sound delay
 	* More autoconf/automake fixes... it's been YEARS, after all
 	* Removed option to compile GTK1 launcher from configure script.
