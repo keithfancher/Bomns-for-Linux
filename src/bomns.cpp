@@ -55,6 +55,7 @@ SDL_Surface * g_psdlsIntro     = NULL;
 SDL_Surface * g_psdlsWinDialog = NULL;
 SDL_Surface * g_psdlsObjects   = NULL;
 SDL_Surface * g_psdlsHUD       = NULL;
+SDL_Surface * g_psdlsWMIcon    = NULL;   // testing icon setting
 
 Mix_Chunk   * g_mcExplosion    = NULL;   // Explosion noise
 Mix_Chunk   * g_mcWinner       = NULL;   //Game ends (needed a bit more BANG)
@@ -180,6 +181,22 @@ int main(int argc, char * argv[])
       exit(1);
     }
     fprintf(stderr, "Success!\n");
+  }
+
+  fprintf(stderr, "Setting window icon... ");
+//  g_psdlsWMIcon = LoadImage("bomn32.bmp");  // not working? (SDL_DisplayFormat hates this bmp... doesn't matter, don't need fast blitting for wm icon
+  g_psdlsWMIcon = SDL_LoadBMP(LoadResource("bomn32.bmp", RESOURCE_GRAPHIC));
+  if(g_psdlsWMIcon)
+  {
+    Uint32 colorkey;
+    colorkey = SDL_MapRGB(g_psdlsWMIcon->format, 0, 0, 0);
+    SDL_SetColorKey(g_psdlsWMIcon, SDL_SRCCOLORKEY, colorkey);
+    SDL_WM_SetIcon(g_psdlsWMIcon, NULL);
+    fprintf(stderr, "Success!\n");
+  }
+  else
+  {
+    fprintf(stderr, "AW JUNK! Something fishy happened...\n");
   }
   
 	fprintf(stderr, "Setting video mode to 800x600... ");

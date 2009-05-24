@@ -1,4 +1,5 @@
 EXTRA_DIST = \
+  bomn32.bmp \
   editor_cursor.bmp \
   editor_hud.bmp \
   font.bmp \
@@ -10,6 +11,7 @@ EXTRA_DIST = \
 
 graphicsdir = $(prefix)/share/bomns/graphics
 graphics_DATA = \
+  bomn32.bmp \
 	editor_cursor.bmp \
   editor_hud.bmp \
   font.bmp \

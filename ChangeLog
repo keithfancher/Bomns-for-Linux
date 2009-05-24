@@ -7,6 +7,7 @@
 	* Fixed glitches in intro.bmp, plus improved it overall
 	* Fixed stupid buffer overflow problem
 	* Changed audio chunk size to fix the sound delay
+	* Added a window manager icon
 	* More autoconf/automake fixes... it's been YEARS, after all
 	* Removed option to compile GTK1 launcher from configure script.
 		(It can still be compiled by hand, but it was causing 
