@@ -8,6 +8,8 @@
 	* Fixed stupid buffer overflow problem
 	* Changed audio chunk size to fix the sound delay
 	* Added a window manager icon
+	* Added objects-shiny.bmp (thanks to kulhas from Sourceforge). For now, if
+	you want to use the new objects, just copy over the old objects.bmp.
 	* More autoconf/automake fixes... it's been YEARS, after all
 	* Removed option to compile GTK1 launcher from configure script.
 		(It can still be compiled by hand, but it was causing 

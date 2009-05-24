@@ -6,6 +6,7 @@ EXTRA_DIST = \
   hud.bmp \
   intro.bmp \
   objects.bmp \
+	objects-shiny.bmp \
   players.bmp \
   winscreen.bmp
 
@@ -18,5 +19,6 @@ graphics_DATA = \
   hud.bmp \
   intro.bmp \
   objects.bmp \
+	objects-shiny.bmp \
   players.bmp \
   winscreen.bmp
