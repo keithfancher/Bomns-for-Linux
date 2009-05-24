@@ -33,6 +33,7 @@
 int main(int argc, char ** argv)
 {
   SDL_Surface * psdlsScreen     = NULL;
+  SDL_Surface * psdlsWMIcon     = NULL;
   int           nVideoMode      = MODE_WINDOWED;
   bool          bDone           = false;
   char          szFilename[512] = {"default.lvl\0"};
@@ -66,6 +67,19 @@ int main(int argc, char ** argv)
   
   InitSDL();
 //  SetVideoMode(psdlsScreen, nVideoMode);
+
+  fprintf(stderr, "Setting window icon... ");
+  psdlsWMIcon = SDL_LoadBMP(LoadResource("bomn32.bmp", RESOURCE_GRAPHIC));
+  if(psdlsWMIcon)
+  {
+    Uint32 colorkey;
+    colorkey = SDL_MapRGB(psdlsWMIcon->format, 0, 0, 0);
+    SDL_SetColorKey(psdlsWMIcon, SDL_SRCCOLORKEY, colorkey);
+    SDL_WM_SetIcon(psdlsWMIcon, NULL);
+    fprintf(stderr, "Success!\n");
+  }
+  else
+    fprintf(stderr, "AW JUNK! Something fishy happened...\n");
   
   // can't fucking use SetVideoMode here, for SOME REASON
   fprintf(stderr, "Setting video mode to 800x600 %s mode... ", (nVideoMode == MODE_WINDOWED ? "windowed" : "fullscreen"));
