@@ -6,8 +6,10 @@
   * F1 should open a help dialog that has the FULL controls
   * Have a custom levels section on the website? (this is dumb, I think)
   * Middle click toggles grid (I can't decide if this is dumb or not)
+  * Application icon
 
 -> Bomns
+  * Desktop entry, so it'll appear in your menu after it's installed
   * Have a random chance every once in a while for a scary wav to play, like in B+W
   * Move entire HUD a few pixels to the right to make everything more centered
   * Make timer font monospaced, would make the new HUD come together better probably
@@ -20,7 +22,6 @@
   * Music of some sort?  Midi, but midi support on linux is retarded, and why wouldn't you just play
     an MP3 or CD of your OWN while playing, instead of some retarded-ass midi?  Fuck this too.
   * Screen wrap option?  (Pac Man style...)
-  * An application icon
 
 -> Launcher
-  * Nothing, really
+  * Application icon
