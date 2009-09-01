@@ -9,7 +9,6 @@
   * Application icon
 
 -> Bomns
-  * Desktop entry, so it'll appear in your menu after it's installed
   * Have a random chance every once in a while for a scary wav to play, like in B+W
   * Move entire HUD a few pixels to the right to make everything more centered
   * Make timer font monospaced, would make the new HUD come together better probably

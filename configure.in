@@ -77,6 +77,20 @@ AM_CONDITIONAL(BUILD_EDITOR, test "x$build_editor" = xyes)
 
 AC_OUTPUT( 
            Makefile \
+           icons/Makefile \
+           icons/hicolor/Makefile \
+           icons/hicolor/16x16/Makefile \
+           icons/hicolor/16x16/apps/Makefile \
+           icons/hicolor/32x32/Makefile \
+           icons/hicolor/32x32/apps/Makefile \
+           icons/hicolor/48x48/Makefile \
+           icons/hicolor/48x48/apps/Makefile \
+           icons/hicolor/64x64/Makefile \
+           icons/hicolor/64x64/apps/Makefile \
+           icons/hicolor/128x128/Makefile \
+           icons/hicolor/128x128/apps/Makefile \
+           icons/hicolor/256x256/Makefile \
+           icons/hicolor/256x256/apps/Makefile \
            src/Makefile \
            src/editor/Makefile \
            src/launcher/Makefile \

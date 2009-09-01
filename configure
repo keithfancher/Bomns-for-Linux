@@ -6430,7 +6430,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/editor/Makefile src/launcher/Makefile src/launcher2/Makefile graphics/Makefile sounds/Makefile m4/Makefile levels/Makefile"
+ac_config_files="$ac_config_files Makefile icons/Makefile icons/hicolor/Makefile icons/hicolor/16x16/Makefile icons/hicolor/16x16/apps/Makefile icons/hicolor/32x32/Makefile icons/hicolor/32x32/apps/Makefile icons/hicolor/48x48/Makefile icons/hicolor/48x48/apps/Makefile icons/hicolor/64x64/Makefile icons/hicolor/64x64/apps/Makefile icons/hicolor/128x128/Makefile icons/hicolor/128x128/apps/Makefile icons/hicolor/256x256/Makefile icons/hicolor/256x256/apps/Makefile src/Makefile src/editor/Makefile src/launcher/Makefile src/launcher2/Makefile graphics/Makefile sounds/Makefile m4/Makefile levels/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -7089,6 +7089,20 @@ do
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "icons/Makefile") CONFIG_FILES="$CONFIG_FILES icons/Makefile" ;;
+    "icons/hicolor/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/Makefile" ;;
+    "icons/hicolor/16x16/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/16x16/Makefile" ;;
+    "icons/hicolor/16x16/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/16x16/apps/Makefile" ;;
+    "icons/hicolor/32x32/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/32x32/Makefile" ;;
+    "icons/hicolor/32x32/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/32x32/apps/Makefile" ;;
+    "icons/hicolor/48x48/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/48x48/Makefile" ;;
+    "icons/hicolor/48x48/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/48x48/apps/Makefile" ;;
+    "icons/hicolor/64x64/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/64x64/Makefile" ;;
+    "icons/hicolor/64x64/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/64x64/apps/Makefile" ;;
+    "icons/hicolor/128x128/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/128x128/Makefile" ;;
+    "icons/hicolor/128x128/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/128x128/apps/Makefile" ;;
+    "icons/hicolor/256x256/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/256x256/Makefile" ;;
+    "icons/hicolor/256x256/apps/Makefile") CONFIG_FILES="$CONFIG_FILES icons/hicolor/256x256/apps/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "src/editor/Makefile") CONFIG_FILES="$CONFIG_FILES src/editor/Makefile" ;;
     "src/launcher/Makefile") CONFIG_FILES="$CONFIG_FILES src/launcher/Makefile" ;;

@@ -8,6 +8,7 @@
 	* Fixed stupid buffer overflow problem
 	* Changed audio chunk size to fix the sound delay
 	* Added a window manager icon
+	* Added a desktop entry, so it will appear in your menus after installed
 	* Added objects-shiny.bmp (thanks to kulhas from Sourceforge). For now, if
 	you want to use the new objects, just copy over the old objects.bmp.
 	* More autoconf/automake fixes... it's been YEARS, after all
