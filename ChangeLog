@@ -2,6 +2,11 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
+- Changes for 0.99.3:
+-bomns
+    * Applied patch from Charles -- let the netplay begin! (almost)
+
+
 - Changes for 0.99.2:
 - bommns
 	* Fixed glitches in intro.bmp, plus improved it overall

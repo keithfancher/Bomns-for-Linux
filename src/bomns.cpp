@@ -30,6 +30,7 @@
 #include "ai.h"
 #include "level.h"
 #include "config.h"
+#include "net.h"
 
 
 #define NUM_BEGIN_SOUNDS 6 // change this to the number of sounds for the beginning wav
@@ -99,6 +100,8 @@ int main(int argc, char * argv[])
   char    szLevelFileName[512] = {0};
 
 
+  CheckNetplayCommandLineArgs(&argc, argv);
+
   // get command line options, show usage if not right
   if(argc > 3) // too many
   {
@@ -153,7 +156,7 @@ int main(int argc, char * argv[])
   if(g_bSound)
   {
     fprintf(stderr, "Initializing SDL... ");
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0) // TODO: is SDL_INIT_AUDIO unnecessary? and breaking shit?
     {
       fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
       exit(1);
@@ -898,5 +901,11 @@ void ShowUsage()
   printf("Usage:   bomns [options] <levelfile>\n");
   printf("Options: --nosound    turns off sound, takes precidence over config file\n");
   printf("         --help       shows this message\n");
+  printf("         --listen IP  listens for netplay on IP\n");
+  printf("         --connect IP connects to IP for netplay\n");
+  printf("                      (IP should be like 'ip:port' where ip is the IP address\n");
+  printf("                      of the local adapter to listen on (for --listen), or the\n");
+  printf("                      remote machine to connect to (for --connect); and port is\n");
+  printf("                      the port number to listen on/connect to.)\n");
   printf("         <levelfile>  optional - the path to the level for bomns to load\n");
 }
