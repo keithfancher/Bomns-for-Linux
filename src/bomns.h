@@ -65,4 +65,10 @@ char * LoadResource(const char *, int);
 void ShowUsage();
 
 
+extern int g_nP1StartX;
+extern int g_nP1StartY;
+extern int g_nP2StartX;
+extern int g_nP2StartY;
+
+
 #endif

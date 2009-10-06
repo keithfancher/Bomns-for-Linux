@@ -46,7 +46,6 @@ extern int  g_nPowUps;
 extern int  g_nPowDowns;
 extern int  g_nInvulnerabilities;
 extern int  g_nHealth;
-extern int  g_anLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
 extern unsigned long g_dwSeed;
 
 SDL_Surface * g_psdlsScreen    = NULL;
@@ -150,6 +149,8 @@ int main(int argc, char * argv[])
     strncpy(szLevelFileName, argv[2], 512);
     szLevelFileName[511] = 0; // just in case
   }
+
+  MaybeStartNetplay();
 
   // I discovered that passing SDL_INIT_AUDIO when the sound isn't available
   // causes an unnecissary pause when first loading BfL.  No more!
@@ -290,6 +291,7 @@ int main(int argc, char * argv[])
       FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
       fprintf(stderr, "Success!\n");
     }
+    MaybeTransferLevel();
 		
 		fprintf(stderr, "Loading players surface into memory... ");
     g_psdlsPlayers = LoadImage("players.bmp");

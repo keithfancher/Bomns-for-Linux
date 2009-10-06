@@ -34,11 +34,6 @@ extern int           g_nGameTime;
 extern CPlayer       g_Player1;
 extern CPlayer       g_Player2;
 
-extern int           g_nP1StartX;
-extern int           g_nP1StartY;
-extern int           g_nP2StartX;
-extern int           g_nP2StartY;
-
 int g_anLevel[80][58];
 
 

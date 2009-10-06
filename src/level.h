@@ -61,4 +61,7 @@ bool ClearTile(int, int, SDL_Surface *);
 bool LoadLevelFromFile(const char *);
 
 
+extern int g_anLevel[LEVEL_WIDTH][LEVEL_HEIGHT];
+
+
 #endif

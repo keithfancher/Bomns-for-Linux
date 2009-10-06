@@ -1,11 +1,38 @@
+// Copyright (C) 2001-2009 Keith Fancher <discostoo at users.sourceforge.net>
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later
+// version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+/* net.cpp - The totally hacky, undocumented, probably insanely buggy code for
+ * running games across the innertrons.
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <poll.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include "bomns.h"
+#include "level.h"
 #include "net.h"
 
 
@@ -20,12 +47,9 @@ bool g_bNetHost = false;
 // to connect to.
 static struct sockaddr g_addr;
 
+//Our connected socket file descriptor.
+static int g_sd = -1;
 
-static void NetError(const char * s)
-{
-   perror(s);
-   exit(1);
-}
 
 static void FillAddrFromString(char * str, struct sockaddr * sa)
 {
@@ -76,8 +100,8 @@ void CheckNetplayCommandLineArgs(int * argc, char * argv[])
 
          FillAddrFromString(argv[i+1], &g_addr);
          *argc -= 2;
-         for(int j = i; argv[j]; ++j)
-            argv[j] = argv[j+2];
+         for(int j = i; (argv[j] = argv[j+2]) != NULL; ++j)
+            ;
          break;
       }
    }
@@ -93,45 +117,151 @@ void MaybeStartNetplay(void)
 
    int sd = socket(g_addr.sa_family, SOCK_STREAM, 0);
    if(sd < 0)
-      NetError("socket()");
+      QuitWithError("socket() failed");
 
    if(g_bNetHost)
    {
-      printf("Listening...");
+      printf("NET: Listening...");
 
       if(bind(sd, &g_addr, sizeof(g_addr)))
-         NetError("bind()");
+         QuitWithError("bind() failed");
       if(listen(sd, 1))
-         NetError("listen()");
+         QuitWithError("listen() failed");
 
       struct sockaddr remote_addr;
       socklen_t remote_addr_len;
       int sd2;
       if((sd2 = accept(sd, &remote_addr, &remote_addr_len)) < 0)
-         NetError("accept()");
+         QuitWithError("accept() failed");
       close(sd);
       sd = sd2;
    }
    else
    {
-      printf("Connecting...");
+      printf("NET: Connecting...");
 
       if(connect(sd, &g_addr, sizeof(g_addr)))
-         NetError("connect()");
+         QuitWithError("connect() failed");
    }
 
    // Also, we need our newly-connected socket to be non-blocking, which means
    // setting the O_NONBLOCK flag.
    int old_fl, new_fl;
    if((old_fl = fcntl(sd, F_GETFL)) < 0)
-      NetError("fcntl(F_GETFL)");
+      QuitWithError("fcntl(F_GETFL) failed");
 
    new_fl = old_fl | O_NONBLOCK;
    if(new_fl != old_fl)
    {
       if(fcntl(sd, F_SETFL, new_fl) < 0)
-         NetError("fcntl(F_SETFL)");
+         QuitWithError("fcntl(F_SETFL) failed");
    }
 
+   g_sd = sd;
+
    printf("ok!\n");
+}
+
+//Partially taken from libesmtp... don't ask.  It's GPL-licensed, so we' cool.
+//<http://www.stafford.uklinux.net/libesmtp/>.
+static void SocketWrite(int sd, const char * buf, int len)
+{
+   int n;
+   for(int total = 0; total < len; total += n)
+   {
+      struct pollfd pollfd;
+      pollfd.fd     = sd;
+      pollfd.events = POLLOUT;
+      errno = 0;
+      while((n = write(sd, buf + total, len - total)) < 0)
+      {
+         if(errno == EINTR)
+            continue;
+         if(errno != EAGAIN)
+            QuitWithError("Socket write() error");
+
+         pollfd.revents = 0;
+         int status;
+         while((status = poll(&pollfd, 1, -1)) < 0)
+         {
+            if(errno != EINTR)
+               QuitWithError("Socket poll() error");
+         }
+
+         if(status == 0 || !(pollfd.revents & POLLOUT))
+            QuitWithError("Weird socket poll() error");
+         errno = 0;
+      }
+   }
+}
+
+//Also from libesmtp.
+static int SocketRead(int sd, char * buf, int len)
+{
+   struct pollfd pollfd;
+   pollfd.fd     = sd;
+   pollfd.events = POLLIN;
+
+   errno = 0;
+   int n;
+   while((n = read(sd, buf, len)) < 0)
+   {
+      if(errno == EINTR)
+         continue;
+      if(errno != EAGAIN)
+         QuitWithError("Socket read() error");
+
+      pollfd.revents = 0;
+      int status;
+      while((status = poll(&pollfd, 1, -1)) < 0)
+      {
+         if(errno != EINTR)
+            QuitWithError("Socket poll() error");
+      }
+
+      if(status == 0 || !(pollfd.revents & POLLIN))
+         QuitWithError("Weird socket poll() error");
+      errno = 0;
+   }
+   return n;
+}
+
+void MaybeTransferLevel(void)
+{
+   if(!g_bNetPlay)
+      return;
+
+   char level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 4];
+
+   if(g_bNetHost)
+   {
+      for(int col = 0; col < LEVEL_WIDTH; ++col)
+      {
+         for(int row = 0; row < LEVEL_HEIGHT; ++row)
+            level_data[col + row * LEVEL_WIDTH] = (char)g_anLevel[col][row];
+      }
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0] = (char)g_nP1StartX;
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1] = (char)g_nP1StartY;
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2] = (char)g_nP2StartX;
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3] = (char)g_nP2StartY;
+
+      SocketWrite(g_sd, level_data, LEVEL_WIDTH * LEVEL_HEIGHT + 4);
+   }
+   else
+   {
+      for(int i = 0;
+          i < LEVEL_WIDTH * LEVEL_HEIGHT + 4;
+          i += SocketRead(g_sd, level_data + i, LEVEL_WIDTH * LEVEL_HEIGHT + 4 - i))
+         ;
+
+      for(int col = 0; col < LEVEL_WIDTH; ++col)
+      {
+         for(int row = 0; row < LEVEL_HEIGHT; ++row)
+            g_anLevel[col][row] = (int)level_data[col + row * LEVEL_WIDTH];
+      }
+      g_nP1StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0];
+      g_nP1StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1];
+      g_nP2StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2];
+      g_nP2StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3];
+   }
 }

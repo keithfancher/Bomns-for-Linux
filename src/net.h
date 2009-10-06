@@ -24,6 +24,7 @@
 
 void CheckNetplayCommandLineArgs(int * argc, char * argv[]);
 void MaybeStartNetplay(void);
+void MaybeTransferLevel(void);
 
 
 extern bool g_bNetPlay;
