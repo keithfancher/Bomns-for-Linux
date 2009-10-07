@@ -25,6 +25,7 @@
 void CheckNetplayCommandLineArgs(int * argc, char * argv[]);
 void MaybeStartNetplay(void);
 void MaybeTransferLevel(void);
+void MaybeWaitForOpponent(void);
 
 
 extern bool g_bNetPlay;

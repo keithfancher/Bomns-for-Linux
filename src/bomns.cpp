@@ -307,6 +307,8 @@ int main(int argc, char * argv[])
 		g_Player2.Init(g_nP2StartX, g_nP2StartY);
 		fprintf(stderr, "Success!\n");
 
+        MaybeWaitForOpponent();
+
     // set the timer 
     if(g_nGameTime)
     {
@@ -883,7 +885,15 @@ int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 void QuitWithError(const char * szMessage)
 {
   if(szMessage)
-    fprintf(stderr, szMessage);
+    fprintf(stderr, "%s\n", szMessage);
+  Mix_CloseAudio();
+  SDL_Quit();
+  exit(1);
+}
+
+void QuitWithErrorErrno(const char * szMessage, int errnum)
+{
+  fprintf(stderr, "%s: %s\n", szMessage, strerror(errnum));
   Mix_CloseAudio();
   SDL_Quit();
   exit(1);

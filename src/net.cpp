@@ -36,6 +36,13 @@
 #include "net.h"
 
 
+#define PROTO     "BfLv1\n"
+#define PROTO_LEN (sizeof(PROTO)-sizeof(char))
+
+#define CMD_LEVEL "lvl\n"
+#define CMD_GO    "go!\n"
+
+
 // Whether we are doing any kind of netplay at all.
 bool g_bNetPlay = false;
 
@@ -107,64 +114,39 @@ void CheckNetplayCommandLineArgs(int * argc, char * argv[])
    }
 }
 
-// In which we do the necessary shit to get a connected socket.
-void MaybeStartNetplay(void)
+static void SocketWriteNonblocking(int sd, const char * buf, int len)
 {
-   if(!g_bNetPlay)
-      return;
-
-   printf("Netplay!  Awesome!\n");
-
-   int sd = socket(g_addr.sa_family, SOCK_STREAM, 0);
-   if(sd < 0)
-      QuitWithError("socket() failed");
-
-   if(g_bNetHost)
+   int n;
+   while((n = write(sd, buf, len)) < 0)
    {
-      printf("NET: Listening...");
-
-      if(bind(sd, &g_addr, sizeof(g_addr)))
-         QuitWithError("bind() failed");
-      if(listen(sd, 1))
-         QuitWithError("listen() failed");
-
-      struct sockaddr remote_addr;
-      socklen_t remote_addr_len;
-      int sd2;
-      if((sd2 = accept(sd, &remote_addr, &remote_addr_len)) < 0)
-         QuitWithError("accept() failed");
-      close(sd);
-      sd = sd2;
+      if(errno == EINTR)
+         continue;
+      QuitWithErrorErrno("Socket nonblocking write() error", errno);
    }
-   else
-   {
-      printf("NET: Connecting...");
-
-      if(connect(sd, &g_addr, sizeof(g_addr)))
-         QuitWithError("connect() failed");
+   if(n != len)
+      QuitWithError("Short socket write()");
    }
 
-   // Also, we need our newly-connected socket to be non-blocking, which means
-   // setting the O_NONBLOCK flag.
-   int old_fl, new_fl;
-   if((old_fl = fcntl(sd, F_GETFL)) < 0)
-      QuitWithError("fcntl(F_GETFL) failed");
-
-   new_fl = old_fl | O_NONBLOCK;
-   if(new_fl != old_fl)
+static int SocketReadNonblocking(int sd, char * buf, int len)
    {
-      if(fcntl(sd, F_SETFL, new_fl) < 0)
-         QuitWithError("fcntl(F_SETFL) failed");
+   int n;
+   while((n = read(sd, buf, len)) < 0)
+   {
+      if(errno == EINTR)
+         continue;
+      if(errno == EAGAIN)
+      {
+         n = 0;
+         break;
    }
-
-   g_sd = sd;
-
-   printf("ok!\n");
+      QuitWithErrorErrno("Socket nonblocking read() error", errno);
+   }
+   return n;
 }
 
 //Partially taken from libesmtp... don't ask.  It's GPL-licensed, so we' cool.
 //<http://www.stafford.uklinux.net/libesmtp/>.
-static void SocketWrite(int sd, const char * buf, int len)
+static void SocketWriteBlocking(int sd, const char * buf, int len, int timeout_ms)
 {
    int n;
    for(int total = 0; total < len; total += n)
@@ -178,25 +160,25 @@ static void SocketWrite(int sd, const char * buf, int len)
          if(errno == EINTR)
             continue;
          if(errno != EAGAIN)
-            QuitWithError("Socket write() error");
+            QuitWithErrorErrno("Socket write() error", errno);
 
          pollfd.revents = 0;
          int status;
-         while((status = poll(&pollfd, 1, -1)) < 0)
+         while((status = poll(&pollfd, 1, timeout_ms)) < 0)
          {
             if(errno != EINTR)
-               QuitWithError("Socket poll() error");
+               QuitWithErrorErrno("Socket poll() error", errno);
          }
 
          if(status == 0 || !(pollfd.revents & POLLOUT))
-            QuitWithError("Weird socket poll() error");
+            QuitWithErrorErrno("Socket poll() error", ETIMEDOUT);
          errno = 0;
       }
    }
 }
 
 //Also from libesmtp.
-static int SocketRead(int sd, char * buf, int len)
+static int SocketReadBlocking(int sd, char * buf, int len, int timeout_ms)
 {
    struct pollfd pollfd;
    pollfd.fd     = sd;
@@ -209,21 +191,108 @@ static int SocketRead(int sd, char * buf, int len)
       if(errno == EINTR)
          continue;
       if(errno != EAGAIN)
-         QuitWithError("Socket read() error");
+         QuitWithErrorErrno("Socket read() error", errno);
 
       pollfd.revents = 0;
       int status;
-      while((status = poll(&pollfd, 1, -1)) < 0)
+      while((status = poll(&pollfd, 1, timeout_ms)) < 0)
       {
          if(errno != EINTR)
-            QuitWithError("Socket poll() error");
+            QuitWithErrorErrno("Socket poll() error", errno);
       }
 
       if(status == 0 || !(pollfd.revents & POLLIN))
-         QuitWithError("Weird socket poll() error");
+         QuitWithErrorErrno("Socket poll() error", ETIMEDOUT);
       errno = 0;
    }
    return n;
+}
+
+static void SocketReadN(int sd, char * buf, int len, int timeout_ms)
+{
+   for(int total = 0;
+       total < len;
+       total += SocketReadBlocking(sd, buf + total, len - total, timeout_ms))
+      ;
+}
+
+#define SendCommand(cmd) SocketWriteNonblocking(g_sd, cmd, 4)
+
+static void ExpectCommand(const char * cmd, int timeout_ms)
+{
+   char received[5];
+   SocketReadN(g_sd, received, 4, timeout_ms);
+   received[4] = '\0';
+   if(strcmp(cmd, received))
+   {
+      char err[256];
+      snprintf(err, sizeof(err), "NET: Error: expecting command %c%c%c, got %c%c%c\n",
+               cmd[0], cmd[1], cmd[2], received[0], received[1], received[2]);
+      QuitWithError(err);
+   }
+}
+
+// In which we do the necessary shit to get a connected socket.
+void MaybeStartNetplay(void)
+{
+   if(!g_bNetPlay)
+      return;
+
+   printf("Netplay!  Awesome!\n");
+
+   int sd = socket(g_addr.sa_family, SOCK_STREAM, 0);
+   if(sd < 0)
+      QuitWithErrorErrno("socket() failed", errno);
+
+   if(g_bNetHost)
+   {
+      fprintf(stderr, "NET: Listening...");
+
+      if(bind(sd, &g_addr, sizeof(g_addr)))
+         QuitWithErrorErrno("bind() failed", errno);
+      if(listen(sd, 1))
+         QuitWithErrorErrno("listen() failed", errno);
+
+      struct sockaddr remote_addr;
+      socklen_t remote_addr_len = sizeof(remote_addr);
+      int sd2;
+      if((sd2 = accept(sd, &remote_addr, &remote_addr_len)) < 0)
+         QuitWithErrorErrno("accept() failed", errno);
+      close(sd);
+      sd = sd2;
+   }
+   else
+   {
+      fprintf(stderr, "NET: Connecting...");
+
+      if(connect(sd, &g_addr, sizeof(g_addr)))
+         QuitWithErrorErrno("connect() failed", errno);
+   }
+
+   // Also, we need our newly-connected socket to be non-blocking, which means
+   // setting the O_NONBLOCK flag.
+   int old_fl, new_fl;
+   if((old_fl = fcntl(sd, F_GETFL)) < 0)
+      QuitWithErrorErrno("fcntl(F_GETFL) failed", errno);
+
+   new_fl = old_fl | O_NONBLOCK;
+   if(new_fl != old_fl)
+   {
+      if(fcntl(sd, F_SETFL, new_fl) < 0)
+         QuitWithErrorErrno("fcntl(F_SETFL) failed", errno);
+   }
+
+   SocketWriteNonblocking(sd, PROTO, PROTO_LEN);
+
+   char proto[PROTO_LEN + 1];
+   SocketReadN(sd, proto, PROTO_LEN, 10 * 1000);
+   proto[PROTO_LEN] = '\0';
+   if(strcmp(proto, PROTO))
+      QuitWithError("wrong protocol versions!");
+
+   g_sd = sd;
+
+   fprintf(stderr, "ok!\n");
 }
 
 void MaybeTransferLevel(void)
@@ -245,14 +314,17 @@ void MaybeTransferLevel(void)
       level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2] = (char)g_nP2StartX;
       level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3] = (char)g_nP2StartY;
 
-      SocketWrite(g_sd, level_data, LEVEL_WIDTH * LEVEL_HEIGHT + 4);
+      fprintf(stderr, "NET: Sending level...");
+      SendCommand(CMD_LEVEL);
+      SocketWriteBlocking(g_sd, level_data, LEVEL_WIDTH * LEVEL_HEIGHT + 4, -1);
+      fprintf(stderr, "ok!\n");
    }
    else
    {
-      for(int i = 0;
-          i < LEVEL_WIDTH * LEVEL_HEIGHT + 4;
-          i += SocketRead(g_sd, level_data + i, LEVEL_WIDTH * LEVEL_HEIGHT + 4 - i))
-         ;
+      fprintf(stderr, "NET: Receiving level...");
+      ExpectCommand(CMD_LEVEL, -1);
+      SocketReadN(g_sd, level_data, LEVEL_WIDTH * LEVEL_HEIGHT + 4, -1);
+      fprintf(stderr, "ok!\n");
 
       for(int col = 0; col < LEVEL_WIDTH; ++col)
       {
@@ -264,4 +336,15 @@ void MaybeTransferLevel(void)
       g_nP2StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2];
       g_nP2StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3];
    }
+}
+
+void MaybeWaitForOpponent(void)
+{
+   if(!g_bNetPlay)
+      return;
+
+   fprintf(stderr, "NET: Waiting for opponent...");
+   SendCommand(CMD_GO);
+   ExpectCommand(CMD_GO, -1);
+   fprintf(stderr, "ok!\n");
 }

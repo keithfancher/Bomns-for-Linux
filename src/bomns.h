@@ -61,6 +61,7 @@ void Shutdown();
 void SwitchMode();
 int  DrawWinDialog(int, int, int);
 void QuitWithError(const char *);
+void QuitWithErrorErrno(const char *, int);
 char * LoadResource(const char *, int);
 void ShowUsage();
 
