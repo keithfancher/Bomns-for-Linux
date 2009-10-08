@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <SDL/SDL.h>
 #include "bomns.h"
 #include "level.h"
 #include "net.h"
@@ -41,6 +42,15 @@
 
 #define CMD_LEVEL "lvl\n"
 #define CMD_GO    "go!\n"
+
+
+//Yum!  MSG!
+typedef enum MSG
+{
+   MSG_LEVEL,
+   MSG_WAITING,
+
+} MSG;
 
 
 // Whether we are doing any kind of netplay at all.
@@ -124,7 +134,7 @@ static void SocketWriteNonblocking(int sd, const char * buf, int len)
       QuitWithErrorErrno("Socket nonblocking write() error", errno);
    }
    if(n != len)
-      QuitWithError("Short socket write()");
+      QuitWithError("Short socket write()\n");
    }
 
 static int SocketReadNonblocking(int sd, char * buf, int len)
@@ -232,13 +242,22 @@ static void ExpectCommand(const char * cmd, int timeout_ms)
    }
 }
 
+static void DrawMessage(MSG msg)
+{
+   SDL_Rect rcSrc  = {0, (int)msg * 24, 1000, 24};
+   SDL_Rect rcDest = {350, 288, 0, 0};
+   SDL_FillRect(g_psdlsScreen, NULL, 0);
+   SDL_BlitSurface(g_psdlsNetMsgs, &rcSrc, g_psdlsScreen, &rcDest);
+   SDL_Flip(g_psdlsScreen);
+}
+
 // In which we do the necessary shit to get a connected socket.
 void MaybeStartNetplay(void)
 {
    if(!g_bNetPlay)
       return;
 
-   printf("Netplay!  Awesome!\n");
+   fprintf(stderr, "Netplay!  Awesome!\n");
 
    int sd = socket(g_addr.sa_family, SOCK_STREAM, 0);
    if(sd < 0)
@@ -288,7 +307,7 @@ void MaybeStartNetplay(void)
    SocketReadN(sd, proto, PROTO_LEN, 10 * 1000);
    proto[PROTO_LEN] = '\0';
    if(strcmp(proto, PROTO))
-      QuitWithError("wrong protocol versions!");
+      QuitWithError("wrong protocol versions!\n");
 
    g_sd = sd;
 
@@ -302,6 +321,8 @@ void MaybeTransferLevel(void)
 
    char level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 4];
 
+   DrawMessage(MSG_LEVEL);
+
    if(g_bNetHost)
    {
       for(int col = 0; col < LEVEL_WIDTH; ++col)
@@ -309,10 +330,10 @@ void MaybeTransferLevel(void)
          for(int row = 0; row < LEVEL_HEIGHT; ++row)
             level_data[col + row * LEVEL_WIDTH] = (char)g_anLevel[col][row];
       }
-      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0] = (char)g_nP1StartX;
-      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1] = (char)g_nP1StartY;
-      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2] = (char)g_nP2StartX;
-      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3] = (char)g_nP2StartY;
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0] = (char)(g_nP1StartX / 10);
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1] = (char)(g_nP1StartY / 10);
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2] = (char)(g_nP2StartX / 10);
+      level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3] = (char)(g_nP2StartY / 10);
 
       fprintf(stderr, "NET: Sending level...");
       SendCommand(CMD_LEVEL);
@@ -331,10 +352,10 @@ void MaybeTransferLevel(void)
          for(int row = 0; row < LEVEL_HEIGHT; ++row)
             g_anLevel[col][row] = (int)level_data[col + row * LEVEL_WIDTH];
       }
-      g_nP1StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0];
-      g_nP1StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1];
-      g_nP2StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2];
-      g_nP2StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3];
+      g_nP1StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 0] * 10;
+      g_nP1StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 1] * 10;
+      g_nP2StartX = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 2] * 10;
+      g_nP2StartY = (int)level_data[LEVEL_WIDTH * LEVEL_HEIGHT + 3] * 10;
    }
 }
 
@@ -342,6 +363,8 @@ void MaybeWaitForOpponent(void)
 {
    if(!g_bNetPlay)
       return;
+
+   DrawMessage(MSG_WAITING);
 
    fprintf(stderr, "NET: Waiting for opponent...");
    SendCommand(CMD_GO);

@@ -56,6 +56,7 @@ SDL_Surface * g_psdlsWinDialog = NULL;
 SDL_Surface * g_psdlsObjects   = NULL;
 SDL_Surface * g_psdlsHUD       = NULL;
 SDL_Surface * g_psdlsWMIcon    = NULL;   // testing icon setting
+SDL_Surface * g_psdlsNetMsgs   = NULL;
 
 Mix_Chunk   * g_mcExplosion    = NULL;   // Explosion noise
 Mix_Chunk   * g_mcWinner       = NULL;   //Game ends (needed a bit more BANG)
@@ -219,6 +220,14 @@ int main(int argc, char * argv[])
   }
   SDL_ShowCursor(FALSE);
   fprintf(stderr, "Success!\n");
+
+  if(g_bNetPlay)
+  {
+    fprintf(stderr, "Loading netplay messages... ");
+    g_psdlsNetMsgs = LoadImage("netmsgs.bmp");
+    if(!g_psdlsNetMsgs)
+      QuitWithError("Unable to load file \"graphics/netmsgs.bmp\"\n");
+  }
 
 	bool bMainDone = FALSE;
 	while(!bMainDone)
@@ -725,6 +734,8 @@ SDL_Surface * LoadImage(const char * cszFile)
   SDL_Surface * ret = NULL;
 
   tmp = SDL_LoadBMP(LoadResource(cszFile, RESOURCE_GRAPHIC));
+  if(!tmp)
+    return NULL;
   ret = SDL_DisplayFormat(tmp);
   SDL_FreeSurface(tmp);
   return ret;
@@ -885,7 +896,7 @@ int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 void QuitWithError(const char * szMessage)
 {
   if(szMessage)
-    fprintf(stderr, "%s\n", szMessage);
+    fprintf(stderr, "%s", szMessage);
   Mix_CloseAudio();
   SDL_Quit();
   exit(1);

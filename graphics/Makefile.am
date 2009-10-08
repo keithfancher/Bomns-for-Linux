@@ -8,7 +8,8 @@ EXTRA_DIST = \
   objects.bmp \
 	objects-shiny.bmp \
   players.bmp \
-  winscreen.bmp
+  winscreen.bmp \
+  netmsgs.bmp
 
 graphicsdir = $(prefix)/share/bomns/graphics
 graphics_DATA = \
@@ -21,4 +22,5 @@ graphics_DATA = \
   objects.bmp \
 	objects-shiny.bmp \
   players.bmp \
-  winscreen.bmp
+  winscreen.bmp \
+  netmsgs.bmp

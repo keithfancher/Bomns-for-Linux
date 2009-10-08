@@ -66,6 +66,9 @@ char * LoadResource(const char *, int);
 void ShowUsage();
 
 
+extern SDL_Surface * g_psdlsScreen;
+extern SDL_Surface * g_psdlsNetMsgs;
+
 extern int g_nP1StartX;
 extern int g_nP1StartY;
 extern int g_nP2StartX;
