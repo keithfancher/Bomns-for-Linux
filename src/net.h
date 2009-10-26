@@ -26,6 +26,8 @@ void CheckNetplayCommandLineArgs(int * argc, char * argv[]);
 void MaybeStartNetplay(void);
 void MaybeTransferLevel(void);
 void MaybeWaitForOpponent(void);
+void MaybeReceiveKeypress(void);
+bool MaybeSendKeypress(SDLKey key);
 
 
 extern bool g_bNetPlay;

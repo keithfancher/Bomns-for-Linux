@@ -22,6 +22,7 @@
 
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -31,6 +32,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <arpa/inet.h>
 #include <SDL/SDL.h>
 #include "bomns.h"
 #include "level.h"
@@ -40,8 +42,13 @@
 #define PROTO     "BfLv1\n"
 #define PROTO_LEN (sizeof(PROTO)-sizeof(char))
 
-#define CMD_LEVEL "lvl\n"
-#define CMD_GO    "go!\n"
+#define CMD_LEVEL      0x6c766c0a  /*"lvl\n"*/
+#define CMD_GO         0x676f210a  /*"go!\n"*/
+#define CMD_MOVE_UP    0x6d76750a  /*"mvu\n"*/
+#define CMD_MOVE_DOWN  0x6d76640a  /*"mvd\n"*/
+#define CMD_MOVE_LEFT  0x6d766c0a  /*"mvl\n"*/
+#define CMD_MOVE_RIGHT 0x6d76720a  /*"mvr\n"*/
+#define CMD_DROP_BOMN  0x626d6e0a  /*"bmn\n"*/
 
 
 //Yum!  MSG!
@@ -226,20 +233,52 @@ static void SocketReadN(int sd, char * buf, int len, int timeout_ms)
       ;
 }
 
-#define SendCommand(cmd) SocketWriteNonblocking(g_sd, cmd, 4)
-
-static void ExpectCommand(const char * cmd, int timeout_ms)
-{
-   char received[5];
-   SocketReadN(g_sd, received, 4, timeout_ms);
-   received[4] = '\0';
-   if(strcmp(cmd, received))
+static void BadCommand(uint32_t cmd, uint32_t expected_cmd)
    {
       char err[256];
+
+   if(expected_cmd)
       snprintf(err, sizeof(err), "NET: Error: expecting command %c%c%c, got %c%c%c\n",
-               cmd[0], cmd[1], cmd[2], received[0], received[1], received[2]);
+               (expected_cmd >> 24) & 0xff, (expected_cmd >> 16) & 0xff, (expected_cmd >> 8) & 0xff,
+               (cmd >> 24) & 0xff, (cmd >> 16) & 0xff, (cmd >> 8) & 0xff);
+   else
+      snprintf(err, sizeof(err), "NET: Error: bad command %c%c%c\n",
+               (cmd >> 24) & 0xff, (cmd >> 16) & 0xff, (cmd >> 8) & 0xff);
+
       QuitWithError(err);
    }
+
+static void SendCommand(uint32_t cmd)
+{
+fprintf(stderr, "NET: Sending command %c%c%c\n", (cmd >> 24) & 0xff, (cmd >> 16) & 0xff, (cmd >> 8) & 0xff);
+   cmd = htonl(cmd);
+   SocketWriteNonblocking(g_sd, (char *)&cmd, 4);
+}
+
+static void ExpectCommand(uint32_t cmd, int timeout_ms)
+{
+   uint32_t received;
+   SocketReadN(g_sd, (char *)&received, 4, timeout_ms);
+   received = ntohl(received);
+fprintf(stderr, "NET: Received expected command %c%c%c\n", (received >> 24) & 0xff, (received >> 16) & 0xff, (received >> 8) & 0xff);
+   if(received != cmd)
+      BadCommand(received, cmd);
+}
+
+static uint32_t ReceiveCommand(void)
+{
+   static uint32_t cmd;
+   static int cmd_len = 0;
+
+   cmd_len += SocketReadNonblocking(g_sd, (char *)&cmd + cmd_len, 4 - cmd_len);
+   if(cmd_len >= 4)
+   {
+      cmd = ntohl(cmd);
+      cmd_len = 0;
+fprintf(stderr, "NET: Received command %c%c%c\n", (cmd >> 24) & 0xff, (cmd >> 16) & 0xff, (cmd >> 8) & 0xff);
+      return cmd;
+   }
+   return (uint32_t)0;
 }
 
 static void DrawMessage(MSG msg)
@@ -370,4 +409,121 @@ void MaybeWaitForOpponent(void)
    SendCommand(CMD_GO);
    ExpectCommand(CMD_GO, -1);
    fprintf(stderr, "ok!\n");
+}
+
+static void HandleReceivedKeypress(uint32_t cmd)
+{
+   switch(cmd)
+   {
+   case CMD_MOVE_UP:
+      ProcInput(g_bNetHost ? SDLK_w : SDLK_UP);
+      break;
+   case CMD_MOVE_DOWN:
+      ProcInput(g_bNetHost ? SDLK_s : SDLK_DOWN);
+      break;
+   case CMD_MOVE_LEFT:
+      ProcInput(g_bNetHost ? SDLK_a : SDLK_LEFT);
+      break;
+   case CMD_MOVE_RIGHT:
+      ProcInput(g_bNetHost ? SDLK_d : SDLK_RIGHT);
+      break;
+   case CMD_DROP_BOMN:
+      ProcInput(g_bNetHost ? SDLK_SPACE : SDLK_RETURN);
+      break;
+   }
+}
+
+void MaybeReceiveKeypress(void)
+{
+   if(!g_bNetPlay)
+      return;
+
+   for(uint32_t cmd; (cmd = ReceiveCommand()) != (uint32_t)0; )
+   {
+      switch(cmd)
+      {
+      case CMD_MOVE_UP:
+      case CMD_MOVE_DOWN:
+      case CMD_MOVE_LEFT:
+      case CMD_MOVE_RIGHT:
+      case CMD_DROP_BOMN:
+         HandleReceivedKeypress(cmd);
+         break;
+
+      default:
+         BadCommand(cmd, 0);
+         break;
+      }
+   }
+}
+
+bool MaybeSendKeypress(SDLKey key)
+{
+   if(!g_bNetPlay)
+      return false;
+
+   switch(key)
+   {
+   case SDLK_RIGHT:
+      if(!g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_RIGHT);
+      return false;
+
+   case SDLK_LEFT:
+      if(!g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_LEFT);
+      return false;
+
+   case SDLK_UP:
+      if(!g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_UP);
+      return false;
+
+   case SDLK_DOWN:
+      if(!g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_DOWN);
+      return false;
+
+   case SDLK_RETURN:
+      if(!g_bNetHost)
+         return true;
+      SendCommand(CMD_DROP_BOMN);
+      return false;
+
+   case SDLK_d:
+      if(g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_RIGHT);
+      return false;
+
+   case SDLK_a:
+      if(g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_LEFT);
+      return false;
+
+   case SDLK_w:
+      if(g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_UP);
+      return false;
+
+   case SDLK_s:
+      if(g_bNetHost)
+         return true;
+      SendCommand(CMD_MOVE_DOWN);
+      return false;
+
+   case SDLK_SPACE:
+      if(g_bNetHost)
+         return true;
+      SendCommand(CMD_DROP_BOMN);
+      return false;
+   }
+
+   return false;
 }

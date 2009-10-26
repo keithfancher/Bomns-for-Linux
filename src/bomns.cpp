@@ -346,6 +346,8 @@ int main(int argc, char * argv[])
         g_bExploding = FALSE;
       }
 
+         MaybeReceiveKeypress();
+
 			while(SDL_PollEvent(&sdleEvent))
 			{
         if (sdleEvent.type == SDL_QUIT)
@@ -357,6 +359,7 @@ int main(int argc, char * argv[])
 						bDone = TRUE;
 					else
 					{
+                 if(!MaybeSendKeypress(sdleEvent.key.keysym.sym))
 	          ProcInput(sdleEvent.key.keysym.sym);
 					}
 				}
