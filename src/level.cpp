@@ -47,81 +47,81 @@ void FillLevel(unsigned long dwSeed, int nWalls, int nInvulns, int nHealths, int
   srand(dwSeed);
   
   memset(g_anLevel, OBJ_NONE, sizeof(g_anLevel));
-	for(int i = 0; i < nWalls; i++)
-		g_anLevel[rand() % 80][rand() % 58] = OBJ_WALL;
-	for(int i = 0; i < nInvulns; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_INVULNERABILITY;
-	for(int i = 0; i < nHealths; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_HEALTH;
-	for(int i = 0; i < nPowUps; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_POWUP;
-	for(int i = 0; i < nPowDowns; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_POWDOWN;
-	for(int i = 0; i < nBomns; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_BOMN;
-	for(int i = 0; i < nWarps; i++)
-	  g_anLevel[rand() % 80][rand() % 58] = OBJ_WARP;
+  for(int i = 0; i < nWalls; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_WALL;
+  for(int i = 0; i < nInvulns; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_INVULNERABILITY;
+  for(int i = 0; i < nHealths; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_HEALTH;
+  for(int i = 0; i < nPowUps; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_POWUP;
+  for(int i = 0; i < nPowDowns; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_POWDOWN;
+  for(int i = 0; i < nBomns; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_BOMN;
+  for(int i = 0; i < nWarps; i++)
+    g_anLevel[rand() % 80][rand() % 58] = OBJ_WARP;
 }
 
 //TODO: more efficiency?
 bool DrawLevel(SDL_Surface * psdlsDest, int nP1Health, int nP2Health, int nP1Bomns, int nP2Bomns)
 {
-	SDL_Rect rcSrc  = {0, 0, 10, 10};
-	SDL_Rect rcDest = {0, 0, 10, 10};
+  SDL_Rect rcSrc  = {0, 0, 10, 10};
+  SDL_Rect rcDest = {0, 0, 10, 10};
 
   for(int i = 0; i < LEVEL_WIDTH; i++)
-	{
-		for(int j = 0; j < LEVEL_HEIGHT; j++)
-		{
-			SetRect(&rcDest, i * 10, j * 10, 10, 10);
+  {
+    for(int j = 0; j < LEVEL_HEIGHT; j++)
+    {
+      SetRect(&rcDest, i * 10, j * 10, 10, 10);
 
-			switch(g_anLevel[i][j])
-			{
-				case OBJ_NONE:
-				  break;
-				case OBJ_WALL:
-					SetRect(&rcSrc, 0, 0, 10, 10);
-					break;
-				case OBJ_INVULNERABILITY:
-					SetRect(&rcSrc, 10, 0, 10, 10);
-					break;
-				case OBJ_HEALTH:
-					SetRect(&rcSrc, 40, 0, 10, 10);
-					break;
-				case OBJ_POWUP:
-					SetRect(&rcSrc, 20, 0, 10, 10);
-					break;
-				case OBJ_POWDOWN:
-					SetRect(&rcSrc, 30, 0, 10, 10);
-					break;
-				case OBJ_BOMN:
-					SetRect(&rcSrc, 70, 0, 10, 10);
-					break;
-				case OBJ_WARP:
-					SetRect(&rcSrc, 80, 0, 10, 10);
-					break;
-			}
+      switch(g_anLevel[i][j])
+      {
+        case OBJ_NONE:
+          break;
+        case OBJ_WALL:
+          SetRect(&rcSrc, 0, 0, 10, 10);
+          break;
+        case OBJ_INVULNERABILITY:
+          SetRect(&rcSrc, 10, 0, 10, 10);
+          break;
+        case OBJ_HEALTH:
+          SetRect(&rcSrc, 40, 0, 10, 10);
+          break;
+        case OBJ_POWUP:
+          SetRect(&rcSrc, 20, 0, 10, 10);
+          break;
+        case OBJ_POWDOWN:
+          SetRect(&rcSrc, 30, 0, 10, 10);
+          break;
+        case OBJ_BOMN:
+          SetRect(&rcSrc, 70, 0, 10, 10);
+          break;
+        case OBJ_WARP:
+          SetRect(&rcSrc, 80, 0, 10, 10);
+          break;
+      }
 
-			if(g_anLevel[i][j] != OBJ_NONE)
-			{
-				if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
-			  	return FALSE;
-			}
-		}//for j
-	}//for i
+      if(g_anLevel[i][j] != OBJ_NONE)
+      {
+        if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
+          return FALSE;
+      }
+    }//for j
+  }//for i
 
-	if(!DrawHUD(psdlsDest, nP1Health, nP2Health, nP1Bomns, nP2Bomns))
-	  return FALSE;
-	
-	return TRUE;
+  if(!DrawHUD(psdlsDest, nP1Health, nP2Health, nP1Bomns, nP2Bomns))
+    return FALSE;
+  
+  return TRUE;
 }
 
 bool DrawHUD(SDL_Surface * psdlsDest, int nP1Health, int nP2Health, int nP1Bomns, int nP2Bomns)
 {
   SDL_Rect rcDest = {0, 580, 800, 20};
   SDL_Rect rcSrc  = {0, 0, 800, 20};
-	if(SDL_BlitSurface(g_psdlsHUD, &rcSrc, psdlsDest, &rcDest) < 0)
-	  return FALSE;
+  if(SDL_BlitSurface(g_psdlsHUD, &rcSrc, psdlsDest, &rcDest) < 0)
+    return FALSE;
 
   //This blits whatever should be there instead of the timer
   if(!g_nGameTime)
@@ -133,37 +133,37 @@ bool DrawHUD(SDL_Surface * psdlsDest, int nP1Health, int nP2Health, int nP1Bomns
   }
   
   SetRect(&rcSrc, 50, 0, 10, 10);
-	SetRect(&rcDest, 162, 585, 10, 10);
-	for(int i = 0; i < nP1Health; i++, rcDest.x += 11)
-	{
-		if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
+  SetRect(&rcDest, 162, 585, 10, 10);
+  for(int i = 0; i < nP1Health; i++, rcDest.x += 11)
+  {
+    if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
 
-	SetRect(&rcSrc, 60, 0, 10, 10);
-	SetRect(&rcDest, 667, 585, 10, 10);
-	for(int i = 0; i < nP2Health; i++, rcDest.x += 11)
-	{
-		if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
+  SetRect(&rcSrc, 60, 0, 10, 10);
+  SetRect(&rcDest, 667, 585, 10, 10);
+  for(int i = 0; i < nP2Health; i++, rcDest.x += 11)
+  {
+    if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
 
-	DrawNum(nP1Bomns, 67, 584, psdlsDest, RED);
-	DrawNum(nP2Bomns, 571, 584, psdlsDest, BLUE);
+  DrawNum(nP1Bomns, 67, 584, psdlsDest, RED);
+  DrawNum(nP2Bomns, 571, 584, psdlsDest, BLUE);
 
   
 
-	return TRUE;
+  return TRUE;
 }
 
 bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int nExplosionState)
 {
-	SDL_Rect rcDest = {nX, nY, 10, 10};
-	SDL_Rect rcSrc  = {(nExplosionState == EXPLOSION_1 ? 90 : (nExplosionState == EXPLOSION_2 ? 150 : 160)), 0, 10, 10};
-	if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
-	  return FALSE;
-		
-	return TRUE;
+  SDL_Rect rcDest = {nX, nY, 10, 10};
+  SDL_Rect rcSrc  = {(nExplosionState == EXPLOSION_1 ? 90 : (nExplosionState == EXPLOSION_2 ? 150 : 160)), 0, 10, 10};
+  if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
+    return FALSE;
+    
+  return TRUE;
 }
 
 bool ClearTile(int nX, int nY, SDL_Surface * psdlsDest)
