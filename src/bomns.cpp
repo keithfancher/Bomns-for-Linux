@@ -83,8 +83,8 @@ int           g_nP2StartY      = 280;
 
 int main(int argc, char * argv[])
 {
-	int nP1Wins            = 0;
-	int nP2Wins            = 0;
+  int nP1Wins            = 0;
+  int nP2Wins            = 0;
 
   //Framecount vars
   int     nFps           = 0;
@@ -115,15 +115,15 @@ int main(int argc, char * argv[])
   }
   
 
-	fprintf(stderr, "\n----------------------\nBomns for Linux %s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
+  fprintf(stderr, "\n----------------------\nBomns for Linux %s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
   
   fprintf(stderr, "Loading settings in config file... ");
-	if(!LoadConfigFile())
-	{
-		fprintf(stderr, "Unable to create and/or load config file, using defaults.\n");
-	}
+  if(!LoadConfigFile())
+  {
+    fprintf(stderr, "Unable to create and/or load config file, using defaults.\n");
+  }
   else
-  	fprintf(stderr, "Success!\n");
+    fprintf(stderr, "Success!\n");
     
   // check this AFTER the config file loads so the command-line takes priority.
   if(argv[1] && argc > 1)
@@ -165,9 +165,9 @@ int main(int argc, char * argv[])
 //    if(Mix_OpenAudio(22050, AUDIO_S16SYS, 1, 1024) < 0)
     if(Mix_OpenAudio(22050, AUDIO_S16SYS, 1, 512) < 0) // 1024 caused a delay for audio, 256 was too small and caused stuttering
     {
-	  	fprintf(stderr, "Warning: Couldn't set 22050 Hz 16-bit mono audio\n- Reason: %s\n", SDL_GetError());
+      fprintf(stderr, "Warning: Couldn't set 22050 Hz 16-bit mono audio\n- Reason: %s\n", SDL_GetError());
       g_bSound = FALSE;    
-	  }
+    }
     else
       fprintf(stderr, "Success!\n");
   }//if(g_bSound)
@@ -199,13 +199,13 @@ int main(int argc, char * argv[])
     fprintf(stderr, "AW JUNK! Something fishy happened...\n");
   }
   
-	fprintf(stderr, "Setting video mode to 800x600... ");
+  fprintf(stderr, "Setting video mode to 800x600... ");
   char szCaptionText[25] = {0};
   sprintf(szCaptionText, "Bomns for Linux %s", VERSION);
-	SDL_WM_SetCaption(szCaptionText, szCaptionText);
-	if(g_bFullScreen)
-		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
-	else
+  SDL_WM_SetCaption(szCaptionText, szCaptionText);
+  if(g_bFullScreen)
+    g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+  else
     g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
   if(!g_psdlsScreen)
@@ -216,60 +216,60 @@ int main(int argc, char * argv[])
   SDL_ShowCursor(FALSE);
   fprintf(stderr, "Success!\n");
 
-	bool bMainDone = FALSE;
-	while(!bMainDone)
-	{
-		fprintf(stderr, "Showing intro screen...\n");
-		int nRet = Intro();
-		if(nRet == RET_ERROR)
-		{
-			QuitWithError("Something fishy happened!\n");
-		}
-		if(nRet == RET_EXIT)
-		{
-			bMainDone = TRUE;
-			break;
-		}
-		fprintf(stderr, "Success!\n");
+  bool bMainDone = FALSE;
+  while(!bMainDone)
+  {
+    fprintf(stderr, "Showing intro screen...\n");
+    int nRet = Intro();
+    if(nRet == RET_ERROR)
+    {
+      QuitWithError("Something fishy happened!\n");
+    }
+    if(nRet == RET_EXIT)
+    {
+      bMainDone = TRUE;
+      break;
+    }
+    fprintf(stderr, "Success!\n");
     
     //############## NOT GONNA LEAVE THIS HERE ###################
     LoadSounds();
     //############################################################
 
-		fprintf(stderr, "Loading fonts... ");
+    fprintf(stderr, "Loading fonts... ");
     g_psdlsFont = LoadImage("font.bmp");
-//		g_psdlsFont = SDL_LoadBMP(LoadResource("font.bmp", RESOURCE_GRAPHIC));
-		if(!g_psdlsFont)
-		{
-			QuitWithError("Unable to load graphics/font.bmp!\n");
-		}
-		if(SDL_SetColorKey(g_psdlsFont, SDL_SRCCOLORKEY, 0) < 0)
-		{
-			QuitWithError("Unable to set color key on surface g_psdlsFont!\n");
-		}
-		fprintf(stderr, "Success!\n");
+//    g_psdlsFont = SDL_LoadBMP(LoadResource("font.bmp", RESOURCE_GRAPHIC));
+    if(!g_psdlsFont)
+    {
+      QuitWithError("Unable to load graphics/font.bmp!\n");
+    }
+    if(SDL_SetColorKey(g_psdlsFont, SDL_SRCCOLORKEY, 0) < 0)
+    {
+      QuitWithError("Unable to set color key on surface g_psdlsFont!\n");
+    }
+    fprintf(stderr, "Success!\n");
 
-		fprintf(stderr, "Loading win dialog box... ");
+    fprintf(stderr, "Loading win dialog box... ");
     g_psdlsWinDialog = LoadImage("winscreen.bmp");
-//		g_psdlsWinDialog = SDL_LoadBMP(LoadResource("winscreen.bmp", RESOURCE_GRAPHIC));
-		if(!g_psdlsWinDialog)
-		{
-			QuitWithError("Unable to load file \"graphics/winscreen.bmp\"\n");
-		}
-		fprintf(stderr, "Success!\n");
+//    g_psdlsWinDialog = SDL_LoadBMP(LoadResource("winscreen.bmp", RESOURCE_GRAPHIC));
+    if(!g_psdlsWinDialog)
+    {
+      QuitWithError("Unable to load file \"graphics/winscreen.bmp\"\n");
+    }
+    fprintf(stderr, "Success!\n");
 
-		fprintf(stderr, "Loading level... ");
+    fprintf(stderr, "Loading level... ");
     g_psdlsHUD = LoadImage("hud.bmp");
     g_psdlsObjects = LoadImage("objects.bmp");
-//		g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
-//		g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
-		if(!g_psdlsHUD || !g_psdlsObjects)
-		{
-			QuitWithError("Failed!\n");
-		}
-		fprintf(stderr, "Success!\n");
-		
-		// fills level with correct seed
+//    g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
+//    g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
+    if(!g_psdlsHUD || !g_psdlsObjects)
+    {
+      QuitWithError("Failed!\n");
+    }
+    fprintf(stderr, "Success!\n");
+    
+    // fills level with correct seed
     if(bLoadLevelFromFile)
     {
       fprintf(stderr, "Loading level from file: %s... ", szLevelFileName);
@@ -287,20 +287,20 @@ int main(int argc, char * argv[])
       FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
       fprintf(stderr, "Success!\n");
     }
-		
-		fprintf(stderr, "Loading players surface into memory... ");
+    
+    fprintf(stderr, "Loading players surface into memory... ");
     g_psdlsPlayers = LoadImage("players.bmp");
-//		g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
-		if(!g_psdlsPlayers)
-		{
-			QuitWithError("Failed! Couldn't load file \"graphics/players.bmp\"\n");
-		}
-		fprintf(stderr, "Success!\n");
+//    g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
+    if(!g_psdlsPlayers)
+    {
+      QuitWithError("Failed! Couldn't load file \"graphics/players.bmp\"\n");
+    }
+    fprintf(stderr, "Success!\n");
 
-		fprintf(stderr, "Initializing players... ");
-		g_Player1.Init(g_nP1StartX, g_nP1StartY); // these can get changed through LoadLevelFromFile()
-		g_Player2.Init(g_nP2StartX, g_nP2StartY);
-		fprintf(stderr, "Success!\n");
+    fprintf(stderr, "Initializing players... ");
+    g_Player1.Init(g_nP1StartX, g_nP1StartY); // these can get changed through LoadLevelFromFile()
+    g_Player2.Init(g_nP2StartX, g_nP2StartY);
+    fprintf(stderr, "Success!\n");
 
     // set the timer 
     if(g_nGameTime)
@@ -309,17 +309,17 @@ int main(int argc, char * argv[])
       g_dwGameTimer = SDL_GetTicks();
     }
 
-		fprintf(stderr, "Entering main loop...\n");
-		bool bDone = FALSE;
+    fprintf(stderr, "Entering main loop...\n");
+    bool bDone = FALSE;
     
     //play beginning match sound
 //    PlayWav(g_mcBegin);
 //    srand(time(NULL));
     PlayWav(g_amcBegin[rand() % NUM_BEGIN_SOUNDS]);
     
-		while(!bDone)
-		{
-			SDL_Event sdleEvent;
+    while(!bDone)
+    {
+      SDL_Event sdleEvent;
 
       //this clears the event queue the frame after an explosion,
       //thus preventing the jumpy keyboard bug.  YAY!
@@ -330,24 +330,24 @@ int main(int argc, char * argv[])
         g_bExploding = FALSE;
       }
 
-			while(SDL_PollEvent(&sdleEvent))
-			{
+      while(SDL_PollEvent(&sdleEvent))
+      {
         if (sdleEvent.type == SDL_QUIT)
-					bDone = bMainDone = TRUE;
+          bDone = bMainDone = TRUE;
 
-				if (sdleEvent.type == SDL_KEYDOWN)
-				{
-					if(sdleEvent.key.keysym.sym == SDLK_ESCAPE)
-						bDone = TRUE;
-					else
-					{
-	          ProcInput(sdleEvent.key.keysym.sym);
-					}
-				}
-			}
+        if (sdleEvent.type == SDL_KEYDOWN)
+        {
+          if(sdleEvent.key.keysym.sym == SDLK_ESCAPE)
+            bDone = TRUE;
+          else
+          {
+            ProcInput(sdleEvent.key.keysym.sym);
+          }
+        }
+      }
       
       g_Player1.Update();
-			g_Player2.Update();
+      g_Player2.Update();
 
       // getticks so we can figure out how long it takes to draw a frame
       if(g_bShowFps)
@@ -359,8 +359,8 @@ int main(int argc, char * argv[])
       if(bDrawLevel)
       {
         if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
-			  {
-				  QuitWithError("Unable to clear screen\n");
+        {
+          QuitWithError("Unable to clear screen\n");
         }
       }
       //////////////experimental////////////////////
@@ -378,20 +378,20 @@ int main(int argc, char * argv[])
       if(bDrawLevel)
       {
         if(!DrawLevel(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns()))
-			  {
-				  QuitWithError("Unable to draw level to screen\n");
-			  }
+        {
+          QuitWithError("Unable to draw level to screen\n");
+        }
       }
       ///////////////////////////////////////////////////////////
 
-			if(!g_Player1.Draw(g_psdlsScreen))
-			{
-				QuitWithError("Unable to draw player1 to screen\n");
-			}
-			if(!g_Player2.Draw(g_psdlsScreen))
-			{
-				QuitWithError("Unable to draw player2 to screen\n");
-			}
+      if(!g_Player1.Draw(g_psdlsScreen))
+      {
+        QuitWithError("Unable to draw player1 to screen\n");
+      }
+      if(!g_Player2.Draw(g_psdlsScreen))
+      {
+        QuitWithError("Unable to draw player2 to screen\n");
+      }
       
       // this is the OLD fps counting behavior, it kinda sucked
       /*if(bDrawFps)
@@ -440,20 +440,20 @@ int main(int argc, char * argv[])
       {
         
         if(g_Player1.Health() <= 0 && g_Player2.Health() <= 0)
-	  		{
-		  		bDone = TRUE;
-	  			DrawWinDialog(WINNER_TIE, nP1Wins, nP2Wins);
-	  		}
-	  		else if(g_Player1.Health() <= 0)
-	  		{
-	  			bDone = TRUE;
-	  			DrawWinDialog(WINNER_P2, nP1Wins, ++nP2Wins);
-	  		}
-	  		else if(g_Player2.Health() <= 0)
-	  		{
-	  			bDone = TRUE;
-	  			DrawWinDialog(WINNER_P1, ++nP1Wins, nP2Wins);
-	  		}
+        {
+          bDone = TRUE;
+          DrawWinDialog(WINNER_TIE, nP1Wins, nP2Wins);
+        }
+        else if(g_Player1.Health() <= 0)
+        {
+          bDone = TRUE;
+          DrawWinDialog(WINNER_P2, nP1Wins, ++nP2Wins);
+        }
+        else if(g_Player2.Health() <= 0)
+        {
+          bDone = TRUE;
+          DrawWinDialog(WINNER_P1, ++nP1Wins, nP2Wins);
+        }
       
       }
       else // g_nGameTime
@@ -471,28 +471,28 @@ int main(int argc, char * argv[])
         else //g_nGameTimeLeft != 0
         {
           if(g_Player1.Health() <= 0 && g_Player2.Health() <= 0)
-	  	  	{
-		    		bDone = TRUE;
-	  	  		DrawWinDialog(WINNER_TIE, nP1Wins, nP2Wins);
-	  	  	}
-	  	  	else if(g_Player1.Health() <= 0)
-	  	  	{
-	  	  		bDone = TRUE;
-	  	  		DrawWinDialog(WINNER_P2, nP1Wins, ++nP2Wins);
-	  	  	}
-	  	  	else if(g_Player2.Health() <= 0)
-	  	  	{
-	  	  		bDone = TRUE;
-	  	  		DrawWinDialog(WINNER_P1, ++nP1Wins, nP2Wins);
-	  	  	}
+          {
+            bDone = TRUE;
+            DrawWinDialog(WINNER_TIE, nP1Wins, nP2Wins);
+          }
+          else if(g_Player1.Health() <= 0)
+          {
+            bDone = TRUE;
+            DrawWinDialog(WINNER_P2, nP1Wins, ++nP2Wins);
+          }
+          else if(g_Player2.Health() <= 0)
+          {
+            bDone = TRUE;
+            DrawWinDialog(WINNER_P1, ++nP1Wins, nP2Wins);
+          }
 
         }
       }
       
       
-		}// !bDone
+    }// !bDone
 
-	}// !bMainDone
+  }// !bMainDone
 
   Shutdown();
   return 0;
@@ -500,36 +500,36 @@ int main(int argc, char * argv[])
 
 bool Explode(int nBomnX, int nBomnY, int nRad)
 {
-	g_bExploding = TRUE;
+  g_bExploding = TRUE;
   
   PlayWav(g_mcExplosion);
   
   for(int h = 1; h <= 3; h++)  //this loop just gets cooler and cooler
-	{
-		for(int i = nBomnX / 10 - nRad; i <= nBomnX / 10 + nRad; i++)
-		{	
-			for(int j = nBomnY / 10 - nRad; j <= nBomnY / 10 + nRad; j++)
-			{
-				if(i < 0 || i > 79 || j < 0 || j > 57)  //THAT'S where all the segfaults were coming from...
-				  continue;
+  {
+    for(int i = nBomnX / 10 - nRad; i <= nBomnX / 10 + nRad; i++)
+    {  
+      for(int j = nBomnY / 10 - nRad; j <= nBomnY / 10 + nRad; j++)
+      {
+        if(i < 0 || i > 79 || j < 0 || j > 57)  //THAT'S where all the segfaults were coming from...
+          continue;
 
-				if(h == 1)
-				{
-					if(g_anLevel[i][j] != OBJ_WARP)
-						g_anLevel[i][j] = OBJ_NONE;
-					if(g_Player1.GetX() / 10 == i && g_Player1.GetY() / 10 == j)
-				 	 	g_Player1.Hurt(BOMN_DAMAGE);
-	  			if(g_Player2.GetX() / 10 == i && g_Player2.GetY() / 10 == j)
-	  				g_Player2.Hurt(BOMN_DAMAGE);
-	  		}
-  			
-				if(!DrawExplosion(i * 10, j * 10, g_psdlsScreen, h))
-				  return FALSE;
-			}
-		}
-		
-		if(!DrawHUD(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns())) //so it'll update the health and timer
-			  return FALSE;
+        if(h == 1)
+        {
+          if(g_anLevel[i][j] != OBJ_WARP)
+            g_anLevel[i][j] = OBJ_NONE;
+          if(g_Player1.GetX() / 10 == i && g_Player1.GetY() / 10 == j)
+              g_Player1.Hurt(BOMN_DAMAGE);
+          if(g_Player2.GetX() / 10 == i && g_Player2.GetY() / 10 == j)
+            g_Player2.Hurt(BOMN_DAMAGE);
+        }
+        
+        if(!DrawExplosion(i * 10, j * 10, g_psdlsScreen, h))
+          return FALSE;
+      }
+    }
+    
+    if(!DrawHUD(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns())) //so it'll update the health and timer
+        return FALSE;
 
     // update and draw the timer
     if(g_nGameTime)
@@ -541,12 +541,12 @@ bool Explode(int nBomnX, int nBomnY, int nRad)
    }
 
     
-		SDL_Flip(g_psdlsScreen);
+    SDL_Flip(g_psdlsScreen);
     SDL_Delay(400);
-	}
-	
+  }
+  
   //g_bExploding = FALSE;
-	return TRUE;
+  return TRUE;
 }
 
 void SetRect(SDL_Rect * rcRect, int nX, int nY, int nW, int nH)
@@ -560,89 +560,89 @@ void SetRect(SDL_Rect * rcRect, int nX, int nY, int nW, int nH)
 void ProcInput(SDLKey sdlkKey)
 {
   switch(sdlkKey)
-	{
-		case SDLK_RIGHT:
-			if(g_Player1.Move(RIGHT, g_Player2.GetX(), g_Player2.GetY()))
-			  g_Player2.Hurt(1);
-			break;
-		case SDLK_LEFT:
-		  if(g_Player1.Move(LEFT, g_Player2.GetX(), g_Player2.GetY()))
-			  g_Player2.Hurt(1);
-			break;
-		case SDLK_UP:
-		  if(g_Player1.Move(UP, g_Player2.GetX(), g_Player2.GetY()))
-			  g_Player2.Hurt(1);
-			break;
-		case SDLK_DOWN:
-		  if(g_Player1.Move(DOWN, g_Player2.GetX(), g_Player2.GetY()))
-			  g_Player2.Hurt(1);
-			break;
-		case SDLK_RETURN:
-			g_Player1.Drop();
-		  break;
+  {
+    case SDLK_RIGHT:
+      if(g_Player1.Move(RIGHT, g_Player2.GetX(), g_Player2.GetY()))
+        g_Player2.Hurt(1);
+      break;
+    case SDLK_LEFT:
+      if(g_Player1.Move(LEFT, g_Player2.GetX(), g_Player2.GetY()))
+        g_Player2.Hurt(1);
+      break;
+    case SDLK_UP:
+      if(g_Player1.Move(UP, g_Player2.GetX(), g_Player2.GetY()))
+        g_Player2.Hurt(1);
+      break;
+    case SDLK_DOWN:
+      if(g_Player1.Move(DOWN, g_Player2.GetX(), g_Player2.GetY()))
+        g_Player2.Hurt(1);
+      break;
+    case SDLK_RETURN:
+      g_Player1.Drop();
+      break;
 
-		case SDLK_d:
-			if(g_Player2.Move(RIGHT, g_Player1.GetX(), g_Player1.GetY()))
-			  g_Player1.Hurt(1);
-			break;
-		case SDLK_a:
-			if(g_Player2.Move(LEFT, g_Player1.GetX(), g_Player1.GetY()))
-			  g_Player1.Hurt(1);
-			break;
-		case SDLK_w:
-		  if(g_Player2.Move(UP, g_Player1.GetX(), g_Player1.GetY()))
-			  g_Player1.Hurt(1);
-			break;
-		case SDLK_s:
-		  if(g_Player2.Move(DOWN, g_Player1.GetX(), g_Player1.GetY()))
-			  g_Player1.Hurt(1);
-			break;
-		case SDLK_SPACE:
-			g_Player2.Drop();
-			break;
+    case SDLK_d:
+      if(g_Player2.Move(RIGHT, g_Player1.GetX(), g_Player1.GetY()))
+        g_Player1.Hurt(1);
+      break;
+    case SDLK_a:
+      if(g_Player2.Move(LEFT, g_Player1.GetX(), g_Player1.GetY()))
+        g_Player1.Hurt(1);
+      break;
+    case SDLK_w:
+      if(g_Player2.Move(UP, g_Player1.GetX(), g_Player1.GetY()))
+        g_Player1.Hurt(1);
+      break;
+    case SDLK_s:
+      if(g_Player2.Move(DOWN, g_Player1.GetX(), g_Player1.GetY()))
+        g_Player1.Hurt(1);
+      break;
+    case SDLK_SPACE:
+      g_Player2.Drop();
+      break;
 
-		case SDLK_f:
-			SwitchMode();
- 	}
+    case SDLK_f:
+      SwitchMode();
+   }
 }
 
 /* TODO: New color, plus accept 3 digits, pad w/ zeroes
 bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor)  //15x20 nums
 {
-	int      nDig1  =  (int)floor(nNum / 10);
-	int      nDig2  =  nNum % 10;
-	SDL_Rect rcSrc  = {0, 0, 0, 0};
-	SDL_Rect rcDest = {nX, nY, 15, 20};
+  int      nDig1  =  (int)floor(nNum / 10);
+  int      nDig2  =  nNum % 10;
+  SDL_Rect rcSrc  = {0, 0, 0, 0};
+  SDL_Rect rcDest = {nX, nY, 15, 20};
 
-	if(nDig1 != 0)
-	{
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-		SetRect(&rcDest, (nDig1 == 1 ? nX + 7 : nX + 10), nY, 15, 20);   //'cause '1' is so dern skinny
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
-	else
-	{
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
+  if(nDig1 != 0)
+  {
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
+    SetRect(&rcDest, (nDig1 == 1 ? nX + 7 : nX + 10), nY, 15, 20);   //'cause '1' is so dern skinny
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
+  else
+  {
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
 
-	return TRUE;
+  return TRUE;
 }*/
 
 bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool bPad)  //15x20 nums
 {
-	int      nDig0  = (int)floor(nNum / 100);
+  int      nDig0  = (int)floor(nNum / 100);
   int      nDig1  = (int)floor(nNum / 10);
-	int      nDig2  =  nNum % 10;
-	SDL_Rect rcSrc  = {0, 0, 0, 0};
-	SDL_Rect rcDest = {nX, nY, 15, 20};
+  int      nDig2  =  nNum % 10;
+  SDL_Rect rcSrc  = {0, 0, 0, 0};
+  SDL_Rect rcDest = {nX, nY, 15, 20};
 
-	//three digit num
+  //three digit num
   if(nDig0 || bPad)
   {
     int nTmp = nX;
@@ -653,38 +653,38 @@ bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool
       return FALSE;
     nTmp = (nDig0 == 1 ? nTmp + 7 : nTmp + 10);
     SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
-		SetRect(&rcDest, nTmp, nY, 15, 20);   //'cause '1' is so dern skinny
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
+    SetRect(&rcDest, nTmp, nY, 15, 20);   //'cause '1' is so dern skinny
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
     nTmp = (nDig1 == 1 ? nTmp + 7 : nTmp + 10);
     SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-		SetRect(&rcDest, nTmp, nY, 15, 20);   //'cause '1' is so dern skinny
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
+    SetRect(&rcDest, nTmp, nY, 15, 20);   //'cause '1' is so dern skinny
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
 
   }
   
   //two digit num 
   else if(nDig1)
-	{
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-		SetRect(&rcDest, (nDig1 == 1 ? nX + 7 : nX + 10), nY, 15, 20);   //'cause '1' is so dern skinny
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
+  {
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
+    SetRect(&rcDest, (nDig1 == 1 ? nX + 7 : nX + 10), nY, 15, 20);   //'cause '1' is so dern skinny
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
 
   //one digit
-	else
-	{
-		SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-		if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-		  return FALSE;
-	}
+  else
+  {
+    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
+    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
+      return FALSE;
+  }
 
-	return TRUE;
+  return TRUE;
 }
 
 
@@ -726,61 +726,61 @@ SDL_Surface * LoadImage(const char * cszFile)
 int Intro()
 {
   /*
-	SDL_Surface * psdlsTux = SDL_LoadBMP(LoadResource("tux.bmp", RESOURCE_GRAPHIC));
+  SDL_Surface * psdlsTux = SDL_LoadBMP(LoadResource("tux.bmp", RESOURCE_GRAPHIC));
   if(!psdlsTux)
-	  return RET_ERROR; */
-	
+    return RET_ERROR; */
+  
   g_psdlsIntro = LoadImage("intro.bmp");
-//	g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
-	if(!g_psdlsIntro)
-	  return RET_ERROR;
-//	if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
-//		return RET_ERROR;
-	
+//  g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
+  if(!g_psdlsIntro)
+    return RET_ERROR;
+//  if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
+//    return RET_ERROR;
+  
 
-	bool bDone = FALSE;
-	while(!bDone)
+  bool bDone = FALSE;
+  while(!bDone)
   {
     SDL_Event sdleEvent;
     while(SDL_PollEvent(&sdleEvent))
-		{
+    {
       if (sdleEvent.type == SDL_QUIT)
         return RET_EXIT;
       if (sdleEvent.type == SDL_KEYDOWN)
       {
         if(sdleEvent.key.keysym.sym == SDLK_ESCAPE)
           return RET_EXIT;
-				if(sdleEvent.key.keysym.sym == SDLK_f)
-				  SwitchMode();
-				if(sdleEvent.key.keysym.sym == SDLK_SPACE)
+        if(sdleEvent.key.keysym.sym == SDLK_f)
+          SwitchMode();
+        if(sdleEvent.key.keysym.sym == SDLK_SPACE)
           bDone = TRUE;
-			}
-		}
+      }
+    }
 
-		if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
-		  return FALSE;
-		
+    if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
+      return FALSE;
+    
     /*
-		SDL_Rect rcDest = {270, 197, 266, 350};
-	  SDL_Rect rcSrc  = {0, 0, 560, 211};
-		if(SDL_BlitSurface(psdlsTux, NULL, g_psdlsScreen, &rcDest) < 0)
-		  return FALSE;
-		SetRect(&rcDest, 115, 10, 560, 185);
-		SetRect(&rcSrc, 0, 0, 560, 185);
-		if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-		  return RET_ERROR;
-		SetRect(&rcDest, 150, 554, 500, 50);
-		SetRect(&rcSrc, 35, 186, 500, 50); */
+    SDL_Rect rcDest = {270, 197, 266, 350};
+    SDL_Rect rcSrc  = {0, 0, 560, 211};
+    if(SDL_BlitSurface(psdlsTux, NULL, g_psdlsScreen, &rcDest) < 0)
+      return FALSE;
+    SetRect(&rcDest, 115, 10, 560, 185);
+    SetRect(&rcSrc, 0, 0, 560, 185);
+    if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
+      return RET_ERROR;
+    SetRect(&rcDest, 150, 554, 500, 50);
+    SetRect(&rcSrc, 35, 186, 500, 50); */
 
     /*
-		if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-		  return FALSE; */
-		if(SDL_BlitSurface(g_psdlsIntro, NULL, g_psdlsScreen, NULL) < 0)
-		  return FALSE;
-		
-		SDL_Flip(g_psdlsScreen);
-	}
-	return RET_NORM;
+    if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
+      return FALSE; */
+    if(SDL_BlitSurface(g_psdlsIntro, NULL, g_psdlsScreen, NULL) < 0)
+      return FALSE;
+    
+    SDL_Flip(g_psdlsScreen);
+  }
+  return RET_NORM;
 }
 
 void Shutdown()
@@ -800,79 +800,79 @@ void Shutdown()
 //    Mix_FreeChunk(g_mcBegin);
     
   Mix_CloseAudio();
-	SDL_Quit();
+  SDL_Quit();
   fprintf(stderr, "Exit message received, shutdown successful!\n");
 }
 
 void SwitchMode()
 {
-	fprintf(stderr, "Changing to %s mode... ", (g_bFullScreen ? "windowed" : "fullscreen"));
-	if(g_bFullScreen)
-		g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
-	else
-	  g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+  fprintf(stderr, "Changing to %s mode... ", (g_bFullScreen ? "windowed" : "fullscreen"));
+  if(g_bFullScreen)
+    g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
+  else
+    g_psdlsScreen = SDL_SetVideoMode(800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
 
-	if(!g_psdlsScreen)
-	{
-		fprintf(stderr, "Unable to change to %s mode!\n", (g_bFullScreen ? "windowed" : "fullscreen"));
-		QuitWithError(NULL);
-	}
-	fprintf(stderr, "Success!\n");
-	g_bFullScreen = !g_bFullScreen;
+  if(!g_psdlsScreen)
+  {
+    fprintf(stderr, "Unable to change to %s mode!\n", (g_bFullScreen ? "windowed" : "fullscreen"));
+    QuitWithError(NULL);
+  }
+  fprintf(stderr, "Success!\n");
+  g_bFullScreen = !g_bFullScreen;
 }
 
 int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 {
-	bool bDone = FALSE;
+  bool bDone = FALSE;
 
   PlayWav(g_mcWinner);
   
-	while(!bDone)
+  while(!bDone)
   {
     SDL_Event sdleEvent;
     while(SDL_PollEvent(&sdleEvent))
-		{
+    {
       if (sdleEvent.type == SDL_QUIT)
         return RET_EXIT;
       if (sdleEvent.type == SDL_KEYDOWN)
       {
-       	if(sdleEvent.key.keysym.sym == SDLK_SPACE)
+        if(sdleEvent.key.keysym.sym == SDLK_SPACE)
           bDone = TRUE;
-			}
-		}
+      }
+    }
 
     SDL_Rect rcDest = {250, 200, 300, 200};
-	  SDL_Rect rcSrc  = {0, 0, 300, 200};
-		if(SDL_BlitSurface(g_psdlsWinDialog, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-		  return RET_ERROR;
+    SDL_Rect rcSrc  = {0, 0, 300, 200};
+    if(SDL_BlitSurface(g_psdlsWinDialog, &rcSrc, g_psdlsScreen, &rcDest) < 0)
+      return RET_ERROR;
 
-		switch(nWinner)
-		{
-			case WINNER_TIE:
-				SetRect(&rcSrc, 179, 202, 117, 20);
-				break;
+    switch(nWinner)
+    {
+      case WINNER_TIE:
+        SetRect(&rcSrc, 179, 202, 117, 20);
+        break;
 
-			case WINNER_P1:
-				SetRect(&rcSrc, 0, 202, 134, 20);
-				break;
+      case WINNER_P1:
+        SetRect(&rcSrc, 0, 202, 134, 20);
+        break;
 
-			case WINNER_P2:
-				SetRect(&rcSrc, 0, 226, 134, 20);
-				break;
-		}
-		SetRect(&rcDest, (nWinner == WINNER_TIE ? 342 : 333), 231, 134, 20);
-		if(SDL_BlitSurface(g_psdlsWinDialog, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-		  return RET_ERROR;
+      case WINNER_P2:
+        SetRect(&rcSrc, 0, 226, 134, 20);
+        break;
+    }
+    SetRect(&rcDest, (nWinner == WINNER_TIE ? 342 : 333), 231, 134, 20);
+    if(SDL_BlitSurface(g_psdlsWinDialog, &rcSrc, g_psdlsScreen, &rcDest) < 0)
+      return RET_ERROR;
 
-		if(!DrawNum(nP1Wins, (nP1Wins < 10 ? 355 : 350), 315, g_psdlsScreen, RED))
-		  return FALSE;
-		if(!DrawNum(nP2Wins, (nP2Wins < 10 ? 438 : 435), 315, g_psdlsScreen, BLUE))
-		  return FALSE;
+    if(!DrawNum(nP1Wins, (nP1Wins < 10 ? 355 : 350), 315, g_psdlsScreen, RED))
+      return FALSE;
+    if(!DrawNum(nP2Wins, (nP2Wins < 10 ? 438 : 435), 315, g_psdlsScreen, BLUE))
+      return FALSE;
 
-		SDL_Flip(g_psdlsScreen);
-	}
+    SDL_Flip(g_psdlsScreen);
+  }
 
-	return RET_NORM;
+  return RET_NORM;
 }
 
 void QuitWithError(const char * szMessage)

@@ -162,22 +162,22 @@ void CAI_Player::Update()
   /////////////////////////////////////////////////////////////////////////////////////////////
   
   if(m_dwInvulnerability)
-	{
-		if(SDL_GetTicks() - m_dwInvulnerability >= 10000)
-		{
-			m_nState = STATE_NORMAL;
-			m_dwInvulnerability = 0;
-			if(m_nPlayer == PLAYER_ONE)
-			  SetRect(&m_rcSrcRect, 0, 0, 10, 10);
-			if(m_nPlayer == PLAYER_TWO)
-			  SetRect(&m_rcSrcRect, 10, 0, 10, 10);
-		}
-	}
-	
-	if(m_dwBomnTime)
-	{
-		Uint32 dwTmp = SDL_GetTicks() - m_dwBomnTime; //don wan time ta pass while figuring out if time passed...
-		
+  {
+    if(SDL_GetTicks() - m_dwInvulnerability >= 10000)
+    {
+      m_nState = STATE_NORMAL;
+      m_dwInvulnerability = 0;
+      if(m_nPlayer == PLAYER_ONE)
+        SetRect(&m_rcSrcRect, 0, 0, 10, 10);
+      if(m_nPlayer == PLAYER_TWO)
+        SetRect(&m_rcSrcRect, 10, 0, 10, 10);
+    }
+  }
+  
+  if(m_dwBomnTime)
+  {
+    Uint32 dwTmp = SDL_GetTicks() - m_dwBomnTime; //don wan time ta pass while figuring out if time passed...
+    
     //has it beeped yet in this second?
     if(m_bBeep)
     {
@@ -186,30 +186,30 @@ void CAI_Player::Update()
     }
     
     if(dwTmp >= 5000)
-		{
-			m_dwBomnTime = 0;
-			Explode(m_rcBomnDest.x, m_rcBomnDest.y, m_nBlastRadius);
-			SetRect(&m_rcBomnDest, 0, 0, 0, 0);
+    {
+      m_dwBomnTime = 0;
+      Explode(m_rcBomnDest.x, m_rcBomnDest.y, m_nBlastRadius);
+      SetRect(&m_rcBomnDest, 0, 0, 0, 0);
    
       //reset the beep array for next time
       memset(m_abBeeped, FALSE, sizeof(m_abBeeped));
       m_bBeep = FALSE;
 
-		}
-		else
-		{
-			if(dwTmp <= 1000)
+    }
+    else
+    {
+      if(dwTmp <= 1000)
       {
-  		  SetRect(&m_rcBomnSrc, 100, 0, 10, 10);
+        SetRect(&m_rcBomnSrc, 100, 0, 10, 10);
         if(!m_abBeeped[0])
         {
           m_abBeeped[0] = TRUE;
           m_bBeep = TRUE;
         }
       }
-  		else if(dwTmp <= 2000)
+      else if(dwTmp <= 2000)
       {
-    	  SetRect(&m_rcBomnSrc, 110, 0, 10, 10);
+        SetRect(&m_rcBomnSrc, 110, 0, 10, 10);
         if(!m_abBeeped[1])
         {
           m_abBeeped[1] = TRUE;
@@ -227,7 +227,7 @@ void CAI_Player::Update()
       }
       else if(dwTmp <= 4000)
       {
-		  	SetRect(&m_rcBomnSrc, 130, 0, 10, 10);
+        SetRect(&m_rcBomnSrc, 130, 0, 10, 10);
         if(!m_abBeeped[3])
         {
           m_abBeeped[3] = TRUE;
@@ -236,7 +236,7 @@ void CAI_Player::Update()
       }
       else
       {
-		   	SetRect(&m_rcBomnSrc, 140, 0, 10, 10);
+         SetRect(&m_rcBomnSrc, 140, 0, 10, 10);
         if(!m_abBeeped[4])
         {
           m_abBeeped[4] = TRUE;
@@ -244,7 +244,7 @@ void CAI_Player::Update()
         }  
       }
     }
-	}
+  }
   
 }
 

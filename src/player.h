@@ -44,33 +44,33 @@ class CPlayer
     CPlayer(int = PLAYER_ONE);
     ~CPlayer();
 
-		bool Init(int, int);
-		bool Move(int, int, int);
-		void Hurt(int);
-		void Drop();
-		
-		void Update();
-		bool Draw(SDL_Surface *);
+    bool Init(int, int);
+    bool Move(int, int, int);
+    void Hurt(int);
+    void Drop();
+    
+    void Update();
+    bool Draw(SDL_Surface *);
 
-		int  Health()   {return m_nHealth;}
-		int  Bomns()    {return m_nBomns;}
-		int  GetX()     {return m_rcDestRect.x;}
-		int  GetY()     {return m_rcDestRect.y;}
+    int  Health()   {return m_nHealth;}
+    int  Bomns()    {return m_nBomns;}
+    int  GetX()     {return m_rcDestRect.x;}
+    int  GetY()     {return m_rcDestRect.y;}
     int  GetState() {return m_nState;}
 
   //this saves SO much work with CAI_Player, and is no less safe
   protected:
-  	int           m_nPlayer;
-		int           m_nState;
-		int           m_nHealth;
-		int           m_nBomns;
-		int           m_nBlastRadius;
-		Uint32        m_dwInvulnerability;
-		Uint32        m_dwBomnTime;
-		SDL_Rect      m_rcDestRect;
-		SDL_Rect      m_rcSrcRect;
-		SDL_Rect      m_rcBomnDest;
-		SDL_Rect      m_rcBomnSrc;
+    int           m_nPlayer;
+    int           m_nState;
+    int           m_nHealth;
+    int           m_nBomns;
+    int           m_nBlastRadius;
+    Uint32        m_dwInvulnerability;
+    Uint32        m_dwBomnTime;
+    SDL_Rect      m_rcDestRect;
+    SDL_Rect      m_rcSrcRect;
+    SDL_Rect      m_rcBomnDest;
+    SDL_Rect      m_rcBomnSrc;
 
     //sounds
     Mix_Chunk *   m_mcOw;   //ouch!
