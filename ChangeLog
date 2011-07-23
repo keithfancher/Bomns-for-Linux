@@ -4,105 +4,105 @@
 
 - Changes for 0.99.2:
 - bommns
-	* Fixed glitches in intro.bmp, plus improved it overall
-	* Fixed stupid buffer overflow problem
-	* Changed audio chunk size to fix the sound delay
-	* Added a window manager icon
-	* Added a desktop entry, so it will appear in your menus after installed
-	* Added objects-shiny.bmp (thanks to kulhas from Sourceforge). For now, if
-	you want to use the new objects, just copy over the old objects.bmp.
-	* More autoconf/automake fixes... it's been YEARS, after all
-	* Removed option to compile GTK1 launcher from configure script.
-		(It can still be compiled by hand, but it was causing 
-		autoconf errors.  And GTK1 is obsolete now anyway.)
+  * Fixed glitches in intro.bmp, plus improved it overall
+  * Fixed stupid buffer overflow problem
+  * Changed audio chunk size to fix the sound delay
+  * Added a window manager icon
+  * Added a desktop entry, so it will appear in your menus after installed
+  * Added objects-shiny.bmp (thanks to kulhas from Sourceforge). For now, if
+    you want to use the new objects, just copy over the old objects.bmp.
+  * More autoconf/automake fixes... it's been YEARS, after all
+  * Removed option to compile GTK1 launcher from configure script.
+    (It can still be compiled by hand, but it was causing 
+    autoconf errors.  And GTK1 is obsolete now anyway.)
 
 - bomnsedit
-	* Added a window manager icon
+  * Added a window manager icon
 
 - bomnslauncher
-	* None
+  * None
 
 
 - Changes for 0.99.1:
 -bomns
-	* None
+  * None
 
 -bomnsedit
-	* Fixed possible bug with SDL_DisplayFormat
+  * Fixed possible bug with SDL_DisplayFormat
 
 -bomnslauncher
-	* Stupid bugfix - I forgot to #include <stdio.h> in
-		src/launcher2/callbacks.c and src/launcher2/main.c.  For some reason this
-		went totally undetected on my machine.  I am retarded.
+  * Stupid bugfix - I forgot to #include <stdio.h> in
+    src/launcher2/callbacks.c and src/launcher2/main.c.  For some reason this
+    went totally undetected on my machine.  I am retarded.
 
 
 - Changes for 0.99:
 -bomns
-	* Display version string in window caption
-	* 20 fps increase!  Now running at at least 60 fps all the time (on my
-		machine)
-	* Newer better (but bigger) intro screen.  The increased size is well worth
-		it.
-	* Much better bomn sprite AND pre-explosion number animation
-	* Now the filename variable for the level is 512 characters instead of the
-		previous 80, which makes much more sense considering there might also be
-		an entire path, not just the filename.
-	* Changed sounds so they are all 22050hz, 16bit, mono, and Mix_OpenAudio
-		actually initializes that way.  Also normalized them all.
-	* Many of the sounds are new, and don't violate any kind of copyrights.  Not
-		that they, uhh... did before or anything.  Thanks to Charles for the
-		"winner.wav" sound, it's much cooler than anything I came up with.
-	* Now a random beginning match sound is played, instead of just the same one
-		every time
-	* Invulnerability sprites have different colored eyes so you can tell them
-		apart (sort of)
-	* Changed configure.in so at the end of ./configure it tells the user what
-		is and isn't being built
+  * Display version string in window caption
+  * 20 fps increase!  Now running at at least 60 fps all the time (on my
+    machine)
+  * Newer better (but bigger) intro screen.  The increased size is well worth
+    it.
+  * Much better bomn sprite AND pre-explosion number animation
+  * Now the filename variable for the level is 512 characters instead of the
+    previous 80, which makes much more sense considering there might also be
+    an entire path, not just the filename.
+  * Changed sounds so they are all 22050hz, 16bit, mono, and Mix_OpenAudio
+    actually initializes that way.  Also normalized them all.
+  * Many of the sounds are new, and don't violate any kind of copyrights.  Not
+    that they, uhh... did before or anything.  Thanks to Charles for the
+    "winner.wav" sound, it's much cooler than anything I came up with.
+  * Now a random beginning match sound is played, instead of just the same one
+    every time
+  * Invulnerability sprites have different colored eyes so you can tell them
+    apart (sort of)
+  * Changed configure.in so at the end of ./configure it tells the user what
+    is and isn't being built
 
 -bomnsedit
-	* It exists!
-	* Pass it a level on the command line, if that level exists it will load it,
+  * It exists!
+  * Pass it a level on the command line, if that level exists it will load it,
     if it doesn't exist it will use that filename to save to
-	* If you don't pass it a file name it will use "default.lvl", and start with
-		a blank editing space.  This is true even if default.lvl already exists,
-		so take care to not overwrite levels if you always use the default
-		filename.
-	* Use mouse or keyboard to create a level, press F2 to save the level to the
-		specified filename
-	* Press 'l' to launch the level in Bomns.  It will only work if the "bomns"
-		executable is in your path, obviously.  Also note that this will
-		automatically save the level before it launches (it has to), so make sure
-		you're not doing some un-changable thing before you launch.
-	* If you don't want bomnsedit built, pass --disable-editor to ./configure
+  * If you don't pass it a file name it will use "default.lvl", and start with
+    a blank editing space.  This is true even if default.lvl already exists,
+    so take care to not overwrite levels if you always use the default
+    filename.
+  * Use mouse or keyboard to create a level, press F2 to save the level to the
+    specified filename
+  * Press 'l' to launch the level in Bomns.  It will only work if the "bomns"
+    executable is in your path, obviously.  Also note that this will
+    automatically save the level before it launches (it has to), so make sure
+    you're not doing some un-changable thing before you launch.
+  * If you don't want bomnsedit built, pass --disable-editor to ./configure
 
 -bomnslauncher
-	* Now there is a MUCH better launcher, built with GTK2, which is compiled by
-		default.  The original launcher still exists, if for some reason you want
-		to use it.  It's not compiled by default, however, you have to use the
-		./configure option --enable-launcher1 to build it.
-	* If you don't want the new launcher built, pass --disable-launcher2 to the
-		./configure script
-	
+  * Now there is a MUCH better launcher, built with GTK2, which is compiled by
+    default.  The original launcher still exists, if for some reason you want
+    to use it.  It's not compiled by default, however, you have to use the
+    ./configure option --enable-launcher1 to build it.
+  * If you don't want the new launcher built, pass --disable-launcher2 to the
+    ./configure script
+  
 
 - Changes for 0.98:
-	* A better framefrate counter, doesn't fuck up with explosions,
-		and it's now on by default
-	* ShowFps option in the config file, although not yet in the launcher
-	* Doubled the framerate by changing some init code
-	* Even more autoconf/automake shenanigans, due to an upgrade to Slackware 10
-	* In preparation for the level editor that's coming next version, Bomns
-		can now load a level from a file.  First the filename itself is checked, but
-		if the level isn't found there the directory prefix/share/bomns/levels
-		is checked.  The levels are simple text files that can be easily changed
-		without the editor, so feel free to fuck with them
-	* Now a prefix/share/bomns/levels directory is created on install, and some 
-		(as of now just ONE) example levels are installed there
-	* There is now a usage message if you pass incorrect command line options,
-		and there's also a new --help option
-	* Renamed "launcher" to "bomnslauncher" to help keep things together
-	* Added sound for when a player picks up an invulnerability powerup
-	* Added code to change where P1 and P2 start, used so a level file can
-		specify where the players begin
+  * A better framefrate counter, doesn't fuck up with explosions,
+    and it's now on by default
+  * ShowFps option in the config file, although not yet in the launcher
+  * Doubled the framerate by changing some init code
+  * Even more autoconf/automake shenanigans, due to an upgrade to Slackware 10
+  * In preparation for the level editor that's coming next version, Bomns
+    can now load a level from a file.  First the filename itself is checked, but
+    if the level isn't found there the directory prefix/share/bomns/levels
+    is checked.  The levels are simple text files that can be easily changed
+    without the editor, so feel free to fuck with them
+  * Now a prefix/share/bomns/levels directory is created on install, and some 
+    (as of now just ONE) example levels are installed there
+  * There is now a usage message if you pass incorrect command line options,
+    and there's also a new --help option
+  * Renamed "launcher" to "bomnslauncher" to help keep things together
+  * Added sound for when a player picks up an invulnerability powerup
+  * Added code to change where P1 and P2 start, used so a level file can
+    specify where the players begin
 
 - Changes for 0.97:
   * Fixed bug where timer disappeared during explosions
