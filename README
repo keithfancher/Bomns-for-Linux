@@ -4,45 +4,6 @@
 
 
 
-Intro/What the Hell is Bomns?
------------------------------
-Bomns (the bomb with an 'n') was originally a DOS game programmed by Charles
-Lindsay in 1998, which immediately took the world by storm.  Its simplistic
-deathmatch style gameplay achieved that oft-discussed but almost ne'er reached
-level of video game perfection.  It was fun, it was addictive, and it was
-freely available.  Of course even the greatest video game experiences can be
-worn by the passage of time, and Bomns was no exception.  After a couple of
-years people stopped talking about it, new games came out, and Charles wasn't
-the celebrity he once was.  He turned to alcohol and drugs to soothe his pain,
-and before long became a shiftless addict, slumming through life an injection
-at a time.  It was around this time he met me (Keith Fancher), and we began to
-develop a friendship.  We spent our nights drinking, snorting coke, dropping
-cinderblocks on cars from overpasses, engaging in acts of listless sodomy, and
-talking about the glory days.  In was during one of these crazy nights we got
-an incredible idea: to collaborate on a sequel to Bomns.  Bomns^2 (that's
-Bomns Squared), as it would come to be called, would be even more
-revolutionary than the original.  We toyed with different game concepts, and
-out of our brainstorming sessions Bomns gameplay staples like warps, health,
-and punching the other player were born.  In perhaps a week of furious
-programming we had realized our vision: the ultimate Bomns experience.
-Charles was back from the gutter, and he brought me with him.  We rode this
-wave of success for a while, but the next incarnation of Bomns was never far
-from either of our minds.  We experimented with different platforms and
-gameplay ideas, but for a while nothing of interest happened in the Bomns
-world.  Then suddenly, in 2002, out of NOWHERE, it came: DXBomns.  This was
-Charles' solo project, programming a version of Bomns using DirectX.  It was,
-to quote Charles himself, "awesome in just about every respect."
-Revolutionary gameplay aspects like breakable walls and up to 4 player support
-made this one an instant classic.  For a few months prior to this monumental
-event in gaming history, I had been expermimenting with the Linux operating
-system, and I decided that the Linux users of the world had a right--no, a
-need--to play Bomns, and experience the joy.  I then began to work on what you
-are about to play: Bomns for Linux.  It brings the spirit of Bomns^2 to the
-Linux world, with a few modern conveniences thrown in to boot.  Prepare
-yourself.
-
-
-
 System Requirements
 -------------------
 - SDL - get the latest version at www.libsdl.org
