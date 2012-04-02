@@ -2,7 +2,7 @@
 #Encoding=UTF-8
 Name=Bomns for Linux
 Comment=The Bomb, with an N!
-Exec=bomnslauncher2
+Exec=bomnslauncher
 Icon=bomns
 Type=Application
 Categories=Game;ArcadeGame;GTK;

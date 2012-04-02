@@ -18,16 +18,33 @@
  */
 
 
-#ifndef __CALLBACKS_H__
-#define __CALLBACKS_H__
+#include <gtk/gtk.h>
 
 
-gint delete_event( GtkWidget *widget, GdkEvent  *event, gpointer   data );
-void destroy( GtkWidget *widget, gpointer data );
-void LaunchBomns();
-void SetDefaults();
-void LoadSettings();
-void Parse(const char *);
+void
+on_load_button_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
 
+void
+on_play_button_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
 
-#endif
+void
+on_editor_button_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_defaults_button_clicked             (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_quit_button_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_cancel_button_clicked               (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_open_button_clicked                 (GtkButton       *button,
+                                        gpointer         user_data);
