@@ -1,1 +1,0 @@
-#undef DATA_PATH
