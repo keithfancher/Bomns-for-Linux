@@ -1,5 +1,6 @@
 BfL uses cmake now, so things should be pretty easy. Basically, do this:
 
+mkdir -p build
 cd build
 cmake ..
 make
