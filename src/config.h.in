@@ -1,0 +1,9 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+
+
+#define VERSION "@bomns_VERSION@"
+#define DATA_PATH "@bomns_RESOURCE_PATH@"
+
+
+#endif

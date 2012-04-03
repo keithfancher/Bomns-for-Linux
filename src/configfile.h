@@ -16,8 +16,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA
 
-#ifndef __CONFIG_H__
-#define __CONFIG_H__
+#ifndef __CONFIGFILE_H__
+#define __CONFIGFILE_H__
 
 //change these to change the defaults in the config file
 #define DEF_FULLSCREEN     FALSE 

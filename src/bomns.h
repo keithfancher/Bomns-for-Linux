@@ -20,7 +20,7 @@
 #ifndef __BOMNS_H__
 #define __BOMNS_H__
 
-#include "../config.h"
+#include "config.h"
 
 #define RESOURCE_SOUND   0
 #define RESOURCE_GRAPHIC 1

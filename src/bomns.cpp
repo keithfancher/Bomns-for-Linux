@@ -27,7 +27,6 @@
 
 #include "bomns.h"
 #include "player.h"
-#include "ai.h"
 #include "level.h"
 #include "configfile.h"
 
