@@ -4,16 +4,16 @@
 
 - Changes for 0.99.3:
 - bomns
-	* Banish the Autotools to the land of wind and ghosts. CMake for the win.
-	* Beginnings of netplay, thanks to Charles. See the "netplay" branch.
-	* No longer compiles unused/broken AI code
+  * Banish the Autotools to the land of wind and ghosts. CMake for the win.
+  * Beginnings of netplay, thanks to Charles. See the "netplay" branch.
+  * No longer compiles unused/broken AI code
 
 - bomnsedit
-	* None
+  * None
 
 - bomnslauncher
-	* GTK1 launcher is archived and no longer built (it sucks, don't worry)
-	* bomnslauncher2 renamed bomnslauncher
+  * GTK1 launcher is archived and no longer built (it sucks, don't worry)
+  * bomnslauncher2 renamed bomnslauncher
 
 
 - Changes for 0.99.2:
