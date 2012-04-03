@@ -16,23 +16,19 @@ System Requirements
 
 Installation
 ------------
-Bomns for Linux has a regular GNU installation.  Read the file "INSTALL" for
-the full details, but basically it boils down to:
+Bomns for Linux uses CMake as its build system.  You can read the INSTALL
+file for details, but the installation basically boils down to:
 
-  ./configure
+  mkdir -p build
+  cd build
+  cmake ..
   make
-  make install
+  sudo make install
 
 This, by default, will build and install "bomns" (the main game), "bomnsedit"
-(the level editor), and "bomnslauncher2" (the GTK2 game launcher).  You can
-change what's built by passing some of the following arguments to the
-configure script:
-
-  --enable-launcher1   (build the GTK 1.2 launcher, which sucks)
-  --disable-launcher2  (don't build the GTK2 launcher)
-  --disable-editor     (don't build the level editor)
-
-The default installation should be fine for most people.
+(the level editor), and "bomnslauncher" (the GTK2 game launcher).  At some
+point you will be able to configure what is and isn't built -- but not yet!
+(Unless you know your way around CMake.) 
 
 
 
