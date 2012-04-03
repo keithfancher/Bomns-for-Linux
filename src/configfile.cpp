@@ -1,4 +1,4 @@
-// config.cpp
+// configfile.cpp
 // Copyright (C) 2001-2009 Keith Fancher <discostoo at users.sourceforge.net> 
 // 
 // This program is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "config.h"
+#include "configfile.h"
 #include "bomns.h"
 
 
