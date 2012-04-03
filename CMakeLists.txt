@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(bomns)
-set(bomns_VERSION "0.99.2")
+set(bomns_VERSION "0.99.3")
 
 set(
   SOURCES

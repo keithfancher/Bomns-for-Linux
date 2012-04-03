@@ -2,8 +2,22 @@
 = BOMNS FOR LINUX CHANGELOG =
 = ------------------------- =
 
+- Changes for 0.99.3:
+- bomns
+	* Banish the Autotools to the land of wind and ghosts. CMake for the win.
+	* Beginnings of netplay, thanks to Charles. See the "netplay" branch.
+	* No longer compiles unused/broken AI code
+
+- bomnsedit
+	* None
+
+- bomnslauncher
+	* GTK1 launcher is archived and no longer built (it sucks, don't worry)
+	* bomnslauncher2 renamed bomnslauncher
+
+
 - Changes for 0.99.2:
-- bommns
+- bomns
   * Fixed glitches in intro.bmp, plus improved it overall
   * Fixed stupid buffer overflow problem
   * Changed audio chunk size to fix the sound delay
