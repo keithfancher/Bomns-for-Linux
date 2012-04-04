@@ -1,16 +1,16 @@
 // bomns.cpp
-// Copyright (C) 2001-2009 Keith Fancher <discostoo at users.sourceforge.net> 
-// 
+// Copyright (C) 2001-2009 Keith Fancher <discostoo at users.sourceforge.net>
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
 // version 2 of the License, or (at your option) any later
-// version. 
+// version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details. 
+// GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
@@ -58,7 +58,6 @@ SDL_Surface * g_psdlsWMIcon    = NULL;   // testing icon setting
 
 Mix_Chunk   * g_mcExplosion    = NULL;   // Explosion noise
 Mix_Chunk   * g_mcWinner       = NULL;   //Game ends (needed a bit more BANG)
-//Mix_Chunk   * g_mcBegin        = NULL;   // When match starts
 Mix_Chunk   * g_amcBegin[NUM_BEGIN_SOUNDS] = {NULL}; // change the size of this array to add more sounds
 
 bool          g_bExploding     = FALSE;  // Fixes keyboard bug, so we know when NOT to get input
@@ -66,7 +65,6 @@ bool          g_bExploding     = FALSE;  // Fixes keyboard bug, so we know when 
 
 CPlayer       g_Player1(PLAYER_ONE);
 CPlayer       g_Player2(PLAYER_TWO);
-//CAI_Player    g_Player2(100);
 
 
 //Timer vars - gotta be global so Explode() can see 'em
@@ -87,13 +85,8 @@ int main(int argc, char * argv[])
 
   //Framecount vars
   int     nFps           = 0;
-  //int     nFramecount    = 0;
   Uint32  dwFpsTimer     = 0;
-//  bool    bDrawFps       = TRUE;
 
-  ////////////////////////////
-  bool    bDrawLevel = TRUE;  ///// <== This is experimental, only draw level when there's an explosion
-  ////////////////////////////
   bool    bLoadLevelFromFile  = FALSE;
   char    szLevelFileName[512] = {0};
 
@@ -112,10 +105,10 @@ int main(int argc, char * argv[])
       exit(0);
     }
   }
-  
+
 
   fprintf(stderr, "\n----------------------\nBomns for Linux %s\nBy Keith Fancher\nOriginal Bomns concept by Charles Lindsay\n----------------------\n\n", VERSION);
-  
+
   fprintf(stderr, "Loading settings in config file... ");
   if(!LoadConfigFile())
   {
@@ -123,7 +116,7 @@ int main(int argc, char * argv[])
   }
   else
     fprintf(stderr, "Success!\n");
-    
+
   // check this AFTER the config file loads so the command-line takes priority.
   if(argv[1] && argc > 1)
   {
@@ -160,17 +153,17 @@ int main(int argc, char * argv[])
     fprintf(stderr, "Success!\n");
 
     fprintf(stderr, "Setting audio mode @ mono 16-bit 22050 Hz... ");
-//    if (Mix_OpenAudio(11025, AUDIO_U8, 1, 512) < 0) 
+//    if (Mix_OpenAudio(11025, AUDIO_U8, 1, 512) < 0)
 //    if(Mix_OpenAudio(22050, AUDIO_S16SYS, 1, 1024) < 0)
     if(Mix_OpenAudio(22050, AUDIO_S16SYS, 1, 512) < 0) // 1024 caused a delay for audio, 256 was too small and caused stuttering
     {
       fprintf(stderr, "Warning: Couldn't set 22050 Hz 16-bit mono audio\n- Reason: %s\n", SDL_GetError());
-      g_bSound = FALSE;    
+      g_bSound = FALSE;
     }
     else
       fprintf(stderr, "Success!\n");
   }//if(g_bSound)
-  
+
   else
   {
     fprintf(stderr, "Initializing SDL... ");
@@ -197,7 +190,7 @@ int main(int argc, char * argv[])
   {
     fprintf(stderr, "AW JUNK! Something fishy happened...\n");
   }
-  
+
   fprintf(stderr, "Setting video mode to 800x600... ");
   char szCaptionText[25] = {0};
   sprintf(szCaptionText, "Bomns for Linux %s", VERSION);
@@ -230,14 +223,13 @@ int main(int argc, char * argv[])
       break;
     }
     fprintf(stderr, "Success!\n");
-    
-    //############## NOT GONNA LEAVE THIS HERE ###################
+
+    fprintf(stderr, "Loading sounds... ");
     LoadSounds();
-    //############################################################
+    fprintf(stderr, "Success!\n");
 
     fprintf(stderr, "Loading fonts... ");
     g_psdlsFont = LoadImage("font.bmp");
-//    g_psdlsFont = SDL_LoadBMP(LoadResource("font.bmp", RESOURCE_GRAPHIC));
     if(!g_psdlsFont)
     {
       QuitWithError("Unable to load graphics/font.bmp!\n");
@@ -250,7 +242,6 @@ int main(int argc, char * argv[])
 
     fprintf(stderr, "Loading win dialog box... ");
     g_psdlsWinDialog = LoadImage("winscreen.bmp");
-//    g_psdlsWinDialog = SDL_LoadBMP(LoadResource("winscreen.bmp", RESOURCE_GRAPHIC));
     if(!g_psdlsWinDialog)
     {
       QuitWithError("Unable to load file \"graphics/winscreen.bmp\"\n");
@@ -260,14 +251,12 @@ int main(int argc, char * argv[])
     fprintf(stderr, "Loading level... ");
     g_psdlsHUD = LoadImage("hud.bmp");
     g_psdlsObjects = LoadImage("objects.bmp");
-//    g_psdlsHUD = SDL_LoadBMP(LoadResource("hud.bmp", RESOURCE_GRAPHIC));
-//    g_psdlsObjects = SDL_LoadBMP(LoadResource("objects.bmp", RESOURCE_GRAPHIC));
     if(!g_psdlsHUD || !g_psdlsObjects)
     {
       QuitWithError("Failed!\n");
     }
     fprintf(stderr, "Success!\n");
-    
+
     // fills level with correct seed
     if(bLoadLevelFromFile)
     {
@@ -286,10 +275,9 @@ int main(int argc, char * argv[])
       FillLevel( (g_dwSeed == SEED_RAND ? time(NULL) : g_dwSeed) ,g_nWalls, g_nInvulnerabilities, g_nHealth, g_nPowUps, g_nPowDowns, g_nBomns, g_nWarps);
       fprintf(stderr, "Success!\n");
     }
-    
+
     fprintf(stderr, "Loading players surface into memory... ");
     g_psdlsPlayers = LoadImage("players.bmp");
-//    g_psdlsPlayers = SDL_LoadBMP(LoadResource("players.bmp", RESOURCE_GRAPHIC));
     if(!g_psdlsPlayers)
     {
       QuitWithError("Failed! Couldn't load file \"graphics/players.bmp\"\n");
@@ -301,7 +289,7 @@ int main(int argc, char * argv[])
     g_Player2.Init(g_nP2StartX, g_nP2StartY);
     fprintf(stderr, "Success!\n");
 
-    // set the timer 
+    // set the timer
     if(g_nGameTime)
     {
       fprintf(stderr, "Match time: %d seconds\n", g_nGameTime);
@@ -310,12 +298,10 @@ int main(int argc, char * argv[])
 
     fprintf(stderr, "Entering main loop...\n");
     bool bDone = FALSE;
-    
+
     //play beginning match sound
-//    PlayWav(g_mcBegin);
-//    srand(time(NULL));
     PlayWav(g_amcBegin[rand() % NUM_BEGIN_SOUNDS]);
-    
+
     while(!bDone)
     {
       SDL_Event sdleEvent;
@@ -344,7 +330,7 @@ int main(int argc, char * argv[])
           }
         }
       }
-      
+
       g_Player1.Update();
       g_Player2.Update();
 
@@ -354,34 +340,15 @@ int main(int argc, char * argv[])
         dwFpsTimer = SDL_GetTicks();
       }
 
-      ///////////////experimental//////////////////
-      if(bDrawLevel)
+      if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
       {
-        if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
-        {
-          QuitWithError("Unable to clear screen\n");
-        }
+        QuitWithError("Unable to clear screen\n");
       }
-      //////////////experimental////////////////////
-      
-/*      ClearTile(0, 0, g_psdlsScreen);
-      ClearTile(0, 1, g_psdlsScreen);
-      ClearTile(1, 0, g_psdlsScreen);
-      ClearTile(1, 1, g_psdlsScreen);
-      ClearTile(0, 2, g_psdlsScreen);
-      ClearTile(1, 2, g_psdlsScreen);
-      ClearTile(1, 3, g_psdlsScreen);*/
 
-
-      //////////////////// experimental ///////////////////////
-      if(bDrawLevel)
+      if(!DrawLevel(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns()))
       {
-        if(!DrawLevel(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns()))
-        {
-          QuitWithError("Unable to draw level to screen\n");
-        }
+        QuitWithError("Unable to draw level to screen\n");
       }
-      ///////////////////////////////////////////////////////////
 
       if(!g_Player1.Draw(g_psdlsScreen))
       {
@@ -391,24 +358,6 @@ int main(int argc, char * argv[])
       {
         QuitWithError("Unable to draw player2 to screen\n");
       }
-      
-      // this is the OLD fps counting behavior, it kinda sucked
-      /*if(bDrawFps)
-      {
-        nFramecount++;
-        if(SDL_GetTicks() - dwFpsTimer >= 1000)
-        {
-          if(nFramecount > 99) //do we REALLY care if it's over 99?
-            nFramecount = 99;
-          nFps = nFramecount;
-          
-          dwFpsTimer = 0;
-          nFramecount = 0;
-          dwFpsTimer = SDL_GetTicks();
-        }
-        
-        DrawNum(nFps, 10, 10, g_psdlsScreen, RED);
-      }*/
 
       // update and draw the timer
       if(g_nGameTime)
@@ -416,14 +365,13 @@ int main(int argc, char * argv[])
         g_nGameTimeLeft = g_nGameTime - ( (int)((SDL_GetTicks() - g_dwGameTimer) / 1000) );
         if(g_nGameTimeLeft <= 0)
           g_nGameTimeLeft = 0;
-//        DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
         DrawNum(g_nGameTimeLeft, 392, 584, g_psdlsScreen, RED, TRUE);
       }
 
       // Draw the framerate
       if(g_bShowFps)
         DrawNum(nFps, 0, 0, g_psdlsScreen, RED);
-            
+
       // FLIP THE BUFFERS!
       SDL_Flip(g_psdlsScreen);
 
@@ -433,11 +381,10 @@ int main(int argc, char * argv[])
         dwFpsTimer = SDL_GetTicks() - dwFpsTimer;
         nFps = 1000l / dwFpsTimer;
       }
-      
-      
+
       if(!g_nGameTime)
       {
-        
+
         if(g_Player1.Health() <= 0 && g_Player2.Health() <= 0)
         {
           bDone = TRUE;
@@ -453,7 +400,7 @@ int main(int argc, char * argv[])
           bDone = TRUE;
           DrawWinDialog(WINNER_P1, ++nP1Wins, nP2Wins);
         }
-      
+
       }
       else // g_nGameTime
       {
@@ -487,8 +434,8 @@ int main(int argc, char * argv[])
 
         }
       }
-      
-      
+
+
     }// !bDone
 
   }// !bMainDone
@@ -500,13 +447,13 @@ int main(int argc, char * argv[])
 bool Explode(int nBomnX, int nBomnY, int nRad)
 {
   g_bExploding = TRUE;
-  
+
   PlayWav(g_mcExplosion);
-  
+
   for(int h = 1; h <= 3; h++)  //this loop just gets cooler and cooler
   {
     for(int i = nBomnX / 10 - nRad; i <= nBomnX / 10 + nRad; i++)
-    {  
+    {
       for(int j = nBomnY / 10 - nRad; j <= nBomnY / 10 + nRad; j++)
       {
         if(i < 0 || i > 79 || j < 0 || j > 57)  //THAT'S where all the segfaults were coming from...
@@ -521,12 +468,12 @@ bool Explode(int nBomnX, int nBomnY, int nRad)
           if(g_Player2.GetX() / 10 == i && g_Player2.GetY() / 10 == j)
             g_Player2.Hurt(BOMN_DAMAGE);
         }
-        
+
         if(!DrawExplosion(i * 10, j * 10, g_psdlsScreen, h))
           return FALSE;
       }
     }
-    
+
     if(!DrawHUD(g_psdlsScreen, g_Player1.Health(), g_Player2.Health(), g_Player1.Bomns(), g_Player2.Bomns())) //so it'll update the health and timer
         return FALSE;
 
@@ -539,11 +486,11 @@ bool Explode(int nBomnX, int nBomnY, int nRad)
       DrawNum(g_nGameTimeLeft, 395, 584, g_psdlsScreen, RED, TRUE);
    }
 
-    
+
     SDL_Flip(g_psdlsScreen);
     SDL_Delay(400);
   }
-  
+
   //g_bExploding = FALSE;
   return TRUE;
 }
@@ -605,34 +552,6 @@ void ProcInput(SDLKey sdlkKey)
    }
 }
 
-/* TODO: New color, plus accept 3 digits, pad w/ zeroes
-bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor)  //15x20 nums
-{
-  int      nDig1  =  (int)floor(nNum / 10);
-  int      nDig2  =  nNum % 10;
-  SDL_Rect rcSrc  = {0, 0, 0, 0};
-  SDL_Rect rcDest = {nX, nY, 15, 20};
-
-  if(nDig1 != 0)
-  {
-    SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
-    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-      return FALSE;
-    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-    SetRect(&rcDest, (nDig1 == 1 ? nX + 7 : nX + 10), nY, 15, 20);   //'cause '1' is so dern skinny
-    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-      return FALSE;
-  }
-  else
-  {
-    SetRect(&rcSrc, (nColor == RED ? 15 * nDig2 : 15 * nDig2 + 150), 0, 15, 20);
-    if(SDL_BlitSurface(g_psdlsFont, &rcSrc, psdlsDest, &rcDest) < 0)
-      return FALSE;
-  }
-
-  return TRUE;
-}*/
-
 bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool bPad)  //15x20 nums
 {
   int      nDig0  = (int)floor(nNum / 100);
@@ -662,8 +581,8 @@ bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool
       return FALSE;
 
   }
-  
-  //two digit num 
+
+  //two digit num
   else if(nDig1)
   {
     SetRect(&rcSrc, (nColor == RED ? 15 * nDig1 : 15 * nDig1 + 150), 0, 15, 20);
@@ -693,14 +612,7 @@ void LoadSounds()
   {
     g_mcExplosion = Mix_LoadWAV(LoadResource("explosion.wav", RESOURCE_SOUND));
     g_mcWinner    = Mix_LoadWAV(LoadResource("winner.wav", RESOURCE_SOUND));
-//    g_mcBegin     = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
-/*
-    g_amcBegin[0] = Mix_LoadWAV(LoadResource("begin.wav", RESOURCE_SOUND));
-    g_amcBegin[1] = Mix_LoadWAV(LoadResource("begin2.wav", RESOURCE_SOUND));
-    g_amcBegin[2] = Mix_LoadWAV(LoadResource("begin3.wav", RESOURCE_SOUND));
-    g_amcBegin[3] = Mix_LoadWAV(LoadResource("begin4.wav", RESOURCE_SOUND));
-    g_amcBegin[4] = Mix_LoadWAV(LoadResource("begin5.wav", RESOURCE_SOUND)); */
-    
+
     char szTmp[255] = {0};
     for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)  // load the beginning sounds into their arrray
     {
@@ -724,18 +636,9 @@ SDL_Surface * LoadImage(const char * cszFile)
 
 int Intro()
 {
-  /*
-  SDL_Surface * psdlsTux = SDL_LoadBMP(LoadResource("tux.bmp", RESOURCE_GRAPHIC));
-  if(!psdlsTux)
-    return RET_ERROR; */
-  
   g_psdlsIntro = LoadImage("intro.bmp");
-//  g_psdlsIntro = SDL_LoadBMP(LoadResource("intro.bmp", RESOURCE_GRAPHIC));
   if(!g_psdlsIntro)
     return RET_ERROR;
-//  if(SDL_SetColorKey(g_psdlsIntro, SDL_SRCCOLORKEY, 0) < 0)
-//    return RET_ERROR;
-  
 
   bool bDone = FALSE;
   while(!bDone)
@@ -758,25 +661,10 @@ int Intro()
 
     if(SDL_FillRect(g_psdlsScreen, NULL, 0) < 0)
       return FALSE;
-    
-    /*
-    SDL_Rect rcDest = {270, 197, 266, 350};
-    SDL_Rect rcSrc  = {0, 0, 560, 211};
-    if(SDL_BlitSurface(psdlsTux, NULL, g_psdlsScreen, &rcDest) < 0)
-      return FALSE;
-    SetRect(&rcDest, 115, 10, 560, 185);
-    SetRect(&rcSrc, 0, 0, 560, 185);
-    if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-      return RET_ERROR;
-    SetRect(&rcDest, 150, 554, 500, 50);
-    SetRect(&rcSrc, 35, 186, 500, 50); */
 
-    /*
-    if(SDL_BlitSurface(g_psdlsIntro, &rcSrc, g_psdlsScreen, &rcDest) < 0)
-      return FALSE; */
     if(SDL_BlitSurface(g_psdlsIntro, NULL, g_psdlsScreen, NULL) < 0)
       return FALSE;
-    
+
     SDL_Flip(g_psdlsScreen);
   }
   return RET_NORM;
@@ -788,16 +676,13 @@ void Shutdown()
     Mix_FreeChunk(g_mcExplosion);
   if(g_mcWinner)
     Mix_FreeChunk(g_mcWinner);
-  
+
   for(int i = 0; i < NUM_BEGIN_SOUNDS; i++)
   {
     if(g_amcBegin[i])
       Mix_FreeChunk(g_amcBegin[i]);
   }
-     
-//  if(g_mcBegin)
-//    Mix_FreeChunk(g_mcBegin);
-    
+
   Mix_CloseAudio();
   SDL_Quit();
   fprintf(stderr, "Exit message received, shutdown successful!\n");
@@ -825,7 +710,7 @@ int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
   bool bDone = FALSE;
 
   PlayWav(g_mcWinner);
-  
+
   while(!bDone)
   {
     SDL_Event sdleEvent;
