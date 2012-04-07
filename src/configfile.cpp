@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <SDL/SDL.h>
 
 #include "configfile.h"
 #include "bomns.h"

@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 
 #include "level.h"
 #include "bomns.h"

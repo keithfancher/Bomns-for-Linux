@@ -29,6 +29,7 @@
 #include "player.h"
 #include "level.h"
 #include "configfile.h"
+#include "config.h"
 
 
 #define NUM_BEGIN_SOUNDS 6 // change this to the number of sounds for the beginning wav

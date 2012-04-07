@@ -20,8 +20,6 @@
 #ifndef __AI_H__
 #define __AI_H__
 
-#include "player.h"
-
 
 #define ACTION_NONE       0
 #define ACTION_LAY_BOMN   1

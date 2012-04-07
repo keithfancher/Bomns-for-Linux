@@ -34,10 +34,6 @@
 #define STATE_INVULNERABLE 1
 
 
-#include <SDL/SDL.h>        // this is lame, but it prevents having to include SDL.h in 
-#include <SDL/SDL_mixer.h>  // every file that includes player.h
-
-
 class CPlayer
 {
   public:

@@ -20,7 +20,6 @@
 #ifndef __BOMNS_H__
 #define __BOMNS_H__
 
-#include "config.h"
 
 #define RESOURCE_SOUND   0
 #define RESOURCE_GRAPHIC 1
@@ -45,9 +44,6 @@
 
 //only play if the sound is enabled
 #define PlayWav(x) {if(g_bSound) Mix_PlayChannel(-1, x, 0);}
-
-
-#include <SDL/SDL.h>  // this just makes it more managable...
 
 
 bool Explode(int, int, int);
