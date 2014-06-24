@@ -153,7 +153,7 @@ void write_bomns_rc()
 
     fprintf(fpConfig, "# this is an unsigned long, or random\n");
     fprintf(fpConfig, "# (you can also use seed = 0 for random)\n");
-    fprintf(fpConfig, "seed = %ld\n", gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(seed_spinner)));  /* nothing to get as long? */
+    fprintf(fpConfig, "seed = %d\n", gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(seed_spinner)));  /* nothing to get as long? */
 
     fprintf(stderr, "%s written successfully\n", szFileName);
   }
