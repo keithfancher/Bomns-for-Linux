@@ -6,6 +6,9 @@ set(
   callbacks.c
 )
 
+# Silence warnings from the GTK2 CMake scripts:
+cmake_policy(SET CMP0011 OLD)
+
 find_package(GTK2 2.0 REQUIRED gtk)
 
 include_directories(${GTK2_INCLUDE_DIRS})
