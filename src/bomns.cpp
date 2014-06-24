@@ -763,7 +763,7 @@ int DrawWinDialog(int nWinner, int nP1Wins, int nP2Wins)
 void QuitWithError(const char * szMessage)
 {
   if(szMessage)
-    fprintf(stderr, szMessage);
+    fputs(szMessage, stderr);
   Mix_CloseAudio();
   SDL_Quit();
   exit(1);

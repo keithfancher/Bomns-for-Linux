@@ -293,7 +293,7 @@ void ShutDown()
 void QuitWithError(const char * szMessage)
 {
   if(szMessage)
-    fprintf(stderr, szMessage);
+    fputs(szMessage, stderr);
   fprintf(stderr, "SDL error message: %s\n", SDL_GetError());
   SDL_Quit();
   exit(1);
