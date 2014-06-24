@@ -536,7 +536,7 @@ create_level_select_dialog (void)
   GtkWidget *cancel_button;
   GtkWidget *open_button;
 
-  level_select_dialog = gtk_file_chooser_dialog_new ("Select a Level to Load", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL);
+  level_select_dialog = gtk_file_chooser_dialog_new ("Select a Level to Load", NULL, GTK_FILE_CHOOSER_ACTION_OPEN, NULL, 0, NULL);
   gtk_window_set_modal (GTK_WINDOW (level_select_dialog), TRUE);
   gtk_window_set_destroy_with_parent (GTK_WINDOW (level_select_dialog), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (level_select_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
