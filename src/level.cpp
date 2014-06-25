@@ -157,8 +157,6 @@ bool DrawHUD(SDL_Surface * psdlsDest, int nP1Health, int nP2Health, int nP1Bomns
   DrawNum(nP1Bomns, 67, 584, psdlsDest, RED);
   DrawNum(nP2Bomns, 571, 584, psdlsDest, BLUE);
 
-  
-
   return TRUE;
 }
 
@@ -168,7 +166,7 @@ bool DrawExplosion(int nX, int nY, SDL_Surface * psdlsDest, int nExplosionState)
   SDL_Rect rcSrc  = {(nExplosionState == EXPLOSION_1 ? 90 : (nExplosionState == EXPLOSION_2 ? 150 : 160)), 0, 10, 10};
   if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
     return FALSE;
-    
+
   return TRUE;
 }
 
@@ -179,6 +177,8 @@ bool ClearTile(int nX, int nY, SDL_Surface * psdlsDest)
   SDL_Rect rcSrc = {246, 0, 10, 10};
   if(SDL_BlitSurface(g_psdlsObjects, &rcSrc, psdlsDest, &rcDest) < 0)
     return FALSE;
+
+  return TRUE;
 }
 
 bool LoadLevelFromFile(const char * filename)
