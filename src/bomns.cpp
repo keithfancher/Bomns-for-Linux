@@ -550,7 +550,10 @@ void ProcInput(SDLKey sdlkKey)
 
     case SDLK_f:
       SwitchMode();
-   }
+
+    default:
+      break;
+  }
 }
 
 bool DrawNum(int nNum, int nX, int nY, SDL_Surface * psdlsDest, int nColor, bool bPad)  //15x20 nums

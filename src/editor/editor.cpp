@@ -223,6 +223,9 @@ int main(int argc, char ** argv)
           case SDLK_F12: // clear the level... F12 is hard to hit by mistake, right?
             level.DeleteLevel();
             break;
+
+          default:
+            break;
         }
       }
     } // SDL_PollEvent
